@@ -171,6 +171,18 @@ Entrega do equipamento ao cliente
 
 ---
 
+## 🗃️ Diagrama do Banco de Dados
+
+Diagrama entidade-relacionamento do sistema TechFix:
+
+<div align="center">
+
+![Diagrama do Banco de Dados do TechFix](assets/diagrama-banco.png)
+
+</div>
+
+---
+
 ## 🛠️ Tecnologias Utilizadas
 
 | Tecnologia | Utilização |
