@@ -201,12 +201,6 @@ Diagrama entidade-relacionamento do sistema TechFix:
 
 ---
 
-## 📌 Status do Projeto
-
-> 🚧 O projeto está atualmente em desenvolvimento.
-
----
-
 <div align="center">
 
 Desenvolvido como projeto de gerenciamento para assistências técnicas.
