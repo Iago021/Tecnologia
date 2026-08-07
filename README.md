@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🔧 TechFix
+# 🔧 Tecnologia
 
 ### Sistema de gerenciamento para assistências técnicas
 
