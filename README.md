@@ -91,16 +91,6 @@ O dashboard apresentará botões que levam a:
 
 ---
 
-## 📱 Equipamentos Suportados
-
-| Equipamento | Suportado |
-|---|:---:|
-| 📱 Celulares | ✅ |
-| 💻 Notebooks | ✅ |
-| 🖥️ Computadores (PCs) | ✅ |
-
----
-
 ## 🔄 Fluxo do Sistema
 
 ```text
