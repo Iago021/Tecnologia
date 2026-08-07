@@ -12,7 +12,7 @@ Sistema desenvolvido para organizar o atendimento, a manutenção e o acompanham
 
 ## 📖 Sobre o Projeto
 
-O **TechFix** é um sistema de gerenciamento para assistências técnicas desenvolvido para facilitar o processo de atendimento e manutenção de equipamentos.
+O **Tecnologia** é um sistema de gerenciamento para assistências técnicas desenvolvido para facilitar o processo de atendimento e manutenção de equipamentos.
 
 O sistema possui dois módulos principais:
 
@@ -82,7 +82,7 @@ Também será possível controlar:
 
 O sistema contará com um painel principal para exibir um resumo das ordens de serviço.
 
-O dashboard apresentará informações como:
+O dashboard apresentará botões que levam a:
 
 - Ordens abertas;
 - Equipamentos em manutenção;
@@ -112,8 +112,6 @@ Recebimento da ordem pelo técnico
               ↓
 Diagnóstico do equipamento
               ↓
-Pesquisa e registro das peças
-              ↓
 Realização do reparo
               ↓
 Atualização do status
@@ -129,7 +127,6 @@ Entrega do equipamento ao cliente
 2. É criada uma ordem de serviço com o problema informado.
 3. O técnico recebe a ordem de serviço.
 4. O técnico realiza o diagnóstico e o reparo.
-5. O técnico registra as peças utilizadas.
 6. O técnico atualiza o status do reparo.
 7. O técnico finaliza o serviço.
 8. O atendente visualiza que o equipamento está pronto.
@@ -147,7 +144,7 @@ Entrega do equipamento ao cliente
 | **RF04** | O atendente deve criar uma ordem de serviço com o aparelho e o problema informado pelo cliente. |
 | **RF05** | O atendente e o técnico devem poder visualizar as ordens de serviço. |
 | **RF06** | O técnico deve registrar o diagnóstico do aparelho. |
-| **RF07** | O técnico deve pesquisar peças compatíveis com o aparelho. |
+| **RF07** | O técnico deve pesquisar peças compatíveis no estoque com o aparelho. |
 | **RF08** | O técnico deve informar quais peças foram utilizadas no conserto. |
 | **RF09** | O sistema deve registrar a entrada e a saída das peças. |
 | **RF10** | O técnico deve atualizar o andamento do reparo. |
@@ -173,11 +170,11 @@ Entrega do equipamento ao cliente
 
 ## 🗃️ Diagrama do Banco de Dados
 
-Diagrama entidade-relacionamento do sistema TechFix:
+Diagrama entidade-relacionamento do sistema Tecnologia:
 
 <div align="center">
 
-![Diagrama do Banco de Dados do TechFix](assets/diagrama-banco.png)
+![Diagrama do Banco de Dados do Tecnologia](assets/diagrama-banco.png)
 
 </div>
 
