@@ -25,8 +25,10 @@ jobs:
       - name: Clone upstream TreeChop
         run: git clone --depth 1 --branch 1.21.4 https://github.com/hammertater/treechop.git treechop
 
-      - name: Apply 26.2 port bootstrap
-        run: bash scripts/port-treechop-26.2.sh treechop
+      - name: Apply 26.2 port patches
+        run: |
+          bash scripts/port-treechop-26.2.sh treechop
+          bash scripts/port-treechop-26.2-stage2.sh treechop
 
       - name: Build Fabric jar
         working-directory: treechop
