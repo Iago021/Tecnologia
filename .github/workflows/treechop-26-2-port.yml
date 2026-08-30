@@ -29,6 +29,7 @@ jobs:
         run: |
           bash scripts/port-treechop-26.2.sh treechop
           bash scripts/port-treechop-26.2-stage2.sh treechop
+          bash scripts/port-treechop-26.2-stage3.sh treechop
 
       - name: Build Fabric jar
         working-directory: treechop
