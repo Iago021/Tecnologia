@@ -1,0 +1,35 @@
+name: TreeChop 26.2 Fabric Port
+
+on:
+  push:
+    branches: [treechop-26-2-port]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Clone upstream TreeChop
+        run: git clone --depth 1 --branch 1.21.4 https://github.com/hammertater/treechop.git treechop
+
+      - name: Apply 26.2 port bootstrap
+        run: bash scripts/port-treechop-26.2.sh treechop
+
+      - name: Build Fabric jar
+        working-directory: treechop
+        run: ./gradlew :fabric:build --stacktrace --no-daemon
+
+      - name: Upload jar
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: TreeChop-26.2-Fabric
+          path: treechop/fabric/build/libs/*.jar
