@@ -112,6 +112,11 @@ s=s.replace('    modRuntimeOnly "mcp.mobius.waila:wthit:fabric-14.6.2"\n', '')
 s=s.replace('    modRuntimeOnly "lol.bai:badpackets:fabric-0.8.2"\n', '')
 s=s.replace('    modCompileOnly "curse.maven:jade-324717:6155088"\n', '')
 s=s.replace('    modCompileOnly "com.terraformersmc.terraform-api:terraform-wood-api-v1:13.0.0"\n', '')
+# Loom 1.17 / Minecraft 26.2 uses standard Gradle dependency configurations.
+s=s.replace('modImplementation ', 'implementation ')
+s=s.replace('modApi ', 'implementation ')
+s=s.replace('modCompileOnly ', 'compileOnly ')
+s=s.replace('modRuntimeOnly ', 'runtimeOnly ')
 p.write_text(s)
 PY
 
