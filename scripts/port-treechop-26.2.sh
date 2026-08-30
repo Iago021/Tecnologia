@@ -112,14 +112,13 @@ s=s.replace('    modRuntimeOnly "mcp.mobius.waila:wthit:fabric-14.6.2"\n', '')
 s=s.replace('    modRuntimeOnly "lol.bai:badpackets:fabric-0.8.2"\n', '')
 s=s.replace('    modCompileOnly "curse.maven:jade-324717:6155088"\n', '')
 s=s.replace('    modCompileOnly "com.terraformersmc.terraform-api:terraform-wood-api-v1:13.0.0"\n', '')
-s=s.replace('modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:$forgeconfigapiport_version"', 'modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:$forgeconfigapiport_version"')
 p.write_text(s)
 PY
 
 # 26.2 requires Java 25 in mixin configs and fabric.mod.json.
-grep -RIl 'JAVA_21' fabric/src shared/src 2>/dev/null | xargs -r sed -i 's/JAVA_21/JAVA_25/g'
-grep -RIl '>=21' fabric/src/main/resources 2>/dev/null | xargs -r sed -i 's/">=21"/">=25"/g'
-grep -RIl '1.21.4' fabric/src/main/resources 2>/dev/null | xargs -r sed -i 's/1\.21\.4/26.2/g'
+(grep -RIl 'JAVA_21' fabric/src shared/src 2>/dev/null || true) | xargs -r sed -i 's/JAVA_21/JAVA_25/g'
+(grep -RIl '>=21' fabric/src/main/resources 2>/dev/null || true) | xargs -r sed -i 's/">=21"/">=25"/g'
+(grep -RIl '1.21.4' fabric/src/main/resources 2>/dev/null || true) | xargs -r sed -i 's/1\.21\.4/26.2/g'
 
 # Use Gradle 9.5.1, matching the current Fabric 26.2 toolchain.
 sed -i 's#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-9.5.1-bin.zip#' gradle/wrapper/gradle-wrapper.properties
