@@ -51,7 +51,6 @@ EOF
 cat > build.gradle <<'EOF'
 plugins {
     id 'net.fabricmc.fabric-loom' version "$loom_version" apply false
-    id 'org.spongepowered.gradle.vanilla' version '0.2.1-SNAPSHOT' apply false
     id 'org.spongepowered.mixin' version '0.7-SNAPSHOT' apply false
 }
 
@@ -84,19 +83,13 @@ subprojects {
 }
 EOF
 
+# Do not use VanillaGradle for shared on 26.2: its legacy joined-mappings path no longer exists.
+# The Fabric module already adds shared/src/main/java to its own compileJava source set,
+# so these sources compile directly against Loom's 26.2 Minecraft classpath.
 cat > shared/build.gradle <<'EOF'
-plugins {
-    id 'org.spongepowered.gradle.vanilla'
-}
-
 dependencies {
     compileOnly 'org.spongepowered:mixin:0.8.7'
-    compileOnly "fuzs.forgeconfigapiport:forgeconfigapiport-common:$forgeconfigapiport_version"
     compileOnly project(':tuber')
-}
-
-minecraft {
-    version(minecraft_version)
 }
 EOF
 
@@ -106,13 +99,13 @@ p=Path('fabric/build.gradle')
 s=p.read_text()
 s=s.replace('plugins {\n    id "fabric-loom"\n}', 'plugins {\n    id "net.fabricmc.fabric-loom"\n}')
 s=s.replace('    mappings loom.layered() {\n        officialMojangMappings()\n        parchment("org.parchmentmc.data:parchment-$minecraft_version:$parchment_mappings_version@zip")\n    }\n', '')
+s=s.replace('    implementation project(":shared")\n', '')
 s=s.replace('    modApi "com.terraformersmc:modmenu:13.0.4"\n', '')
 s=s.replace('    modCompileOnly "mcp.mobius.waila:wthit-api:fabric-14.6.2"\n', '')
 s=s.replace('    modRuntimeOnly "mcp.mobius.waila:wthit:fabric-14.6.2"\n', '')
 s=s.replace('    modRuntimeOnly "lol.bai:badpackets:fabric-0.8.2"\n', '')
 s=s.replace('    modCompileOnly "curse.maven:jade-324717:6155088"\n', '')
 s=s.replace('    modCompileOnly "com.terraformersmc.terraform-api:terraform-wood-api-v1:13.0.0"\n', '')
-# Loom 1.17 / Minecraft 26.2 uses standard Gradle dependency configurations.
 s=s.replace('modImplementation ', 'implementation ')
 s=s.replace('modApi ', 'implementation ')
 s=s.replace('modCompileOnly ', 'compileOnly ')
@@ -125,7 +118,6 @@ PY
 (grep -RIl '>=21' fabric/src/main/resources 2>/dev/null || true) | xargs -r sed -i 's/">=21"/">=25"/g'
 (grep -RIl '1.21.4' fabric/src/main/resources 2>/dev/null || true) | xargs -r sed -i 's/1\.21\.4/26.2/g'
 
-# Use Gradle 9.5.1, matching the current Fabric 26.2 toolchain.
 sed -i 's#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-9.5.1-bin.zip#' gradle/wrapper/gradle-wrapper.properties
 
 printf '\nBootstrap patch applied for Minecraft 26.2 Fabric.\n'
