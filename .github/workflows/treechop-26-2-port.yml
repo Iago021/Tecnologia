@@ -17,6 +17,11 @@ jobs:
           distribution: temurin
           java-version: '25'
 
+      - name: Set up Gradle 9.5.1
+        uses: gradle/actions/setup-gradle@v5
+        with:
+          gradle-version: '9.5.1'
+
       - name: Clone upstream TreeChop
         run: git clone --depth 1 --branch 1.21.4 https://github.com/hammertater/treechop.git treechop
 
@@ -25,7 +30,7 @@ jobs:
 
       - name: Build Fabric jar
         working-directory: treechop
-        run: bash ./gradlew :fabric:build --stacktrace --no-daemon
+        run: gradle :fabric:build --stacktrace --no-daemon
 
       - name: Upload jar
         if: success()
