@@ -6,7 +6,7 @@ namespace Tecnologia
 {
     public partial class PerfilForm : Form
     {
-        public PerfilForm() { InitializeComponent(); }
+        public PerfilForm() { InitializeComponent(); Tema.Aplicar(this); }
         private void PerfilForm_Load(object sender, EventArgs e)
         {
             try

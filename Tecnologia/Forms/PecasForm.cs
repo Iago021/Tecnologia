@@ -6,7 +6,7 @@ namespace Tecnologia
 {
     public partial class PecasForm : Form
     {
-        public PecasForm() { InitializeComponent(); }
+        public PecasForm() { InitializeComponent(); Tema.Aplicar(this); }
         private int codigo;
         private void PecasForm_Load(object sender, EventArgs e)
         {

@@ -6,7 +6,7 @@ namespace Tecnologia
 {
     public partial class OrdensForm : Form
     {
-        public OrdensForm() { InitializeComponent(); }
+        public OrdensForm() { InitializeComponent(); Tema.Aplicar(this); }
         private string filtro="Todas";
         public OrdensForm(string status) : this() { filtro=status; }
         private void OrdensForm_Load(object sender,EventArgs e)

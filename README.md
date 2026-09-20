@@ -4,6 +4,10 @@ Sistema de assistência técnica para celulares, notebooks e computadores, feito
 
 ## Abrir e executar
 
+O visual foi adaptado às capturas do Figma: logo original, fundo branco com degradê verde suave, cartões cinza e botões verdes arredondados. O login e o dashboard foram reorganizados; os outros formulários usam o mesmo tema, mantendo todos os campos e ações. Os detalhes e a conferência no Windows estão em [docs/VISUAL.md](docs/VISUAL.md).
+
+**Verificação desta atualização:** análise de sintaxe e preservação das regras concluída; a nova interface ainda precisa ser compilada e conferida no Windows/Visual Studio. Os testes da versão anterior não validam este ajuste visual.
+
 1. No Windows, instale o Visual Studio com a carga **Desenvolvimento para desktop com .NET** e o **Developer Pack/Targeting Pack do .NET Framework 4.7.2**.
 2. Inicie o **MySQL** no XAMPP, ou use uma instalação do MySQL/MariaDB.
 3. No phpMyAdmin ou MySQL Workbench, importe **[Banco/tecnologia.sql](Banco/tecnologia.sql)**. Ele cria o banco `tecnologia` e todas as tabelas. Não é necessário importar o SQL da escola.

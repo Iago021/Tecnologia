@@ -6,7 +6,7 @@ namespace Tecnologia
 {
     public partial class ClientesForm : Form
     {
-        public ClientesForm() { InitializeComponent(); }
+        public ClientesForm() { InitializeComponent(); Tema.Aplicar(this); }
         private int codigo;
         private void ClientesForm_Load(object sender, EventArgs e)
         {

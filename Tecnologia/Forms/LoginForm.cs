@@ -6,7 +6,7 @@ namespace Tecnologia
 {
     public partial class LoginForm : Form
     {
-        public LoginForm() { InitializeComponent(); }
+        public LoginForm() { InitializeComponent(); ConfigurarVisual(); }
         private void LoginForm_Load(object sender, EventArgs e)
         {
             AcceptButton = btnEntrar;
@@ -15,7 +15,7 @@ namespace Tecnologia
         private void AtualizarPrimeiroAcesso()
         {
             bool primeiro = Convert.ToInt32(Banco.Valor("SELECT COUNT(*) FROM usuarios")) == 0;
-            lblPrimeiro.Visible = txtNome.Visible = btnPrimeiro.Visible = primeiro;
+            MostrarPrimeiroAcesso(primeiro);
         }
         private void chkMostrar_CheckedChanged(object sender, EventArgs e) { txtSenha.UseSystemPasswordChar = !chkMostrar.Checked; }
         private void btnEntrar_Click(object sender, EventArgs e)

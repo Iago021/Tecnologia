@@ -158,6 +158,19 @@
     <Compile Include="Senha.cs" />
     <Compile Include="Sessao.cs" />
     <Compile Include="Tela.cs" />
+    <Compile Include="Tema.cs" />
+    <Compile Include="Forms\LoginForm.Visual.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PrincipalForm.Visual.cs">
+      <DependentUpon>PrincipalForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Imagens\tecnologia-logo.png">
+      <LogicalName>Tecnologia.Imagens.tecnologia-logo.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Imagens\boas-vindas.png">
+      <LogicalName>Tecnologia.Imagens.boas-vindas.png</LogicalName>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AbrirOrdemForm.resx">
       <DependentUpon>AbrirOrdemForm.cs</DependentUpon>
     </EmbeddedResource>

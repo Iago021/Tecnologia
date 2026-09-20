@@ -6,7 +6,7 @@ namespace Tecnologia
 {
     public partial class OrdemForm : Form
     {
-        public OrdemForm() { InitializeComponent(); }
+        public OrdemForm() { InitializeComponent(); Tema.Aplicar(this); }
         private int codigo;
         private bool podeEditar;
         public OrdemForm(int id) : this() { codigo=id; }

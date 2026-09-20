@@ -6,20 +6,10 @@ namespace Tecnologia
 {
     public partial class PrincipalForm : Form
     {
-        public PrincipalForm() { InitializeComponent(); }
+        public PrincipalForm() { InitializeComponent(); ConfigurarVisual(); }
         private void PrincipalForm_Load(object sender, EventArgs e)
         {
-            MenuStrip menu = new MenuStrip();
-            menu.Items.Add("Clientes",null,btnClientes_Click);
-            menu.Items.Add("Aparelhos",null,btnAparelhos_Click);
-            menu.Items.Add("Equipe",null,btnUsuarios_Click);
-            menu.Items.Add("Ordens",null,btnOrdens_Click);
-            menu.Items.Add("Estoque",null,btnPecas_Click);
-            menu.Items.Add("Minha conta",null,btnPerfil_Click);
-            menu.Items.Add("Sair",null,btnSair_Click);
-            menu.Items[0].Visible = menu.Items[1].Visible = menu.Items[2].Visible = Sessao.Atendente;
-            menu.Items[4].Visible = !Sessao.Atendente;
-            MainMenuStrip = menu; Controls.Add(menu);
+            // Os botões de navegação mantêm os mesmos eventos e permissões.
             Atualizar();
         }
         private void Atualizar()

@@ -6,7 +6,7 @@ namespace Tecnologia
 {
     public partial class MovimentoForm : Form
     {
-        public MovimentoForm() { InitializeComponent(); }
+        public MovimentoForm() { InitializeComponent(); Tema.Aplicar(this); }
         private int peca;
         public MovimentoForm(int codigo) : this() { peca=codigo; }
         private void MovimentoForm_Load(object sender, EventArgs e)

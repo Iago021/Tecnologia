@@ -6,7 +6,7 @@ namespace Tecnologia
 {
     public partial class UsuariosForm : Form
     {
-        public UsuariosForm() { InitializeComponent(); }
+        public UsuariosForm() { InitializeComponent(); Tema.Aplicar(this); }
         private int codigo;
         private void UsuariosForm_Load(object sender, EventArgs e)
         {
