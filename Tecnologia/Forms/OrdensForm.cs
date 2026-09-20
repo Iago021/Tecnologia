@@ -6,7 +6,7 @@ namespace Tecnologia
 {
     public partial class OrdensForm : Form
     {
-        public OrdensForm() { InitializeComponent(); Tema.Aplicar(this); }
+        public OrdensForm() { InitializeComponent(); LayoutTelas.Aplicar(this); }
         private string filtro="Todas";
         public OrdensForm(string status) : this() { filtro=status; }
         private void OrdensForm_Load(object sender,EventArgs e)
@@ -33,8 +33,8 @@ namespace Tecnologia
         private void btnPesquisar_Click(object sender,EventArgs e) { try { Carregar(); } catch(Exception erro) { Tela.Erro(erro); } }
         private void btnExportar_Click(object sender,EventArgs e) { try { Sessao.Exigir(); Exportar.Excel(grade); } catch(Exception erro) { Tela.Erro(erro); } }
         private void btnNova_Click(object sender,EventArgs e)
-        { try { using(AbrirOrdemForm janela=new AbrirOrdemForm()) janela.ShowDialog(this); Carregar(); } catch(Exception erro) { Tela.Erro(erro); } }
+        { try { using(AbrirOrdemForm janela=new AbrirOrdemForm()) janela.ShowDialog(TopLevelControl); Carregar(); } catch(Exception erro) { Tela.Erro(erro); } }
         private void btnDetalhes_Click(object sender,EventArgs e)
-        { try { using(OrdemForm janela=new OrdemForm(Tela.Selecionado(grade))) janela.ShowDialog(this); Carregar(); } catch(Exception erro) { Tela.Erro(erro); } }
+        { try { using(OrdemForm janela=new OrdemForm(Tela.Selecionado(grade))) janela.ShowDialog(TopLevelControl); Carregar(); } catch(Exception erro) { Tela.Erro(erro); } }
     }
 }

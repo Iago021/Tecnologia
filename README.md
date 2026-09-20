@@ -4,9 +4,8 @@ Sistema de assistência técnica para celulares, notebooks e computadores, feito
 
 ## Abrir e executar
 
-O visual foi adaptado às capturas do Figma: logo original, fundo branco com degradê verde suave, cartões cinza e botões verdes arredondados. O login e o dashboard foram reorganizados; os outros formulários usam o mesmo tema, mantendo todos os campos e ações. Os detalhes e a conferência no Windows estão em [docs/VISUAL.md](docs/VISUAL.md).
+A interface segue as imagens do Figma: login, criação de conta e recuperação de senha em cartões centralizados; navegação principal na mesma janela; consulta e edição em abas e campos agrupados por assunto em todas as telas. Veja [organização e configuração de e-mail](docs/VISUAL.md).
 
-**Verificação desta atualização:** análise de sintaxe e preservação das regras concluída; a nova interface ainda precisa ser compilada e conferida no Windows/Visual Studio. Os testes da versão anterior não validam este ajuste visual.
 
 1. No Windows, instale o Visual Studio com a carga **Desenvolvimento para desktop com .NET** e o **Developer Pack/Targeting Pack do .NET Framework 4.7.2**.
 2. Inicie o **MySQL** no XAMPP, ou use uma instalação do MySQL/MariaDB.
@@ -15,12 +14,16 @@ O visual foi adaptado às capturas do Figma: logo original, fundo branco com deg
 5. Clique com o botão direito na solução e escolha **Restaurar Pacotes NuGet**. A primeira restauração precisa de internet. As versões estão em `Tecnologia/packages.config`.
 6. Confira a conexão em **`Tecnologia/App.config`**. O padrão é `127.0.0.1`, porta `3306`, banco `tecnologia`, usuário `root` e senha vazia, como na base do ZIP. Ajuste conforme sua instalação.
 7. Se necessário, defina **Tecnologia** como projeto de inicialização e pressione **F5**.
-8. Na primeira execução, preencha nome, e-mail e senha e clique em **Criar primeiro atendente**. Depois clique em **Entrar**. A senha deve ter de 8 a 128 caracteres.
+8. Na primeira execução, clique em **Criar conta**, preencha nome, e-mail e senha com as confirmações. Depois entre com a conta criada. A senha deve ter de 8 a 128 caracteres.
 9. Em **Atendentes e técnicos**, cadastre a conta do técnico. Use **Sair da conta** para entrar com o outro perfil.
 
-O sistema inicia sem usuários, clientes, peças ou ordens de exemplo. A criação do primeiro atendente só fica disponível enquanto não existir nenhum usuário.
+O sistema inicia sem usuários, clientes, peças ou ordens de exemplo. A primeira conta é um atendente ativo. Cadastros posteriores ficam inativos até um atendente aprovar o acesso em **Cadastros > Equipe**.
 
 O Microsoft Excel para desktop é necessário **somente para exportar**. As outras funções não dependem dele. Não há necessidade de instalar PHP ou um servidor web para executar os formulários; o XAMPP é usado apenas para disponibilizar o banco e facilitar a importação pelo phpMyAdmin.
+
+## Esqueci a senha
+
+Importe novamente **Banco/tecnologia.sql** para criar a nova tabela de recuperação sem apagar os dados. Configure o SMTP em **Tecnologia/App.config** e a senha do e-mail na variável **TECNOLOGIA_SMTPPASSWORD** do Windows. Não publique credenciais no repositório. O fluxo envia código por e-mail, válido por dez minutos, com limite de tentativas e uso único. Sem SMTP configurado, o aplicativo informa que o envio está indisponível. [Instruções completas](docs/VISUAL.md#recuperação-de-senha).
 
 ## Perfis e funções
 

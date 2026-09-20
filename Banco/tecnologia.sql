@@ -120,4 +120,13 @@ CREATE TABLE IF NOT EXISTS historico_status (
  FOREIGN KEY (ordem_id) REFERENCES ordens_servico(id),
  FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 ) ENGINE=InnoDB;
--- Sem contas ou clientes de exemplo. Crie o primeiro atendente na tela de login.
+CREATE TABLE IF NOT EXISTS recuperacao_senha (
+ usuario_id INT PRIMARY KEY,
+ codigo_hash CHAR(64) NOT NULL,
+ salt CHAR(32) NOT NULL,
+ expira_em DATETIME NOT NULL,
+ tentativas INT NOT NULL DEFAULT 0,
+ enviado_em DATETIME NOT NULL,
+ FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+-- Sem contas ou clientes de exemplo. Crie o primeiro atendente em Criar conta.

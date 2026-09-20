@@ -1,110 +1,166 @@
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Tecnologia
 {
     public partial class PrincipalForm
     {
-        private Panel conteudoPainel;
+        private Panel area;
+        private TableLayoutPanel dashboard;
+        private FlowLayoutPanel menuCadastros;
+        private Button btnCadastros;
+        private Form paginaAtual;
+        private TableLayoutPanel conteudo;
+        private string estadoInicial = "";
 
         private void ConfigurarVisual()
         {
             SuspendLayout();
-            ClientSize = new Size(1120, 820);
             Tema.Aplicar(this);
-            AutoScrollMinSize = new Size(1100, 800);
-            conteudoPainel = new Panel();
-            conteudoPainel.Name = "conteudoPainel";
-            conteudoPainel.Size = new Size(1100, 800);
-            conteudoPainel.BackColor = Color.Transparent;
-            Control[] existentes = new Control[Controls.Count];
-            Controls.CopyTo(existentes, 0);
-            Controls.Add(conteudoPainel);
-            foreach (Control controle in existentes) conteudoPainel.Controls.Add(controle);
-
-            lblTitulo.Visible = false;
-            PictureBox logo = Tema.Imagem("tecnologia-logo.png");
-            logo.SetBounds(28, 14, 496, 106);
-            logo.AccessibleName = "Tecnologia";
-            conteudoPainel.Controls.Add(logo);
-            lblUsuario.SetBounds(552, 62, 518, 28);
-            lblUsuario.TextAlign = ContentAlignment.MiddleRight;
-
-            Panel linha = new Panel();
-            linha.BackColor = Color.FromArgb(223, 227, 224);
-            linha.SetBounds(0, 132, 1100, 1);
-            conteudoPainel.Controls.Add(linha);
-
-            btnAtualizar.Text = "Dashboard";
-            btnOrdens.Text = "Manutenção";
-            btnPecas.Text = "Peças";
-            btnPerfil.Text = "Conta / Perfil";
-            Button[] navegacao = { btnAtualizar, btnOrdens, btnPecas, btnPerfil };
-            for (int i = 0; i < navegacao.Length; i++)
+            Controls.Clear();
+            AutoScroll = false; AutoScrollMinSize = Size.Empty;
+            ClientSize = new Size(1180, 820); MinimumSize = new Size(940, 650);
+            TableLayoutPanel estrutura = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 1, RowCount = 4, BackColor = Color.Transparent };
+            estrutura.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+            estrutura.RowStyles.Add(new RowStyle(SizeType.Absolute, 112));
+            estrutura.RowStyles.Add(new RowStyle(SizeType.Absolute, 54));
+            estrutura.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
+            estrutura.RowStyles.Add(new RowStyle(SizeType.Absolute, 34));
+            Controls.Add(estrutura);
+            TableLayoutPanel topo = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2, Padding = new Padding(28, 12, 28, 10), BackColor = Color.White };
+            topo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
+            topo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
+            PictureBox logo = Tema.Imagem("tecnologia-logo.png"); logo.Dock = DockStyle.Fill;
+            topo.Controls.Add(logo, 0, 0);
+            lblUsuario.Dock = DockStyle.Fill; lblUsuario.TextAlign = ContentAlignment.MiddleRight;
+            topo.Controls.Add(lblUsuario, 1, 0); estrutura.Controls.Add(topo, 0, 0);
+            FlowLayoutPanel navegacao = new FlowLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(28, 5, 0, 0), BackColor = Color.White };
+            btnCadastros = new Button { Text = "Cadastros" }; Tema.EstilizarBotao(btnCadastros);
+            btnCadastros.Click += delegate { MostrarCadastros(); };
+            btnAtualizar.Text = "Dashboard"; btnOrdens.Text = "Manutenção"; btnPecas.Text = "Peças";
+            btnPerfil.Text = "Conta / Perfil"; btnSair.Text = "Sair";
+            foreach (Button b in new[] { btnAtualizar, btnOrdens, btnPecas, btnCadastros, btnPerfil, btnSair })
             {
-                navegacao[i].SetBounds(250 + i * 152, 148, 128, 34);
-                navegacao[i].TabIndex = i;
+                b.Size = new Size(132, 36); b.Margin = new Padding(0, 0, 12, 0);
+                b.TabIndex = navegacao.Controls.Count; navegacao.Controls.Add(b);
             }
-            btnAtualizar.BackColor = Tema.VerdeEscuro;
-            btnAtualizar.ForeColor = Color.White;
-
-            Label boasVindas = new Label();
-            boasVindas.Text = "Bem\nvindo!";
-            boasVindas.Font = new Font("Segoe UI", 68, FontStyle.Bold);
-            boasVindas.ForeColor = Color.FromArgb(147, 157, 151);
-            boasVindas.BackColor = Color.Transparent;
-            boasVindas.SetBounds(28, 211, 570, 250);
-            conteudoPainel.Controls.Add(boasVindas);
-            PictureBox foto = Tema.Imagem("boas-vindas.png");
-            foto.SetBounds(658, 220, 386, 277);
-            foto.AccessibleName = "Profissional trabalhando em um computador";
-            Tema.Arredondar(foto, 18);
-            conteudoPainel.Controls.Add(foto);
-
-            // Os quatro indicadores continuam clicáveis e com os mesmos filtros.
-            Button[] indicadores = { btnAbertas, btnManutencao, btnConcluidas, btnProntas };
-            for (int i = 0; i < indicadores.Length; i++)
+            estrutura.Controls.Add(navegacao, 0, 1);
+            conteudo = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 1, RowCount = 2 };
+            conteudo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+            conteudo.RowStyles.Add(new RowStyle(SizeType.Absolute, 0));
+            conteudo.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
+            estrutura.Controls.Add(conteudo, 0, 2);
+            menuCadastros = new FlowLayoutPanel { Dock = DockStyle.Fill, Padding = new Padding(28, 6, 0, 0) };
+            foreach (Button b in new[] { btnClientes, btnAparelhos, btnUsuarios })
             {
-                Button indicador = indicadores[i];
-                indicador.SetBounds(28 + i * 268, 525, 248, 64);
-                indicador.BackColor = Tema.Cartao;
-                indicador.ForeColor = Tema.VerdeEscuro;
-                indicador.TabIndex = i + 4;
+                b.Size = new Size(190, 36); b.Margin = new Padding(0, 0, 12, 0);
+                menuCadastros.Controls.Add(b);
             }
-            lblResumo.SetBounds(28, 598, 1044, 48);
-            lblResumo.Font = new Font("Segoe UI", 9);
-
-            // A referência não mostra estes atalhos; ficam disponíveis para preservar o sistema.
-            Button[] cadastros = { btnClientes, btnAparelhos, btnUsuarios, btnNova };
-            for (int i = 0; i < cadastros.Length; i++)
-            {
-                cadastros[i].SetBounds(28 + i * 268, 662, 248, 38);
-                cadastros[i].TabIndex = i + 8;
-            }
-
-            Panel rodape = new Panel();
-            rodape.SetBounds(0, 738, 1100, 60);
-            rodape.BackColor = Color.FromArgb(188, 209, 196);
-            conteudoPainel.Controls.Add(rodape);
-            Label descricao = new Label();
-            descricao.Text = "Tecnologia  |  Assistência técnica";
-            descricao.ForeColor = Tema.Texto;
-            descricao.BackColor = Color.Transparent;
-            descricao.SetBounds(28, 18, 730, 26);
-            rodape.Controls.Add(descricao);
-            btnSair.SetBounds(868, 12, 204, 36);
-            btnSair.TabIndex = 12;
-            rodape.Controls.Add(btnSair);
-            rodape.TabIndex = 12;
-            Resize += delegate { CentralizarPainel(); };
-            CentralizarPainel();
+            conteudo.Controls.Add(menuCadastros, 0, 0);
+            area = new Panel { Dock = DockStyle.Fill, BackColor = Color.Transparent };
+            conteudo.Controls.Add(area, 0, 1);
+            MontarDashboard();
+            Label rodape = new Label { Text = "Tecnologia  ·  Assistência técnica", Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter, ForeColor = Tema.Texto, BackColor = Color.FromArgb(189, 207, 195) };
+            estrutura.Controls.Add(rodape, 0, 3);
+            MarcarNavegacao(btnAtualizar);
             ResumeLayout(true);
         }
 
-        private void CentralizarPainel()
+        private void MontarDashboard()
         {
-            conteudoPainel.Location = new Point(Math.Max(0, (ClientSize.Width - 1100) / 2) + AutoScrollPosition.X, AutoScrollPosition.Y);
+            dashboard = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 1, RowCount = 3, Padding = new Padding(32, 20, 32, 20), BackColor = Color.Transparent };
+            dashboard.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+            dashboard.RowStyles.Add(new RowStyle(SizeType.Percent, 68));
+            dashboard.RowStyles.Add(new RowStyle(SizeType.Absolute, 100));
+            dashboard.RowStyles.Add(new RowStyle(SizeType.Percent, 32));
+            area.Controls.Add(dashboard);
+            TableLayoutPanel boasVindas = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 2 };
+            boasVindas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 55));
+            boasVindas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45));
+            Panel chamada = new Panel { Dock = DockStyle.Fill };
+            lblTitulo.Text = "Bem\nvindo!"; lblTitulo.Font = new Font("Segoe UI", 42, FontStyle.Bold);
+            lblTitulo.ForeColor = Color.FromArgb(133, 150, 140); lblTitulo.SetBounds(0, 0, 500, 156);
+            lblTitulo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            chamada.Controls.Add(lblTitulo);
+            btnNova.Text = "Nova ordem de serviço"; btnNova.SetBounds(6, 170, 230, 38);
+            chamada.Controls.Add(btnNova);
+            boasVindas.Controls.Add(chamada, 0, 0);
+            PictureBox foto = Tema.Imagem("boas-vindas.png"); foto.Dock = DockStyle.Fill; foto.Margin = new Padding(20, 0, 20, 18);
+            boasVindas.Controls.Add(foto, 1, 0);
+            dashboard.Controls.Add(boasVindas, 0, 0);
+            TableLayoutPanel indicadores = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 4 };
+            foreach (Button botao in new[] { btnAbertas, btnManutencao, btnConcluidas, btnProntas })
+            {
+                indicadores.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25));
+                botao.Dock = DockStyle.Fill; botao.Margin = new Padding(5, 10, 5, 14);
+                botao.BackColor = Tema.Cartao; botao.ForeColor = Tema.VerdeEscuro;
+                indicadores.Controls.Add(botao);
+            }
+            dashboard.Controls.Add(indicadores, 0, 1);
+            lblResumo.Dock = DockStyle.Fill; lblResumo.TextAlign = ContentAlignment.TopLeft;
+            lblResumo.Padding = new Padding(7, 12, 7, 0);
+            dashboard.Controls.Add(lblResumo, 0, 2);
+        }
+
+        private bool FecharPagina()
+        {
+            if (paginaAtual == null) return true;
+            if (!paginaAtual.IsDisposed && LayoutTelas.Estado(paginaAtual) != estadoInicial &&
+                !Tela.Confirmar("Você alterou campos nesta tela. Deseja sair? Alterações que não foram salvas serão perdidas.")) return false;
+            Form anterior = paginaAtual; paginaAtual = null;
+            anterior.Dispose();
+            return true;
+        }
+
+        private void MostrarDashboard()
+        {
+            if (!FecharPagina()) return;
+            conteudo.RowStyles[0].Height = 0;
+            dashboard.Visible = true; dashboard.BringToFront();
+            MarcarNavegacao(btnAtualizar); Atualizar();
+        }
+
+        private void MostrarCadastros()
+        {
+            if (!Sessao.Atendente) return;
+            Abrir(new ClientesForm());
+        }
+
+        private void MostrarPagina(Form janela)
+        {
+            if (!FecharPagina()) { janela.Dispose(); return; }
+            dashboard.Visible = false;
+            bool cadastro = janela is ClientesForm || janela is AparelhosForm || janela is UsuariosForm;
+            conteudo.RowStyles[0].Height = cadastro ? 50 : 0;
+            paginaAtual = janela;
+            janela.TopLevel = false; janela.FormBorderStyle = FormBorderStyle.None; janela.Dock = DockStyle.Fill;
+            janela.MinimumSize = Size.Empty;
+            foreach (Control marca in janela.Controls.Find("marcaSecundaria", true)) marca.Visible = false;
+            area.Controls.Add(janela);
+            janela.FormClosed += delegate
+            {
+                if (paginaAtual != janela) return;
+                paginaAtual = null;
+                dashboard.Visible = true; conteudo.RowStyles[0].Height = 0;
+                MarcarNavegacao(btnAtualizar); Atualizar();
+            };
+            janela.Show();
+            if (janela.IsDisposed || paginaAtual != janela) return;
+            janela.BringToFront();
+            estadoInicial = janela.IsDisposed ? "" : LayoutTelas.Estado(janela);
+            MarcarNavegacao(cadastro ? btnCadastros : janela is PecasForm ? btnPecas : janela is PerfilForm ? btnPerfil : btnOrdens);
+        }
+
+        private void MarcarNavegacao(Button selecionado)
+        {
+            foreach (Button botao in new[] { btnAtualizar, btnOrdens, btnPecas, btnCadastros, btnPerfil })
+            {
+                botao.BackColor = botao == selecionado ? Tema.VerdeEscuro : Tema.Verde;
+                botao.ForeColor = botao == selecionado ? Color.White : Color.FromArgb(0, 61, 36);
+            }
         }
     }
 }

@@ -1,50 +1,58 @@
-# Visual baseado no Figma
+# Interface e contas
 
-Referência: as seis capturas fornecidas pelo usuário, do arquivo `HlYJGnhEg0f9xVCCszhFSr`. A adaptação continua em C# Windows Forms e .NET Framework 4.7.2. Não foi criado um site nem adicionada biblioteca de interface.
+A interface continua em C# Windows Forms (.NET Framework 4.7.2), usando o logo, a foto, os cartões cinza, o fundo claro e os botões verdes das imagens fornecidas.
 
-## O que mudou
+## Organização das telas
 
-- Login centralizado, logo, cartão cinza, campos arredondados e botão verde.
-- O formulário de primeiro acesso continua disponível somente quando não há usuários. O campo de nome e a opção de mostrar senha foram preservados.
-- Dashboard com logo, boas-vindas e a fotografia da referência. A moldura do notebook e as barras do navegador não fazem parte do aplicativo.
-- Navegação superior: Dashboard (atualiza os dados), Manutenção (lista as ordens), Peças e Conta / Perfil.
-- Os quatro indicadores continuam abrindo suas listas. Clientes, Aparelhos, Atendentes e técnicos, Abrir ordem e Sair da conta continuam disponíveis.
-- Tema comum nos 12 formulários: verde, cinza, cartões arredondados, tabelas com cabeçalho verde e foco de teclado visível. A rolagem mantém os campos acessíveis em janelas menores.
-- Os textos de campos e botões têm contraste mais forte que nas capturas, para facilitar a leitura.
+| Área | Organização |
+|---|---|
+| Login | Entrar, mostrar senha, criar conta e recuperar senha |
+| Criar conta | Nome, e-mail e confirmação, senha e confirmação |
+| Esqueci a senha | Solicitação de código e acesso à redefinição |
+| Redefinir senha | Código recebido, nova senha e confirmação |
+| Dashboard | Boas-vindas, nova ordem e quatro indicadores |
+| Cadastros | Submenu de clientes, aparelhos e equipe |
+| Clientes / aparelhos / equipe / peças | Abas Consultar e Cadastrar / editar; campos agrupados por assunto |
+| Manutenção | Pesquisa, filtros e tabela de ordens |
+| Ordem | Recebimento; diagnóstico e serviço; peças utilizadas; conclusão e histórico |
+| Nova ordem | Cliente e aparelho; solicitação de manutenção |
+| Movimentação | Peça, tipo de movimento, quantidade e motivo |
+| Histórico | Tabela e exportação |
+| Conta / Perfil | Dados pessoais e segurança |
 
-As telas com mais informações mantêm os campos e tabelas existentes; não foram reduzidas ao formulário simplificado da referência. As permissões por perfil, o banco, os filtros, o estoque e a exportação não foram alterados.
+As páginas principais abrem dentro da janela central. As janelas de operações pontuais (nova ordem, detalhe da ordem, movimentação e histórico) continuam como diálogos. Ao trocar de página, alterações nos campos geram uma confirmação para evitar a perda acidental de dados ainda não salvos.
 
-## Limites do escopo
+Nenhum campo dos cadastros existentes foi removido. Os eventos de negócio e as permissões de atendente/técnico continuam ativos. A alteração de senha atual continua disponível no perfil.
 
-As capturas mostram recuperação de senha por e-mail, código de verificação e cadastro público. A versão atual não tem esses fluxos. Esta alteração visual não implementa envio de e-mail, 2FA ou abertura pública de contas, nem coloca links sem funcionamento. A troca de senha existente permanece em Conta / Perfil, e o cadastro de novos usuários permanece na área de equipe.
+## Criação de conta
 
-## Arquivos
+A primeira conta criada é um atendente ativo, como no primeiro acesso da versão anterior. Quando já existe qualquer usuário, o cadastro público gera uma conta inativa. Um atendente deve abrir Cadastros > Equipe, editar a conta, escolher o perfil adequado e ativá-la. O formulário público não permite escolher privilégios nem ativar a própria conta.
 
-- `Tecnologia/Tema.cs`: cores, cartões, campos, botões, tabelas e carregamento das imagens.
-- `Tecnologia/Forms/LoginForm.Visual.cs`: disposição visual do login e primeiro acesso.
-- `Tecnologia/Forms/PrincipalForm.Visual.cs`: disposição visual do painel.
-- `Tecnologia/Imagens/`: recortes do logo e da foto das imagens fornecidas; incorporados ao executável pelo `.csproj`. Não dependem de URLs ou arquivos externos na instalação.
+## Recuperação de senha
 
-Os arquivos `.Designer.cs` e seus eventos foram preservados. O tema e os layouts adicionais são aplicados após `InitializeComponent()`. Para ver a apresentação final, execute o projeto; o designer do Visual Studio continua mostrando o layout-base dos controles.
+Reimporte o mesmo arquivo Banco/tecnologia.sql para adicionar a tabela recuperacao_senha. O script usa CREATE TABLE IF NOT EXISTS e não apaga registros. Nenhuma credencial SMTP foi incluída.
 
-## Verificação realizada nesta alteração
+Configure SmtpHost, SmtpPort (padrão 587 com STARTTLS), SmtpFrom e SmtpUser em Tecnologia/App.config. Coloque a senha do provedor na variável de ambiente TECNOLOGIA_SMTPPASSWORD, no Windows que executa o aplicativo. Reinicie o Visual Studio/aplicativo após definir a variável. Use a senha de aplicativo exigida pelo provedor, quando aplicável. Não envie essa senha para o GitHub.
 
-- Análise de sintaxe dos 35 arquivos C# sem erros de parser. Isso não substitui a compilação.
-- Referências dos novos arquivos e recursos no `.csproj` conferidas; imagens PNG válidas.
-- Comparação de 84 métodos existentes: conteúdo preservado. As mudanças adicionais nos métodos antigos são a montagem visual do menu principal e a visibilidade do cartão de primeiro acesso.
-- Arquivos de banco, SQL, senha, sessão, regras de ordens, exportação, inicialização, configuração e dependências sem alterações.
-- Eventos dos arquivos Designer preservados e limites dos cartões conferidos estaticamente.
-- `git diff --check` sem problemas.
+As variáveis TECNOLOGIA_SMTPHOST, TECNOLOGIA_SMTPPORT, TECNOLOGIA_SMTPFROM e TECNOLOGIA_SMTPUSER também substituem os valores do arquivo. O aplicativo não oferece um envio de e-mail próprio: precisa de um servidor SMTP configurado.
 
-**Pendente:** compilação e execução no Windows. O ambiente usado para esta atualização não dispõe do runtime/compilador Windows Forms; não foi possível abrir as janelas nem realizar comparação visual do resultado executado. Não há alegação de teste funcional ou visual completo desta versão.
+O código tem seis dígitos aleatórios, expira em dez minutos, admite cinco tentativas e é consumido em uma transação junto com a alteração da senha. Somente o hash com salt é guardado. Um novo envio invalida o código anterior; o intervalo mínimo é de 60 segundos. A mensagem normal de envio não revela se o e-mail pertence a uma conta ativa. A redefinição não ativa contas inativas.
 
-## Conferir no Visual Studio
+## Código
 
-1. Abra `Tecnologia.sln`, restaure os pacotes NuGet e compile a solução.
-2. Em um banco de teste vazio, confira o primeiro acesso, o campo Nome, o botão de criação e o login. Em um banco com usuários, confira que o primeiro acesso não aparece.
-3. Entre como atendente e como técnico. Verifique os atalhos permitidos e bloqueados, os quatro filtros do dashboard e Sair da conta.
-4. Abra todos os cadastros, ordens, movimentações, histórico e perfil. Teste os botões, pesquisa, edição e exportação disponíveis ao perfil.
-5. Confira tabulação, Enter no login, foco de teclado e campos somente leitura.
-6. Confira janelas menores e escala do Windows em 100%, 125% e 150%, verificando se a rolagem permite alcançar todos os campos.
+- Tema.cs: cores e aparência dos controles.
+- LayoutTelas.cs: agrupamento e organização dos controles existentes.
+- AcessoLayout.cs: cartão comum de login/cadastro/recuperação.
+- Forms/PrincipalForm.Visual.cs: navegação e dashboard.
+- Contas.cs: cadastro e recuperação via banco/SMTP.
+- Forms/CriarContaForm.cs, RecuperarSenhaForm.cs e RedefinirSenhaForm.cs: novos fluxos.
 
-Não reimporte o SQL nem apague os dados de uma instalação existente apenas para atualizar o visual.
+Os layouts são montados em C# após InitializeComponent. Execute o aplicativo para ver a apresentação final; o Designer dos formulários antigos mantém a organização-base.
+
+## Verificações
+
+O workflow .github/workflows/windows.yml restaura os pacotes, compila no Windows e executa tests/VisualSmoke.cs. O teste constrói 15 formulários, confere a conexão dos controles, alterna as abas, verifica campos após redimensionamento e gera imagens no artefato verificacao-windows. Também verifica formato, salt e comparação dos códigos. Consulte o resultado da execução no GitHub Actions.
+
+O teste não chama os eventos Load que acessam o banco e não envia e-mails. Portanto, ele não substitui a conferência funcional com MySQL e SMTP nem a inspeção visual das capturas.
+
+Antes de usar em produção, confira com um banco de teste: primeira conta, conta pendente e ativação, login de ambos os perfis, código correto/incorreto/expirado/reutilizado, reenvio, troca de senha, cadastros, manutenção, estoque, exportação e escala do Windows em 100%, 125% e 150%.

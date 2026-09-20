@@ -92,7 +92,6 @@ namespace Tecnologia
             this.btnPrimeiro.TabIndex = 9;
             this.btnPrimeiro.Text = "Criar primeiro atendente";
             this.btnPrimeiro.UseVisualStyleBackColor = true;
-            this.btnPrimeiro.Click += new System.EventHandler(this.btnPrimeiro_Click);
             this.Controls.Add(this.btnPrimeiro);
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

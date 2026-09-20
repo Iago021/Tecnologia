@@ -6,7 +6,7 @@ namespace Tecnologia
 {
     public partial class OrdemForm : Form
     {
-        public OrdemForm() { InitializeComponent(); Tema.Aplicar(this); }
+        public OrdemForm() { InitializeComponent(); LayoutTelas.Aplicar(this); }
         private int codigo;
         private bool podeEditar;
         public OrdemForm(int id) : this() { codigo=id; }
@@ -78,7 +78,7 @@ namespace Tecnologia
             catch(Exception erro) { Tela.Erro(erro); }
         }
         private void btnHistorico_Click(object sender,EventArgs e)
-        { try { using(HistoricoForm janela=new HistoricoForm(codigo,true)) janela.ShowDialog(this); } catch(Exception erro) { Tela.Erro(erro); } }
+        { try { using(HistoricoForm janela=new HistoricoForm(codigo,true)) janela.ShowDialog(TopLevelControl); } catch(Exception erro) { Tela.Erro(erro); } }
         private void btnAtualizar_Click(object sender,EventArgs e)
         { try { if(Tela.Confirmar("Recarregar os dados salvos? As alterações ainda não salvas serão descartadas.")) Carregar(); } catch(Exception erro) { Tela.Erro(erro); } }
         private void btnExportar_Click(object sender,EventArgs e)

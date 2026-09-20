@@ -10,12 +10,6 @@ namespace Tecnologia
         private void LoginForm_Load(object sender, EventArgs e)
         {
             AcceptButton = btnEntrar;
-            try { AtualizarPrimeiroAcesso(); } catch (Exception erro) { Tela.Erro(erro); }
-        }
-        private void AtualizarPrimeiroAcesso()
-        {
-            bool primeiro = Convert.ToInt32(Banco.Valor("SELECT COUNT(*) FROM usuarios")) == 0;
-            MostrarPrimeiroAcesso(primeiro);
         }
         private void chkMostrar_CheckedChanged(object sender, EventArgs e) { txtSenha.UseSystemPasswordChar = !chkMostrar.Checked; }
         private void btnEntrar_Click(object sender, EventArgs e)
@@ -31,31 +25,6 @@ namespace Tecnologia
                 Sessao.Perfil = dados.Rows[0]["perfil"].ToString();
                 DialogResult = DialogResult.OK;
                 Close();
-            }
-            catch (Exception erro) { Tela.Erro(erro); }
-        }
-        private void btnPrimeiro_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Tela.Obrigatorio(txtNome.Text,"nome");
-                Tela.Email(txtEmail.Text.Trim(),true);
-                string hash = Senha.Criar(txtSenha.Text);
-                using (MySqlConnection conexao = Banco.Abrir())
-                {
-                    using (MySqlCommand trava = Banco.Comando(conexao,null,"SELECT GET_LOCK('tecnologia_primeiro_acesso',10)"))
-                        if (Convert.ToInt32(trava.ExecuteScalar()) != 1) throw new Exception("Tente novamente em alguns segundos.");
-                    try
-                    {
-                        using (MySqlCommand contar = Banco.Comando(conexao,null,"SELECT COUNT(*) FROM usuarios"))
-                            if (Convert.ToInt32(contar.ExecuteScalar()) > 0) throw new Exception("O primeiro usuário já foi criado. Entre com sua conta.");
-                        using (MySqlCommand inserir = Banco.Comando(conexao,null,"INSERT INTO usuarios(nome,email,senha_hash,perfil) VALUES(@nome,@email,@senha,'Atendente')",
-                            Banco.P("@nome",txtNome.Text.Trim()),Banco.P("@email",txtEmail.Text.Trim()),Banco.P("@senha",hash))) inserir.ExecuteNonQuery();
-                    }
-                    finally { using (MySqlCommand liberar = Banco.Comando(conexao,null,"SELECT RELEASE_LOCK('tecnologia_primeiro_acesso')")) liberar.ExecuteScalar(); }
-                }
-                AtualizarPrimeiroAcesso();
-                MessageBox.Show("Conta criada. Clique em Entrar.");
             }
             catch (Exception erro) { Tela.Erro(erro); }
         }

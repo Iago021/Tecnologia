@@ -6,7 +6,7 @@ namespace Tecnologia
 {
     public partial class HistoricoForm : Form
     {
-        public HistoricoForm() { InitializeComponent(); Tema.Aplicar(this); }
+        public HistoricoForm() { InitializeComponent(); LayoutTelas.Aplicar(this); }
         private int codigo;
         private bool ordem;
         public HistoricoForm(int id,bool historicoOrdem) : this() { codigo=id; ordem=historicoOrdem; }

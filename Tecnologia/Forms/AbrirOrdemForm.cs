@@ -6,7 +6,7 @@ namespace Tecnologia
 {
     public partial class AbrirOrdemForm : Form
     {
-        public AbrirOrdemForm() { InitializeComponent(); Tema.Aplicar(this); }
+        public AbrirOrdemForm() { InitializeComponent(); LayoutTelas.Aplicar(this); }
         private bool carregando;
         private void AbrirOrdemForm_Load(object sender,EventArgs e)
         {

@@ -20,6 +20,7 @@ namespace Tecnologia
                 lblUsuario.Text = Sessao.Nome + " | " + Sessao.Perfil;
                 btnClientes.Enabled = btnAparelhos.Enabled = btnUsuarios.Enabled = btnNova.Enabled = Sessao.Atendente;
                 btnPecas.Enabled = !Sessao.Atendente;
+                btnCadastros.Visible = Sessao.Atendente;
                 DataRow dados = Banco.Consultar(@"SELECT
                   COUNT(CASE WHEN status='Aberta' THEN 1 END) abertas,
                   COUNT(CASE WHEN status IN ('Em manutenção','Aguardando peça') THEN 1 END) manutencao,
@@ -34,7 +35,7 @@ namespace Tecnologia
             } catch (Exception erro) { Tela.Erro(erro); }
         }
         private void Abrir(Form janela)
-        { using(janela) janela.ShowDialog(this); Atualizar(); }
+        { MostrarPagina(janela); }
         private void Lista(string filtro) { Abrir(new OrdensForm(filtro)); }
         private void btnClientes_Click(object sender, EventArgs e) { Abrir(new ClientesForm()); }
         private void btnAparelhos_Click(object sender, EventArgs e) { Abrir(new AparelhosForm()); }
@@ -47,7 +48,7 @@ namespace Tecnologia
         private void btnProntas_Click(object sender, EventArgs e) { Lista("Concluída"); }
         private void btnNova_Click(object sender, EventArgs e) { Abrir(new AbrirOrdemForm()); }
         private void btnPerfil_Click(object sender, EventArgs e) { Abrir(new PerfilForm()); }
-        private void btnAtualizar_Click(object sender, EventArgs e) { Atualizar(); }
-        private void btnSair_Click(object sender, EventArgs e) { Sessao.TrocarUsuario = true; Close(); }
+        private void btnAtualizar_Click(object sender, EventArgs e) { MostrarDashboard(); }
+        private void btnSair_Click(object sender, EventArgs e) { if (FecharPagina()) { Sessao.TrocarUsuario = true; Close(); } }
     }
 }

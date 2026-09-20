@@ -1,0 +1,34 @@
+name: Windows Forms - build e verificacao
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - uses: microsoft/setup-msbuild@v2
+      - uses: NuGet/setup-nuget@v2
+      - name: Restaurar dependencias
+        run: nuget restore Tecnologia.sln -NonInteractive
+      - name: Compilar aplicativo
+        run: msbuild Tecnologia.sln /p:Configuration=Release /p:Platform=AnyCPU /m
+      - name: Construir e verificar as telas
+        shell: pwsh
+        run: |
+          $compiler = Join-Path $env:WINDIR 'Microsoft.NET/Framework64/v4.0.30319/csc.exe'
+          & $compiler /nologo /target:exe /out:Tecnologia/bin/Release/VisualSmoke.exe /r:System.Windows.Forms.dll /r:System.Drawing.dll /r:System.Core.dll tests/VisualSmoke.cs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & ./Tecnologia/bin/Release/VisualSmoke.exe ./Tecnologia/bin/Release/Tecnologia.exe ./verificacao-telas
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verificacao-windows
+          path: |
+            verificacao-telas
+            Tecnologia/bin/Release
+          retention-days: 7

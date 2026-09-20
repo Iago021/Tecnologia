@@ -6,7 +6,7 @@ namespace Tecnologia
 {
     public partial class PecasForm : Form
     {
-        public PecasForm() { InitializeComponent(); Tema.Aplicar(this); }
+        public PecasForm() { InitializeComponent(); LayoutTelas.Aplicar(this); }
         private int codigo;
         private void PecasForm_Load(object sender, EventArgs e)
         {
@@ -120,7 +120,7 @@ namespace Tecnologia
             try
             {
                 Sessao.Exigir("Técnico");
-                using (MovimentoForm janela = new MovimentoForm(Tela.Selecionado(grade))) janela.ShowDialog(this);
+                using (MovimentoForm janela = new MovimentoForm(Tela.Selecionado(grade))) janela.ShowDialog(TopLevelControl);
                 Carregar();
             } catch (Exception erro) { Tela.Erro(erro); }
         }
@@ -129,7 +129,7 @@ namespace Tecnologia
             try
             {
                 Sessao.Exigir("Técnico");
-                using (HistoricoForm janela = new HistoricoForm(Tela.Selecionado(grade),false)) janela.ShowDialog(this);
+                using (HistoricoForm janela = new HistoricoForm(Tela.Selecionado(grade),false)) janela.ShowDialog(TopLevelControl);
             } catch (Exception erro) { Tela.Erro(erro); }
         }
     }

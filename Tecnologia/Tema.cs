@@ -35,8 +35,6 @@ namespace Tecnologia
             janela.BackgroundImageLayout = ImageLayout.Stretch;
             janela.Disposed += delegate { fundo.Dispose(); };
             Estilizar(janela);
-            if (!(janela is LoginForm) && !(janela is PrincipalForm))
-                CriarCartao(janela);
             // Mantém os campos acessíveis em monitores menores e com escala do Windows.
             janela.AutoScroll = true;
             int alturaConteudo = janela.ClientSize.Height;

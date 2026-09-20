@@ -6,7 +6,7 @@ namespace Tecnologia
 {
     public partial class AparelhosForm : Form
     {
-        public AparelhosForm() { InitializeComponent(); Tema.Aplicar(this); }
+        public AparelhosForm() { InitializeComponent(); LayoutTelas.Aplicar(this); }
         private int codigo;
         private void AparelhosForm_Load(object sender, EventArgs e)
         {
