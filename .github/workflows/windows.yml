@@ -20,7 +20,7 @@ jobs:
         shell: pwsh
         run: |
           $compiler = Join-Path $env:WINDIR 'Microsoft.NET/Framework64/v4.0.30319/csc.exe'
-          & $compiler /nologo /target:exe /out:Tecnologia/bin/Release/VisualSmoke.exe /r:System.Windows.Forms.dll /r:System.Drawing.dll /r:System.Core.dll tests/VisualSmoke.cs
+          & $compiler /nologo /target:exe '/out:Tecnologia\bin\Release\VisualSmoke.exe' /r:System.Windows.Forms.dll /r:System.Drawing.dll /r:System.Core.dll '.\tests\VisualSmoke.cs'
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           & ./Tecnologia/bin/Release/VisualSmoke.exe ./Tecnologia/bin/Release/Tecnologia.exe ./verificacao-telas
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
