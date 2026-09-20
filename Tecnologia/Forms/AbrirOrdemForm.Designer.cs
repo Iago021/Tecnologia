@@ -1,0 +1,137 @@
+namespace Tecnologia
+{
+    partial class AbrirOrdemForm
+    {
+        private System.ComponentModel.IContainer components = null;
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && components != null) components.Dispose();
+            base.Dispose(disposing);
+        }
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            this.lblTitulo = new System.Windows.Forms.Label();
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Location = new System.Drawing.Point(22, 14);
+            this.lblTitulo.Size = new System.Drawing.Size(710, 24);
+            this.lblTitulo.TabIndex = 0;
+            this.lblTitulo.Text = "Nova ordem de serviço";
+            this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Controls.Add(this.lblTitulo);
+            this.lblCliente = new System.Windows.Forms.Label();
+            this.lblCliente.Name = "lblCliente";
+            this.lblCliente.Location = new System.Drawing.Point(22, 62);
+            this.lblCliente.Size = new System.Drawing.Size(320, 24);
+            this.lblCliente.TabIndex = 1;
+            this.lblCliente.Text = "Cliente";
+            this.lblCliente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Controls.Add(this.lblCliente);
+            this.cmbCliente = new System.Windows.Forms.ComboBox();
+            this.cmbCliente.Name = "cmbCliente";
+            this.cmbCliente.Location = new System.Drawing.Point(22, 88);
+            this.cmbCliente.Size = new System.Drawing.Size(710, 26);
+            this.cmbCliente.TabIndex = 2;
+            this.cmbCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCliente.SelectedIndexChanged += new System.EventHandler(this.cmbCliente_SelectedIndexChanged);
+            this.Controls.Add(this.cmbCliente);
+            this.lblAparelho = new System.Windows.Forms.Label();
+            this.lblAparelho.Name = "lblAparelho";
+            this.lblAparelho.Location = new System.Drawing.Point(22, 130);
+            this.lblAparelho.Size = new System.Drawing.Size(320, 24);
+            this.lblAparelho.TabIndex = 3;
+            this.lblAparelho.Text = "Aparelho do cliente";
+            this.lblAparelho.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Controls.Add(this.lblAparelho);
+            this.cmbAparelho = new System.Windows.Forms.ComboBox();
+            this.cmbAparelho.Name = "cmbAparelho";
+            this.cmbAparelho.Location = new System.Drawing.Point(22, 156);
+            this.cmbAparelho.Size = new System.Drawing.Size(710, 26);
+            this.cmbAparelho.TabIndex = 4;
+            this.cmbAparelho.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Controls.Add(this.cmbAparelho);
+            this.lblProblema = new System.Windows.Forms.Label();
+            this.lblProblema.Name = "lblProblema";
+            this.lblProblema.Location = new System.Drawing.Point(22, 198);
+            this.lblProblema.Size = new System.Drawing.Size(710, 24);
+            this.lblProblema.TabIndex = 5;
+            this.lblProblema.Text = "Problema relatado pelo cliente";
+            this.lblProblema.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Controls.Add(this.lblProblema);
+            this.txtProblema = new System.Windows.Forms.TextBox();
+            this.txtProblema.Name = "txtProblema";
+            this.txtProblema.Location = new System.Drawing.Point(22, 224);
+            this.txtProblema.Size = new System.Drawing.Size(710, 104);
+            this.txtProblema.TabIndex = 6;
+            this.txtProblema.MaxLength = 100;
+            this.txtProblema.Multiline=true;
+            this.txtProblema.MaxLength=2000;
+            this.txtProblema.ScrollBars=System.Windows.Forms.ScrollBars.Vertical;
+            this.Controls.Add(this.txtProblema);
+            this.lblPrevisao = new System.Windows.Forms.Label();
+            this.lblPrevisao.Name = "lblPrevisao";
+            this.lblPrevisao.Location = new System.Drawing.Point(22, 350);
+            this.lblPrevisao.Size = new System.Drawing.Size(400, 24);
+            this.lblPrevisao.TabIndex = 7;
+            this.lblPrevisao.Text = "Previsão de entrega (opcional)";
+            this.lblPrevisao.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Controls.Add(this.lblPrevisao);
+            this.dtPrevisao = new System.Windows.Forms.DateTimePicker();
+            this.dtPrevisao.Name = "dtPrevisao";
+            this.dtPrevisao.Location = new System.Drawing.Point(438, 350);
+            this.dtPrevisao.Size = new System.Drawing.Size(294, 26);
+            this.dtPrevisao.TabIndex = 8;
+            this.dtPrevisao.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtPrevisao.ShowCheckBox = true;
+            this.Controls.Add(this.dtPrevisao);
+            this.lblObservacoes = new System.Windows.Forms.Label();
+            this.lblObservacoes.Name = "lblObservacoes";
+            this.lblObservacoes.Location = new System.Drawing.Point(22, 400);
+            this.lblObservacoes.Size = new System.Drawing.Size(710, 24);
+            this.lblObservacoes.TabIndex = 9;
+            this.lblObservacoes.Text = "Observações de recebimento";
+            this.lblObservacoes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Controls.Add(this.lblObservacoes);
+            this.txtObservacoes = new System.Windows.Forms.TextBox();
+            this.txtObservacoes.Name = "txtObservacoes";
+            this.txtObservacoes.Location = new System.Drawing.Point(22, 426);
+            this.txtObservacoes.Size = new System.Drawing.Size(710, 26);
+            this.txtObservacoes.TabIndex = 10;
+            this.txtObservacoes.MaxLength = 100;
+            this.txtObservacoes.MaxLength = 1000;
+            this.Controls.Add(this.txtObservacoes);
+            this.btnSalvar = new System.Windows.Forms.Button();
+            this.btnSalvar.Name = "btnSalvar";
+            this.btnSalvar.Location = new System.Drawing.Point(22, 490);
+            this.btnSalvar.Size = new System.Drawing.Size(710, 34);
+            this.btnSalvar.TabIndex = 11;
+            this.btnSalvar.Text = "Abrir ordem";
+            this.btnSalvar.UseVisualStyleBackColor = true;
+            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
+            this.Controls.Add(this.btnSalvar);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.ClientSize = new System.Drawing.Size(758, 548);
+            this.MinimumSize = new System.Drawing.Size(758, 548);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Abrir ordem de serviço";
+            this.Name = "AbrirOrdemForm";
+            this.Load += new System.EventHandler(this.AbrirOrdemForm_Load);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+        }
+        private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.Label lblCliente;
+        private System.Windows.Forms.ComboBox cmbCliente;
+        private System.Windows.Forms.Label lblAparelho;
+        private System.Windows.Forms.ComboBox cmbAparelho;
+        private System.Windows.Forms.Label lblProblema;
+        private System.Windows.Forms.TextBox txtProblema;
+        private System.Windows.Forms.Label lblPrevisao;
+        private System.Windows.Forms.DateTimePicker dtPrevisao;
+        private System.Windows.Forms.Label lblObservacoes;
+        private System.Windows.Forms.TextBox txtObservacoes;
+        private System.Windows.Forms.Button btnSalvar;
+    }
+}
