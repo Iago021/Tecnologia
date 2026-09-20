@@ -15,7 +15,7 @@ jobs:
       - name: Restaurar dependencias
         run: nuget restore Tecnologia.sln -NonInteractive
       - name: Compilar aplicativo
-        run: msbuild Tecnologia.sln /p:Configuration=Release /p:Platform=AnyCPU /m
+        run: msbuild Tecnologia.sln /p:Configuration=Release '/p:Platform=Any CPU' /m
       - name: Construir e verificar as telas
         shell: pwsh
         run: |

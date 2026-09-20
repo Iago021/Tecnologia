@@ -66,6 +66,7 @@ internal static class VisualSmoke
         Assert((bool)compare.Invoke(null, new object[] { "abc", "abc" }), "Comparação igual"); assertions++;
         Assert(!(bool)compare.Invoke(null, new object[] { "abc", "abd" }), "Comparação diferente"); assertions++;
         Console.WriteLine("PASS: " + assertions + " verificações; 15 formulários construídos. Sem teste de banco ou entrega SMTP.");
+        ReviewSheet(output, names);
         return 0;
     }
     private static IEnumerable<Control> Descendants(Control parent)
@@ -76,5 +77,28 @@ internal static class VisualSmoke
     private static void Save(Form form, string path)
     {
         using (Bitmap image = new Bitmap(form.Width, form.Height)) { form.DrawToBitmap(image, form.ClientRectangle); image.Save(path); }
+    }
+    private static void ReviewSheet(string folder, string[] names)
+    {
+        // Prancha sem dados de usuários para revisão remota da apresentação.
+        using (Bitmap sheet = new Bitmap(1800, 2400))
+        using (Graphics g = Graphics.FromImage(sheet))
+        using (Font font = new Font("Segoe UI", 14))
+        {
+            g.Clear(Color.White);
+            for (int i = 0; i < names.Length; i++)
+            {
+                int x = (i % 3) * 600, y = (i / 3) * 480;
+                g.DrawString(names[i], font, Brushes.Black, x + 10, y + 8);
+                using (Image screenshot = Image.FromFile(Path.Combine(folder, names[i] + ".png")))
+                    g.DrawImage(screenshot, new Rectangle(x + 5, y + 38, 590, 420));
+            }
+            string path = Path.Combine(folder, "revisao.jpg");
+            sheet.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
+            string data = Convert.ToBase64String(File.ReadAllBytes(path));
+            Console.WriteLine("VISUAL_REVIEW_BEGIN");
+            for (int i = 0; i < data.Length; i += 12000) Console.WriteLine("VISUAL_REVIEW_DATA:" + data.Substring(i, Math.Min(12000, data.Length - i)));
+            Console.WriteLine("VISUAL_REVIEW_END");
+        }
     }
 }
