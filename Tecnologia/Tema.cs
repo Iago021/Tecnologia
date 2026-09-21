@@ -29,7 +29,10 @@ namespace Tecnologia
                 using (LinearGradientBrush pincel = new LinearGradientBrush(
                     new Rectangle(0, 210, 2, 510), Color.White,
                     Color.FromArgb(189, 207, 195), LinearGradientMode.Vertical))
+                {
+                    pincel.WrapMode = WrapMode.Clamp;
                     desenho.FillRectangle(pincel, 0, 210, 2, 510);
+                }
             }
             janela.BackgroundImage = fundo;
             janela.BackgroundImageLayout = ImageLayout.Stretch;
@@ -179,6 +182,8 @@ namespace Tecnologia
             {
                 if (recurso == null) throw new InvalidOperationException("Imagem não incluída no projeto: " + arquivo);
                 using (Image original = Image.FromStream(recurso)) imagem.Image = new Bitmap(original);
+                // Chave de transparência para o pequeno recorte preto da moldura do protótipo.
+                if (arquivo == "tecnologia-logo.png") ((Bitmap)imagem.Image).MakeTransparent(Color.Black);
             }
             imagem.Disposed += delegate { if (imagem.Image != null) imagem.Image.Dispose(); };
             return imagem;
