@@ -25,8 +25,13 @@ internal static class VisualSmoke
             object[] ctorArgs = name == "RecuperarSenhaForm" || name == "RedefinirSenhaForm" ? new object[] { "pessoa@example.com" } : new object[0];
             using (Form form = (Form)Activator.CreateInstance(type, ctorArgs))
             {
-                // Não chama Show/ShowDialog: os eventos Load do aplicativo acessam o MySQL.
-                form.CreateControl(); form.PerformLayout();
+                // Remove somente no teste o Load que consulta o banco e mostra os controles reais.
+                var loadKey = typeof(Form).GetField("EVENT_LOAD", BindingFlags.Static | BindingFlags.NonPublic);
+                var eventsProperty = typeof(System.ComponentModel.Component).GetProperty("Events", BindingFlags.Instance | BindingFlags.NonPublic);
+                var events = (System.ComponentModel.EventHandlerList)eventsProperty.GetValue(form, null);
+                object key = loadKey.GetValue(null);
+                events.RemoveHandler(key, events[key]);
+                form.Show(); Application.DoEvents(); form.PerformLayout();
                 List<Control> all = Descendants(form).ToList();
                 foreach (FieldInfo field in type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic))
                 {
@@ -38,7 +43,7 @@ internal static class VisualSmoke
                 {
                     for (int i = 0; i < tabs.TabCount; i++)
                     {
-                        tabs.SelectedIndex = i; tabs.PerformLayout(); form.PerformLayout();
+                        tabs.SelectedIndex = i; tabs.PerformLayout(); form.PerformLayout(); Application.DoEvents();
                         Save(form, Path.Combine(output, name + "-tab-" + i + ".png"));
                     }
                     tabs.SelectedIndex = 0;

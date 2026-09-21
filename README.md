@@ -107,7 +107,7 @@ Para editar a interface, abra um formulário em **Exibir Designer**. Os construt
 
 ## Banco e requisitos
 
-As nove tabelas são `usuarios`, `clientes`, `aparelhos`, `ordens_servico`, `diagnosticos`, `pecas`, `ordem_pecas`, `movimentacoes_estoque` e `historico_status`. O SQL é a definição utilizada pelo programa.
+As dez tabelas são `usuarios`, `clientes`, `aparelhos`, `ordens_servico`, `diagnosticos`, `pecas`, `ordem_pecas`, `movimentacoes_estoque`, `historico_status` e `recuperacao_senha`. O SQL é a definição utilizada pelo programa.
 
 O [diagrama original](assets/diagrama-banco.png) foi preservado como referência. Na implementação, o cliente da ordem é obtido pelo aparelho, o próprio ID identifica a ordem e os totais são calculados a partir dos itens. Isso evita manter valores duplicados. Não há armazenamento de senha de desbloqueio dos aparelhos.
 
