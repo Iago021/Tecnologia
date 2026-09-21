@@ -31,6 +31,7 @@ namespace Tecnologia
             campovalor_venda.Value = 0;
             campoativo.Checked = true;
             lblEdicao.Text = "Novo cadastro";
+            LayoutTelas.MarcarSalvo(this);
         }
         private void Carregar()
         {
@@ -76,6 +77,7 @@ namespace Tecnologia
                 campoativo.Checked = Convert.ToBoolean(linha["ativo"]);
                 codigo = selecionado;
                 lblEdicao.Text = "Editando código " + codigo;
+                LayoutTelas.MarcarSalvo(this);
             } catch (Exception erro) { Tela.Erro(erro); }
         }
         private void btnSalvar_Click(object sender, EventArgs e)

@@ -12,6 +12,50 @@ namespace Tecnologia
 {
     internal static class Contas
     {
+        public static void AtualizarPerfil(string nome, string email, string telefone, string atual, string nova, string confirmacao)
+        {
+            Sessao.Exigir(); Tela.Obrigatorio(nome, "nome"); Tela.Email(email.Trim(), true);
+            if (nova != confirmacao) throw new Exception("A confirmação da nova senha está diferente.");
+            string novoHash = nova == "" ? "" : Senha.Criar(nova);
+            using (MySqlConnection conexao = Banco.Abrir())
+            using (MySqlTransaction transacao = conexao.BeginTransaction())
+            {
+                string antiga;
+                using (MySqlCommand buscar = Banco.Comando(conexao, transacao,
+                    "SELECT senha_hash FROM usuarios WHERE id=@id AND ativo=1 FOR UPDATE", Banco.P("@id", Sessao.Id)))
+                    antiga = Convert.ToString(buscar.ExecuteScalar());
+                if (!Senha.Conferir(atual, antiga)) throw new Exception("Senha atual incorreta.");
+                using (MySqlCommand salvar = Banco.Comando(conexao, transacao,
+                    "UPDATE usuarios SET nome=@nome,email=@email,telefone=@telefone,senha_hash=@senha WHERE id=@id",
+                    Banco.P("@nome", nome.Trim()), Banco.P("@email", email.Trim()), Banco.P("@telefone", telefone.Trim()),
+                    Banco.P("@senha", novoHash == "" ? antiga : novoHash), Banco.P("@id", Sessao.Id))) salvar.ExecuteNonQuery();
+                InvalidarCodigo(conexao, transacao, Sessao.Id);
+                transacao.Commit();
+            }
+            Sessao.Nome = nome.Trim();
+        }
+
+        public static void SalvarUsuario(string sql, params MySqlParameter[] parametros)
+        {
+            Sessao.Exigir("Atendente");
+            int id = 0;
+            foreach (MySqlParameter parametro in parametros) if (parametro.ParameterName == "@id") id = Convert.ToInt32(parametro.Value);
+            using (MySqlConnection conexao = Banco.Abrir())
+            using (MySqlTransaction transacao = conexao.BeginTransaction())
+            {
+                using (MySqlCommand salvar = Banco.Comando(conexao, transacao, sql, parametros))
+                    if (salvar.ExecuteNonQuery() != 1) throw new Exception("Conta não encontrada. Atualize a lista.");
+                if (id != 0) InvalidarCodigo(conexao, transacao, id);
+                transacao.Commit();
+            }
+        }
+
+        private static void InvalidarCodigo(MySqlConnection conexao, MySqlTransaction transacao, int id)
+        {
+            using (MySqlCommand limpar = Banco.Comando(conexao, transacao,
+                "DELETE FROM recuperacao_senha WHERE usuario_id=@id", Banco.P("@id", id))) limpar.ExecuteNonQuery();
+        }
+
         public static bool Criar(string nome, string email, string confirmacaoEmail, string senha, string confirmacaoSenha)
         {
             nome = nome.Trim(); email = email.Trim();

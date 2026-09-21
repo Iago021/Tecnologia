@@ -19,7 +19,7 @@ namespace Tecnologia
         }
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            try { OperacoesOrdem.Movimentar(peca,cmbTipo.Text,(int)numQuantidade.Value,txtMotivo.Text); MessageBox.Show("Movimentação registrada."); Close(); }
+            try { OperacoesOrdem.Movimentar(peca,cmbTipo.Text,(int)numQuantidade.Value,txtMotivo.Text); LayoutTelas.MarcarSalvo(this); MessageBox.Show("Movimentação registrada."); Close(); }
             catch(Exception erro) { Tela.Erro(erro); }
         }
     }

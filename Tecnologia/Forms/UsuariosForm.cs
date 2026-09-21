@@ -32,6 +32,7 @@ namespace Tecnologia
             campoativo.Checked = true;
             camposenha.Clear();
             lblEdicao.Text = "Novo cadastro";
+            LayoutTelas.MarcarSalvo(this);
         }
         private void Carregar()
         {
@@ -66,6 +67,7 @@ namespace Tecnologia
                 DataTable dados = Banco.Consultar("SELECT * FROM usuarios WHERE id=@id",Banco.P("@id",selecionado));
                 if (dados.Rows.Count == 0) throw new Exception("O registro não existe mais. Atualize a lista.");
                 DataRow linha = dados.Rows[0];
+                camposenha.Clear();
                 camponome.Text = linha["nome"].ToString();
                 campoemail.Text = linha["email"].ToString();
                 campotelefone.Text = linha["telefone"].ToString();
@@ -78,6 +80,7 @@ namespace Tecnologia
                 campoativo.Checked = Convert.ToBoolean(linha["ativo"]);
                 codigo = selecionado;
                 lblEdicao.Text = "Editando código " + codigo;
+                LayoutTelas.MarcarSalvo(this);
             } catch (Exception erro) { Tela.Erro(erro); }
         }
         private void btnSalvar_Click(object sender, EventArgs e)
@@ -96,11 +99,10 @@ namespace Tecnologia
                     throw new Exception("Este técnico possui ordens em andamento. Conclua os serviços antes de desativar ou mudar seu perfil.");
                 string hash = "";
                 if (codigo == 0 || camposenha.Text != "") hash = Senha.Criar(camposenha.Text);
-                else hash = Convert.ToString(Banco.Valor("SELECT senha_hash FROM usuarios WHERE id=@id", Banco.P("@id",codigo)));
                 string sql;
                 if (codigo == 0) sql = "INSERT INTO usuarios(nome,email,telefone,cpf,rg,cidade,data_nascimento,perfil,ativo,senha_hash) VALUES(@nome,@email,@telefone,@cpf,@rg,@cidade,@data_nascimento,@perfil,@ativo,@senha_hash)";
-                else sql = "UPDATE usuarios SET nome=@nome,email=@email,telefone=@telefone,cpf=@cpf,rg=@rg,cidade=@cidade,data_nascimento=@data_nascimento,perfil=@perfil,ativo=@ativo,senha_hash=@senha_hash WHERE id=@id";
-                Banco.Executar(sql, Banco.P("@nome", camponome.Text.Trim()),
+                else sql = "UPDATE usuarios SET nome=@nome,email=@email,telefone=@telefone,cpf=@cpf,rg=@rg,cidade=@cidade,data_nascimento=@data_nascimento,perfil=@perfil,ativo=@ativo,senha_hash=IF(@senha_hash='',senha_hash,@senha_hash) WHERE id=@id";
+                Contas.SalvarUsuario(sql, Banco.P("@nome", camponome.Text.Trim()),
                     Banco.P("@email", campoemail.Text.Trim()),
                     Banco.P("@telefone", campotelefone.Text.Trim()),
                     Banco.P("@cpf", Tela.Opcional(campocpf.Text.Replace(".", "").Replace("-", "").Trim())),

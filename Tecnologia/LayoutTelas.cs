@@ -9,16 +9,30 @@ namespace Tecnologia
     // Reutiliza os controles do Designer, seus valores e eventos; só reorganiza a apresentação.
     internal static class LayoutTelas
     {
+        private sealed class Registro { public Registro() { } public string Estado; }
+        private static readonly System.Runtime.CompilerServices.ConditionalWeakTable<Form, Registro> registros =
+            new System.Runtime.CompilerServices.ConditionalWeakTable<Form, Registro>();
+        public static void MarcarSalvo(Form janela) { registros.GetOrCreateValue(janela).Estado = Estado(janela); }
+        public static bool TemAlteracoes(Form janela)
+        {
+            Registro registro;
+            return registros.TryGetValue(janela, out registro) && registro.Estado != Estado(janela);
+        }
         public static string Estado(Control raiz)
         {
             System.Text.StringBuilder estado = new System.Text.StringBuilder();
             foreach (Control c in raiz.Controls)
             {
-                if (c is TextBox) estado.Append(c.Name).Append(':').Append(c.Text.Length).Append(':').Append(c.Text).Append(';');
+                if (c.Name == "txtBusca" || c.Name == "cmbCampo" || (c.Name == "cmbStatus" && c.FindForm() is OrdensForm)) continue;
+                if (c is TextBox && !((TextBox)c).ReadOnly) estado.Append(c.Name).Append(':').Append(c.Text.Length).Append(':').Append(c.Text).Append(';');
                 else if (c is ComboBox) estado.Append(c.Name).Append(':').Append(((ComboBox)c).SelectedIndex).Append(';');
                 else if (c is CheckBox) estado.Append(c.Name).Append(':').Append(((CheckBox)c).Checked).Append(';');
                 else if (c is NumericUpDown) estado.Append(c.Name).Append(':').Append(((NumericUpDown)c).Value).Append(';');
-                else if (c is DateTimePicker) estado.Append(c.Name).Append(':').Append(((DateTimePicker)c).Value).Append(':').Append(((DateTimePicker)c).Checked).Append(';');
+                else if (c is DateTimePicker)
+                {
+                    DateTimePicker data = (DateTimePicker)c;
+                    estado.Append(c.Name).Append(':').Append(data.Checked ? data.Value.Date.ToString("yyyy-MM-dd") : "vazio").Append(';');
+                }
                 if (c is Panel || c is TabControl || c is TabPage || c is GroupBox) estado.Append(Estado(c));
             }
             return estado.ToString();
@@ -67,6 +81,11 @@ namespace Tecnologia
             foreach (Control controle in controles.Values)
                 if (controle.Parent == null) throw new InvalidOperationException("Controle sem seção: " + nome + "/" + controle.Name);
             janela.ResumeLayout(true);
+            janela.Load += delegate { if (!janela.IsDisposed) MarcarSalvo(janela); };
+            janela.FormClosing += delegate(object sender, FormClosingEventArgs e)
+            {
+                if (TemAlteracoes(janela) && !Tela.Confirmar("Sair sem salvar as alterações desta tela?")) e.Cancel = true;
+            };
         }
 
         private static TabControl Abas(TableLayoutPanel estrutura, params string[] nomes)

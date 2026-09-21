@@ -26,6 +26,7 @@ namespace Tecnologia
         {
             string c = codigo.Text, s = senha.Text, cs = confirmacao.Text;
             redefinir.Enabled = false; redefinir.Text = "SALVANDO...";
+            AcessoLayout.Ocupar(this, true);
             try
             {
                 await Task.Run(() => Contas.Redefinir(email, c, s, cs));
@@ -34,7 +35,7 @@ namespace Tecnologia
                 DialogResult = DialogResult.OK; Close();
             }
             catch (Exception erro) { if (!IsDisposed) Tela.Erro(erro); }
-            finally { if (!IsDisposed) { redefinir.Enabled = true; redefinir.Text = "REDEFINIR SENHA"; } }
+            finally { if (!IsDisposed) { AcessoLayout.Ocupar(this, false); redefinir.Enabled = true; redefinir.Text = "REDEFINIR SENHA"; } }
         }
     }
 }

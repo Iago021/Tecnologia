@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("IntegrationSmoke")]
 [assembly: AssemblyTitle("Tecnologia")]
 [assembly: AssemblyDescription("Gerenciamento de assistência técnica")]
 [assembly: AssemblyCompany("")]

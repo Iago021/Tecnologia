@@ -29,7 +29,7 @@ namespace Tecnologia
             try
             {
                 int id=OperacoesOrdem.Abrir(Tela.Codigo(cmbAparelho),txtProblema.Text,dtPrevisao.Checked ? (DateTime?)dtPrevisao.Value.Date : null,txtObservacoes.Text);
-                MessageBox.Show("Ordem "+id+" aberta."); Close();
+                LayoutTelas.MarcarSalvo(this); MessageBox.Show("Ordem "+id+" aberta."); Close();
             } catch(Exception erro) { Tela.Erro(erro); }
         }
     }

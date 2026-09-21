@@ -27,6 +27,7 @@ namespace Tecnologia
         {
             string n = nome.Text, m = email.Text, cm = confirmarEmail.Text, s = senha.Text, cs = confirmarSenha.Text;
             criar.Enabled = false; criar.Text = "CRIANDO...";
+            AcessoLayout.Ocupar(this, true);
             try
             {
                 bool primeira = await Task.Run(() => Contas.Criar(n, m, cm, s, cs));
@@ -35,7 +36,7 @@ namespace Tecnologia
                 DialogResult = DialogResult.OK; Close();
             }
             catch (Exception erro) { if (!IsDisposed) Tela.Erro(erro); }
-            finally { if (!IsDisposed) { criar.Enabled = true; criar.Text = "CRIAR CONTA"; } }
+            finally { if (!IsDisposed) { AcessoLayout.Ocupar(this, false); criar.Enabled = true; criar.Text = "CRIAR CONTA"; } }
         }
     }
 }

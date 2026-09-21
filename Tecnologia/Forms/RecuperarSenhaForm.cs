@@ -23,21 +23,23 @@ namespace Tecnologia
         {
             string endereco = email.Text.Trim();
             enviar.Enabled = false; enviar.Text = "ENVIANDO...";
+            AcessoLayout.Ocupar(this, true);
             try
             {
                 await Task.Run(() => Contas.SolicitarCodigo(endereco));
                 if (IsDisposed) return;
                 MessageBox.Show(this, "Se este e-mail pertence a uma conta ativa, você receberá um código. Confira também o spam. Aguarde 60 segundos entre os envios.", "Tecnologia");
-                AbrirRedefinicao();
+                AbrirRedefinicao(endereco);
             }
             catch (Exception erro) { if (!IsDisposed) Tela.Erro(erro); }
-            finally { if (!IsDisposed) { enviar.Enabled = true; enviar.Text = "ENVIAR CÓDIGO"; } }
+            finally { if (!IsDisposed) { AcessoLayout.Ocupar(this, false); enviar.Enabled = true; enviar.Text = "ENVIAR CÓDIGO"; } }
         }
-        private void AbrirRedefinicao()
+        private void AbrirRedefinicao(string endereco = null)
         {
-            try { Tela.Email(email.Text.Trim(), true); }
+            endereco = endereco ?? email.Text.Trim();
+            try { Tela.Email(endereco, true); }
             catch (Exception erro) { Tela.Erro(erro); return; }
-            using (RedefinirSenhaForm janela = new RedefinirSenhaForm(email.Text.Trim()))
+            using (RedefinirSenhaForm janela = new RedefinirSenhaForm(endereco))
             {
                 bool sucesso = false;
                 Hide();

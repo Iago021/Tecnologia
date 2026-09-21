@@ -20,14 +20,8 @@ namespace Tecnologia
         {
             try
             {
-                Sessao.Exigir(); Tela.Obrigatorio(txtNome.Text,"nome"); Tela.Email(txtEmail.Text.Trim(),true);
-                string antiga=Convert.ToString(Banco.Valor("SELECT senha_hash FROM usuarios WHERE id=@id",Banco.P("@id",Sessao.Id)));
-                if (!Senha.Conferir(txtAtual.Text,antiga)) throw new Exception("Senha atual incorreta.");
-                if (txtNova.Text!=txtConfirmacao.Text) throw new Exception("A confirmação da nova senha está diferente.");
-                string nova=txtNova.Text=="" ? antiga : Senha.Criar(txtNova.Text);
-                Banco.Executar("UPDATE usuarios SET nome=@nome,email=@email,telefone=@telefone,senha_hash=@senha WHERE id=@id",
-                    Banco.P("@nome",txtNome.Text.Trim()),Banco.P("@email",txtEmail.Text.Trim()),Banco.P("@telefone",txtTelefone.Text.Trim()),Banco.P("@senha",nova),Banco.P("@id",Sessao.Id));
-                Sessao.Nome=txtNome.Text.Trim();
+                Contas.AtualizarPerfil(txtNome.Text, txtEmail.Text, txtTelefone.Text, txtAtual.Text, txtNova.Text, txtConfirmacao.Text);
+                LayoutTelas.MarcarSalvo(this);
                 MessageBox.Show("Dados atualizados."); Close();
             } catch(Exception erro) { Tela.Erro(erro); }
         }

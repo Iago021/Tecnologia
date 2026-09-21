@@ -37,6 +37,7 @@ namespace Tecnologia
             cmbStatus.Enabled=numMaoObra.Enabled=numDesconto.Enabled=btnSalvar.Enabled=btnAdicionar.Enabled=btnDevolver.Enabled=cmbPeca.Enabled=numQuantidade.Enabled=podeEditar;
             btnEntregar.Enabled=Sessao.Atendente && status=="Concluída";
             CarregarPecas();
+            LayoutTelas.MarcarSalvo(this);
         }
         private void CarregarPecas()
         {

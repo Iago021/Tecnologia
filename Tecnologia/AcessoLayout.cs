@@ -6,6 +6,10 @@ namespace Tecnologia
 {
     internal static class AcessoLayout
     {
+        public static void Ocupar(Form janela, bool ocupado)
+        {
+            janela.Controls["cartaoAcesso"].Enabled = !ocupado;
+        }
         public static FlowLayoutPanel Montar(Form janela, string titulo, string explicacao)
         {
             janela.SuspendLayout();

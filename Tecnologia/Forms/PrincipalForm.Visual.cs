@@ -13,7 +13,6 @@ namespace Tecnologia
         private Button btnCadastros;
         private Form paginaAtual;
         private TableLayoutPanel conteudo;
-        private string estadoInicial = "";
 
         private void ConfigurarVisual()
         {
@@ -67,6 +66,11 @@ namespace Tecnologia
             estrutura.Controls.Add(rodape, 0, 3);
             MarcarNavegacao(btnAtualizar);
             ResumeLayout(true);
+            FormClosing += delegate(object sender, FormClosingEventArgs e)
+            {
+                if (paginaAtual != null && !paginaAtual.IsDisposed && LayoutTelas.TemAlteracoes(paginaAtual) &&
+                    !Tela.Confirmar("Sair sem salvar as alterações desta tela?")) e.Cancel = true;
+            };
         }
 
         private void MontarDashboard()
@@ -108,7 +112,7 @@ namespace Tecnologia
         private bool FecharPagina()
         {
             if (paginaAtual == null) return true;
-            if (!paginaAtual.IsDisposed && LayoutTelas.Estado(paginaAtual) != estadoInicial &&
+            if (!paginaAtual.IsDisposed && LayoutTelas.TemAlteracoes(paginaAtual) &&
                 !Tela.Confirmar("Você alterou campos nesta tela. Deseja sair? Alterações que não foram salvas serão perdidas.")) return false;
             Form anterior = paginaAtual; paginaAtual = null;
             anterior.Dispose();
@@ -150,7 +154,7 @@ namespace Tecnologia
             janela.Show();
             if (janela.IsDisposed || paginaAtual != janela) return;
             janela.BringToFront();
-            estadoInicial = janela.IsDisposed ? "" : LayoutTelas.Estado(janela);
+            LayoutTelas.MarcarSalvo(janela);
             MarcarNavegacao(cadastro ? btnCadastros : janela is PecasForm ? btnPecas : janela is PerfilForm ? btnPerfil : btnOrdens);
         }
 

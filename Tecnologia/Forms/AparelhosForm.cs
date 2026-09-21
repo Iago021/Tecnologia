@@ -31,6 +31,7 @@ namespace Tecnologia
             campoestado_fisico.Clear();
             campoobservacoes.Clear();
             lblEdicao.Text = "Novo cadastro";
+            LayoutTelas.MarcarSalvo(this);
         }
         private void Carregar()
         {
@@ -76,6 +77,7 @@ namespace Tecnologia
                 campoobservacoes.Text = linha["observacoes"].ToString();
                 codigo = selecionado;
                 lblEdicao.Text = "Editando código " + codigo;
+                LayoutTelas.MarcarSalvo(this);
             } catch (Exception erro) { Tela.Erro(erro); }
         }
         private void btnSalvar_Click(object sender, EventArgs e)
