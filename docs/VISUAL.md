@@ -55,4 +55,6 @@ O workflow .github/workflows/windows.yml restaura os pacotes, compila no Windows
 
 O teste não chama os eventos Load que acessam o banco e não envia e-mails. Portanto, ele não substitui a conferência funcional com MySQL e SMTP nem a inspeção visual das capturas.
 
+A etapa adicional `tests/IntegrationSmoke.cs` executa 42 verificações com um MySQL temporário separado, incluindo contas, recuperação, ordens, estoque e regressões de edição. Veja os resultados e limites em [VERIFICACAO.md](VERIFICACAO.md). O envio para um provedor SMTP real e o Excel continuam fora dessa automação.
+
 Antes de usar em produção, confira com um banco de teste: primeira conta, conta pendente e ativação, login de ambos os perfis, código correto/incorreto/expirado/reutilizado, reenvio, troca de senha, cadastros, manutenção, estoque, exportação e escala do Windows em 100%, 125% e 150%.

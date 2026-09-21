@@ -1,6 +1,22 @@
 # Verificação da implementação
 
-## O que foi executado
+## Revisão de 21/09/2026 — Windows e MySQL
+
+Resultado: [execução aprovada no GitHub Actions](https://github.com/Iago021/Tecnologia/actions/runs/35585215958).
+
+- Compilação Release no Windows com as dependências reais do aplicativo.
+- 400 verificações de construção, controles, redimensionamento e códigos em 15 formulários (`tests/VisualSmoke.cs`).
+- 42 verificações com MySQL isolado, na porta 3307 e no banco `tecnologia_verificacao` (`tests/IntegrationSmoke.cs`). Os dados são criados apenas no executor temporário.
+- Contas: primeira conta, cadastro pendente, duplicidade, senhas, conta inativa e atualização do perfil.
+- Recuperação: código incorreto, cinco tentativas, expiração, uso único, alteração efetiva da senha e invalidação após edição da conta. A falha de SMTP foi simulada localmente, verificando a remoção do código não enviado.
+- Manutenção: ordem duplicada, permissões, assumir diagnóstico, uso/devolução de peças, saldo insuficiente, preservação dos dados após falha, desconto, conclusão e entrega.
+- Interface com banco: editar usuário limpa a senha anterior; carregar/limpar registros e mudar filtros não dispara falso estado de alteração; editar dados realmente marca alterações pendentes.
+
+Correções desta revisão: reaproveitamento indevido do campo de senha ao editar usuários; troca do e-mail durante o envio de recuperação; códigos antigos válidos após alterações da conta; alertas incorretos de alterações não salvas e ausência de confirmação ao fechar uma tela com edição pendente.
+
+Limites: não houve envio para um provedor SMTP real, automação do Excel instalado ou teste de todas as combinações de uso/escala do Windows. A aprovação cobre os casos automatizados e não garante ausência absoluta de bugs.
+
+## Verificação anterior à reorganização visual
 
 - Compilação de todos os arquivos C# com referências do .NET Framework 4.7.2.
 - Compilação da solução completa em Release com MSBuild, incluindo formulários, recursos `.resx` e bibliotecas.
