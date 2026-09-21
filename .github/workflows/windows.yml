@@ -33,7 +33,7 @@ jobs:
             verificacao-telas
             Tecnologia/bin/Release
           retention-days: 7
-      - name: Iniciar MySQL isolado para regressao
+      - name: Testar contas, manutencao e estoque com MySQL isolado
         shell: pwsh
         run: |
           $data = Join-Path $env:RUNNER_TEMP 'mysql-verificacao'
@@ -46,9 +46,6 @@ jobs:
             try { $client.Connect('127.0.0.1', 3307); $ready = $true; break } catch { Start-Sleep -Seconds 1 } finally { $client.Dispose() }
           }
           if (!$ready) { Get-Content "$env:RUNNER_TEMP/mysql-error.log"; throw 'MySQL não iniciou' }
-      - name: Testar contas, manutencao e estoque com MySQL
-        shell: pwsh
-        run: |
           $compiler = Join-Path $env:WINDIR 'Microsoft.NET/Framework64/v4.0.30319/csc.exe'
           & $compiler /nologo /target:exe '/out:Tecnologia\bin\Release\IntegrationSmoke.exe' /r:System.Windows.Forms.dll /r:System.Drawing.dll /r:System.Core.dll /r:System.Data.dll /r:System.Configuration.dll '/r:Tecnologia\bin\Release\MySqlConnector.dll' '/r:Tecnologia\bin\Release\Tecnologia.exe' '.\tests\IntegrationSmoke.cs'
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
@@ -56,4 +53,4 @@ jobs:
           $config.configuration.connectionStrings.add.connectionString = 'Server=127.0.0.1;Port=3307;Database=tecnologia_verificacao;Uid=root;Pwd=;SslMode=None;AllowPublicKeyRetrieval=True;'
           $config.Save((Join-Path $pwd 'Tecnologia/bin/Release/IntegrationSmoke.exe.config'))
           & ./Tecnologia/bin/Release/IntegrationSmoke.exe ./Banco/tecnologia.sql
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          if ($LASTEXITCODE -ne 0) { Get-Content "$env:RUNNER_TEMP/mysql-error.log"; exit 1 }
