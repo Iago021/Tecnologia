@@ -48,7 +48,9 @@ internal static class VisualSmoke
                 Assert(form.Controls.Count > 0, name + ": tela vazia"); assertions++;
                 foreach (var input in Descendants(form).OfType<TextBox>())
                 {
-                    Assert(input.Width >= 100 && input.Height >= 15, name + ": campo cortado: " + input.Name); assertions++;
+                    // O editor interno de NumericUpDown acompanha a largura do seletor numérico.
+                    if (input.Parent is UpDownBase) continue;
+                    Assert(input.Width >= 100 && input.Height >= 15, name + ": campo cortado: " + input.Name + " " + input.Size); assertions++;
                 }
                 Console.WriteLine("PASS " + name);
             }
@@ -90,7 +92,8 @@ internal static class VisualSmoke
             {
                 int x = (i % 3) * 600, y = (i / 3) * 480;
                 g.DrawString(names[i], font, Brushes.Black, x + 10, y + 8);
-                using (Image screenshot = Image.FromFile(Path.Combine(folder, names[i] + ".png")))
+                string editor = Path.Combine(folder, names[i] + "-tab-1.png");
+                using (Image screenshot = Image.FromFile(File.Exists(editor) ? editor : Path.Combine(folder, names[i] + ".png")))
                     g.DrawImage(screenshot, new Rectangle(x + 5, y + 38, 590, 420));
             }
             string path = Path.Combine(folder, "revisao.jpg");
