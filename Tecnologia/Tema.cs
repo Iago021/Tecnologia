@@ -30,7 +30,7 @@ namespace Tecnologia
                     new Rectangle(0, 210, 2, 510), Color.White,
                     Color.FromArgb(189, 207, 195), LinearGradientMode.Vertical))
                 {
-                    pincel.WrapMode = WrapMode.Clamp;
+                    pincel.WrapMode = WrapMode.TileFlipY;
                     desenho.FillRectangle(pincel, 0, 210, 2, 510);
                 }
             }
