@@ -62,7 +62,7 @@ internal static class VisualSmoke
                     Assert(input.Width >= 100 && input.Height >= 15, name + ": campo cortado: " + input.Name + " " + input.Size); assertions++;
                 }
                 Console.WriteLine("PASS " + name);
-                InspectLayout(form, output, name + "-compacto");
+                assertions += InspectLayout(form, output, name + "-compacto");
                 if (name != "PrincipalForm" && !name.Contains("Senha") && name != "LoginForm" && name != "CriarContaForm")
                 {
                     using (Form host = new Form())
@@ -71,7 +71,7 @@ internal static class VisualSmoke
                         form.Hide(); form.TopLevel = false; form.FormBorderStyle = FormBorderStyle.None;
                         form.MinimumSize = Size.Empty; form.Dock = DockStyle.Fill;
                         host.Controls.Add(form); host.Show(); form.Show(); Application.DoEvents();
-                        InspectLayout(form, output, name + "-embutido");
+                        assertions += InspectLayout(form, output, name + "-embutido");
                         host.Controls.Remove(form);
                     }
                 }
@@ -112,8 +112,9 @@ internal static class VisualSmoke
     {
         using (Bitmap image = new Bitmap(form.Width, form.Height)) { form.DrawToBitmap(image, new Rectangle(Point.Empty, form.Size)); image.Save(path); }
     }
-    private static void InspectLayout(Form form, string output, string prefix)
+    private static int InspectLayout(Form form, string output, string prefix)
     {
+        int checks = 0;
         var tabs = Descendants(form).OfType<TabControl>().FirstOrDefault();
         for (int tab = 0; tab < (tabs == null ? 1 : tabs.TabCount); tab++)
         {
@@ -124,8 +125,9 @@ internal static class VisualSmoke
                 var parent = c.Parent as ScrollableControl;
                 if (parent != null && parent.AutoScroll) continue;
                 if (c is TabPage || c.Parent is UpDownBase || c is HScrollBar || c is VScrollBar) continue;
-                if (c.Right > c.Parent.ClientSize.Width + 2 || c.Bottom > c.Parent.ClientSize.Height + 2 || c.Left < -2 || c.Top < -2)
-                    Console.WriteLine("LAYOUT " + prefix + " tab=" + tab + " " + c.Name + " " + c.Bounds + " parent=" + c.Parent.Name + " " + c.Parent.ClientSize);
+                Assert(c.Right <= c.Parent.ClientSize.Width + 2 && c.Bottom <= c.Parent.ClientSize.Height + 2 && c.Left >= -2 && c.Top >= -2,
+                    "LAYOUT " + prefix + " tab=" + tab + " " + c.Name + " " + c.Bounds + " parent=" + c.Parent.Name + " " + c.Parent.ClientSize);
+                checks++;
             }
             Save(form, Path.Combine(output, prefix + "-" + tab + ".png"));
             try
@@ -140,6 +142,7 @@ internal static class VisualSmoke
             }
             catch (System.ComponentModel.Win32Exception) { Console.WriteLine("Captura do desktop indisponível"); }
         }
+        return checks;
     }
     private static void ReviewSheet(string folder, string[] names)
     {

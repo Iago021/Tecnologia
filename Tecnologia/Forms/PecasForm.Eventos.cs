@@ -68,9 +68,6 @@ namespace Tecnologia
             panel23.Width = Math.Max(300, (flowlayoutpanel22.Width - 24) / (flowlayoutpanel22.Width >= 680 ? 2 : 1));
             panel24.Width = Math.Max(300, (flowlayoutpanel22.Width - 24) / (flowlayoutpanel22.Width >= 680 ? 2 : 1));
             panel25.Width = Math.Max(300, (flowlayoutpanel22.Width - 24) / (flowlayoutpanel22.Width >= 680 ? 2 : 1));
-            flowlayoutpanel26.Width = width - 26;
-            flowlayoutpanel26.MinimumSize = new Size(width - 26, 0);
-            flowlayoutpanel26.MaximumSize = new Size(width - 26, 0);
         }
 
         private void NovoCadastro_Click(object sender, EventArgs e) { tabcontrol3.SelectedIndex = 1; }

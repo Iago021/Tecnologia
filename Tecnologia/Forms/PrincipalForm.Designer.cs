@@ -109,7 +109,7 @@ namespace Tecnologia
             this.tablelayoutpanel1.Name = "tablelayoutpanel1";
             this.tablelayoutpanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle((System.Windows.Forms.SizeType)2, 100F));
             this.tablelayoutpanel1.RowStyles.Add(new System.Windows.Forms.RowStyle((System.Windows.Forms.SizeType)1, 112F));
-            this.tablelayoutpanel1.RowStyles.Add(new System.Windows.Forms.RowStyle((System.Windows.Forms.SizeType)1, 54F));
+            this.tablelayoutpanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
             this.tablelayoutpanel1.RowStyles.Add(new System.Windows.Forms.RowStyle((System.Windows.Forms.SizeType)2, 100F));
             this.tablelayoutpanel1.RowStyles.Add(new System.Windows.Forms.RowStyle((System.Windows.Forms.SizeType)1, 34F));
             // tablelayoutpanel2
@@ -134,10 +134,11 @@ namespace Tecnologia
             this.tablelayoutpanel2.AutoScrollMinSize = new System.Drawing.Size(0, 0);
             this.tablelayoutpanel2.BackgroundImageLayout = (System.Windows.Forms.ImageLayout)1;
             this.tablelayoutpanel2.BorderStyle = (System.Windows.Forms.BorderStyle)0;
-            this.tablelayoutpanel2.RowCount = 0;
+            this.tablelayoutpanel2.RowCount = 1;
             this.tablelayoutpanel2.ColumnCount = 2;
             this.tablelayoutpanel2.GrowStyle = (System.Windows.Forms.TableLayoutPanelGrowStyle)1;
             this.tablelayoutpanel2.Name = "tablelayoutpanel2";
+            this.tablelayoutpanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tablelayoutpanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle((System.Windows.Forms.SizeType)2, 50F));
             this.tablelayoutpanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle((System.Windows.Forms.SizeType)2, 50F));
             // picturebox3
@@ -201,8 +202,8 @@ namespace Tecnologia
             this.flowlayoutpanel4.Padding = new System.Windows.Forms.Padding(28, 5, 0, 0);
             this.flowlayoutpanel4.TabIndex = 1;
             this.flowlayoutpanel4.TabStop = false;
-            this.flowlayoutpanel4.AutoSize = false;
-            this.flowlayoutpanel4.AutoSizeMode = (System.Windows.Forms.AutoSizeMode)1;
+            this.flowlayoutpanel4.AutoSize = true;
+            this.flowlayoutpanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowlayoutpanel4.AutoScroll = false;
             this.flowlayoutpanel4.AutoScrollMinSize = new System.Drawing.Size(0, 0);
             this.flowlayoutpanel4.BackgroundImageLayout = (System.Windows.Forms.ImageLayout)1;
@@ -419,7 +420,7 @@ namespace Tecnologia
             this.menuCadastros.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.menuCadastros.Dock = (System.Windows.Forms.DockStyle)5;
             this.menuCadastros.Anchor = (System.Windows.Forms.AnchorStyles)5;
-            this.menuCadastros.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.menuCadastros.Margin = new System.Windows.Forms.Padding(0);
             this.menuCadastros.Padding = new System.Windows.Forms.Padding(28, 6, 0, 0);
             this.menuCadastros.TabIndex = 0;
             this.menuCadastros.TabStop = false;
@@ -432,6 +433,7 @@ namespace Tecnologia
             this.menuCadastros.FlowDirection = (System.Windows.Forms.FlowDirection)0;
             this.menuCadastros.WrapContents = true;
             this.menuCadastros.Name = "menuCadastros";
+            this.menuCadastros.Visible = false;
             // btnClientes
             this.btnClientes.Text = "Clientes";
             this.btnClientes.AccessibleName = null;
@@ -557,7 +559,7 @@ namespace Tecnologia
             this.dashboard.TabStop = false;
             this.dashboard.AutoSize = false;
             this.dashboard.AutoSizeMode = (System.Windows.Forms.AutoSizeMode)1;
-            this.dashboard.AutoScroll = false;
+            this.dashboard.AutoScroll = true;
             this.dashboard.AutoScrollMinSize = new System.Drawing.Size(0, 0);
             this.dashboard.BackgroundImageLayout = (System.Windows.Forms.ImageLayout)1;
             this.dashboard.BorderStyle = (System.Windows.Forms.BorderStyle)0;
@@ -574,7 +576,7 @@ namespace Tecnologia
             this.tablelayoutpanel5.AccessibleName = null;
             this.tablelayoutpanel5.Location = new System.Drawing.Point(35, 23);
             this.tablelayoutpanel5.Size = new System.Drawing.Size(946, 263);
-            this.tablelayoutpanel5.MinimumSize = new System.Drawing.Size(0, 0);
+            this.tablelayoutpanel5.MinimumSize = new System.Drawing.Size(0, 230);
             this.tablelayoutpanel5.MaximumSize = new System.Drawing.Size(0, 0);
             this.tablelayoutpanel5.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)0);
             this.tablelayoutpanel5.BackColor = System.Drawing.Color.FromArgb(0, 255, 255, 255);
@@ -591,10 +593,11 @@ namespace Tecnologia
             this.tablelayoutpanel5.AutoScrollMinSize = new System.Drawing.Size(0, 0);
             this.tablelayoutpanel5.BackgroundImageLayout = (System.Windows.Forms.ImageLayout)1;
             this.tablelayoutpanel5.BorderStyle = (System.Windows.Forms.BorderStyle)0;
-            this.tablelayoutpanel5.RowCount = 0;
+            this.tablelayoutpanel5.RowCount = 1;
             this.tablelayoutpanel5.ColumnCount = 2;
             this.tablelayoutpanel5.GrowStyle = (System.Windows.Forms.TableLayoutPanelGrowStyle)1;
             this.tablelayoutpanel5.Name = "tablelayoutpanel5";
+            this.tablelayoutpanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tablelayoutpanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle((System.Windows.Forms.SizeType)2, 55F));
             this.tablelayoutpanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle((System.Windows.Forms.SizeType)2, 45F));
             // panel6
@@ -624,7 +627,7 @@ namespace Tecnologia
             this.lblTitulo.Text = "Bem\nvindo!";
             this.lblTitulo.AccessibleName = null;
             this.lblTitulo.Location = new System.Drawing.Point(0, 0);
-            this.lblTitulo.Size = new System.Drawing.Size(814, 156);
+            this.lblTitulo.Size = new System.Drawing.Size(514, 156);
             this.lblTitulo.MinimumSize = new System.Drawing.Size(0, 0);
             this.lblTitulo.MaximumSize = new System.Drawing.Size(0, 0);
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 42F, (System.Drawing.FontStyle)1);
@@ -715,10 +718,11 @@ namespace Tecnologia
             this.tablelayoutpanel8.AutoScrollMinSize = new System.Drawing.Size(0, 0);
             this.tablelayoutpanel8.BackgroundImageLayout = (System.Windows.Forms.ImageLayout)1;
             this.tablelayoutpanel8.BorderStyle = (System.Windows.Forms.BorderStyle)0;
-            this.tablelayoutpanel8.RowCount = 0;
+            this.tablelayoutpanel8.RowCount = 1;
             this.tablelayoutpanel8.ColumnCount = 4;
             this.tablelayoutpanel8.GrowStyle = (System.Windows.Forms.TableLayoutPanelGrowStyle)1;
             this.tablelayoutpanel8.Name = "tablelayoutpanel8";
+            this.tablelayoutpanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tablelayoutpanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle((System.Windows.Forms.SizeType)2, 25F));
             this.tablelayoutpanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle((System.Windows.Forms.SizeType)2, 25F));
             this.tablelayoutpanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle((System.Windows.Forms.SizeType)2, 25F));

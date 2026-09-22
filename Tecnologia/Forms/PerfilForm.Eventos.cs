@@ -54,9 +54,6 @@ namespace Tecnologia
             panel14.Width = Math.Max(300, (flowlayoutpanel13.Width - 24) / (flowlayoutpanel13.Width >= 680 ? 2 : 1));
             panel15.Width = Math.Max(300, (flowlayoutpanel13.Width - 24) / (flowlayoutpanel13.Width >= 680 ? 2 : 1));
             panel16.Width = Math.Max(300, (flowlayoutpanel13.Width - 24) / (flowlayoutpanel13.Width >= 680 ? 2 : 1));
-            flowlayoutpanel17.Width = width - 26;
-            flowlayoutpanel17.MinimumSize = new Size(width - 26, 0);
-            flowlayoutpanel17.MaximumSize = new Size(width - 26, 0);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Tecnologia
         private void MostrarDashboard()
         {
             if (!FecharPagina()) return;
-            conteudo.RowStyles[0].Height = 0;
+            conteudo.RowStyles[0].Height = 0; menuCadastros.Visible = false;
             dashboard.Visible = true; dashboard.BringToFront();
             MarcarNavegacao(btnAtualizar); Atualizar();
         }
@@ -40,7 +40,8 @@ namespace Tecnologia
             if (!FecharPagina()) { janela.Dispose(); return; }
             dashboard.Visible = false;
             bool cadastro = janela is ClientesForm || janela is AparelhosForm || janela is UsuariosForm;
-            conteudo.RowStyles[0].Height = cadastro ? 50 : 0;
+            menuCadastros.Visible = cadastro;
+            conteudo.RowStyles[0].Height = cadastro ? menuCadastros.GetPreferredSize(new Size(conteudo.ClientSize.Width, 0)).Height : 0;
             paginaAtual = janela;
             janela.TopLevel = false; janela.FormBorderStyle = FormBorderStyle.None; janela.Dock = DockStyle.Fill;
             janela.MinimumSize = Size.Empty;
@@ -50,7 +51,7 @@ namespace Tecnologia
             {
                 if (paginaAtual != janela) return;
                 paginaAtual = null;
-                dashboard.Visible = true; conteudo.RowStyles[0].Height = 0;
+                dashboard.Visible = true; conteudo.RowStyles[0].Height = 0; menuCadastros.Visible = false;
                 MarcarNavegacao(btnAtualizar); Atualizar();
             };
             janela.Show();

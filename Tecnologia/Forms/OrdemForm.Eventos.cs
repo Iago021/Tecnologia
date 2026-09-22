@@ -64,9 +64,6 @@ namespace Tecnologia
             panel16.Width = Math.Max(300, (flowlayoutpanel15.Width - 24) / (flowlayoutpanel15.Width >= 680 ? 2 : 1));
             panel17.Width = Math.Max(300, (flowlayoutpanel15.Width - 24) / (flowlayoutpanel15.Width >= 680 ? 2 : 1));
             panel18.Width = Math.Max(300, (flowlayoutpanel15.Width - 24) / (flowlayoutpanel15.Width >= 680 ? 2 : 1));
-            flowlayoutpanel19.Width = width - 26;
-            flowlayoutpanel19.MinimumSize = new Size(width - 26, 0);
-            flowlayoutpanel19.MaximumSize = new Size(width - 26, 0);
         }
 
         private void flowlayoutpanel26_Redimensionar(object sender, EventArgs e)
@@ -76,9 +73,6 @@ namespace Tecnologia
             flowlayoutpanel26.MaximumSize = new Size(width, 0);
             lblTotal.Width = width - 26;
             label27.Width = width - 26;
-            flowlayoutpanel28.Width = width - 26;
-            flowlayoutpanel28.MinimumSize = new Size(width - 26, 0);
-            flowlayoutpanel28.MaximumSize = new Size(width - 26, 0);
         }
     }
 }

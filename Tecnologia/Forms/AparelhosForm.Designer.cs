@@ -144,7 +144,7 @@ namespace Tecnologia
             this.tablelayoutpanel1.Dock = (System.Windows.Forms.DockStyle)5;
             this.tablelayoutpanel1.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.tablelayoutpanel1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tablelayoutpanel1.Padding = new System.Windows.Forms.Padding(22, 22, 22, 22);
+            this.tablelayoutpanel1.Padding = new System.Windows.Forms.Padding(16);
             this.tablelayoutpanel1.TabIndex = 0;
             this.tablelayoutpanel1.TabStop = false;
             this.tablelayoutpanel1.AutoSize = false;
@@ -158,7 +158,7 @@ namespace Tecnologia
             this.tablelayoutpanel1.GrowStyle = (System.Windows.Forms.TableLayoutPanelGrowStyle)1;
             this.tablelayoutpanel1.Name = "tablelayoutpanel1";
             this.tablelayoutpanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle((System.Windows.Forms.SizeType)2, 100F));
-            this.tablelayoutpanel1.RowStyles.Add(new System.Windows.Forms.RowStyle((System.Windows.Forms.SizeType)1, 78F));
+            this.tablelayoutpanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 64F));
             this.tablelayoutpanel1.RowStyles.Add(new System.Windows.Forms.RowStyle((System.Windows.Forms.SizeType)2, 100F));
             // panel2
             this.panel2.Text = "";
@@ -186,7 +186,7 @@ namespace Tecnologia
             // lblTitulo
             this.lblTitulo.Text = "Aparelhos dos clientes";
             this.lblTitulo.AccessibleName = null;
-            this.lblTitulo.Location = new System.Drawing.Point(0, 10);
+            this.lblTitulo.Location = new System.Drawing.Point(0, 4);
             this.lblTitulo.Size = new System.Drawing.Size(728, 50);
             this.lblTitulo.MinimumSize = new System.Drawing.Size(0, 0);
             this.lblTitulo.MaximumSize = new System.Drawing.Size(0, 0);
@@ -209,7 +209,7 @@ namespace Tecnologia
             // marcaSecundaria
             this.marcaSecundaria.Text = "";
             this.marcaSecundaria.AccessibleName = null;
-            this.marcaSecundaria.Location = new System.Drawing.Point(758, 8);
+            this.marcaSecundaria.Location = new System.Drawing.Point(758, 4);
             this.marcaSecundaria.Size = new System.Drawing.Size(220, 48);
             this.marcaSecundaria.MinimumSize = new System.Drawing.Size(0, 0);
             this.marcaSecundaria.MaximumSize = new System.Drawing.Size(0, 0);
@@ -262,7 +262,7 @@ namespace Tecnologia
             this.tabpage4.Dock = (System.Windows.Forms.DockStyle)0;
             this.tabpage4.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.tabpage4.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabpage4.Padding = new System.Windows.Forms.Padding(16, 16, 16, 16);
+            this.tabpage4.Padding = new System.Windows.Forms.Padding(12);
             this.tabpage4.TabIndex = 0;
             this.tabpage4.TabStop = false;
             this.tabpage4.AutoSize = false;
@@ -624,7 +624,7 @@ namespace Tecnologia
             this.tabpage8.Dock = (System.Windows.Forms.DockStyle)0;
             this.tabpage8.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.tabpage8.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabpage8.Padding = new System.Windows.Forms.Padding(16, 16, 16, 16);
+            this.tabpage8.Padding = new System.Windows.Forms.Padding(12);
             this.tabpage8.TabIndex = 1;
             this.tabpage8.TabStop = false;
             this.tabpage8.AutoSize = false;
@@ -1643,15 +1643,15 @@ namespace Tecnologia
             this.flowlayoutpanel24.AccessibleName = null;
             this.flowlayoutpanel24.Location = new System.Drawing.Point(13, 641);
             this.flowlayoutpanel24.Size = new System.Drawing.Size(884, 61);
-            this.flowlayoutpanel24.MinimumSize = new System.Drawing.Size(884, 0);
-            this.flowlayoutpanel24.MaximumSize = new System.Drawing.Size(884, 0);
+            this.flowlayoutpanel24.MinimumSize = new System.Drawing.Size(0, 0);
+            this.flowlayoutpanel24.MaximumSize = new System.Drawing.Size(0, 0);
             this.flowlayoutpanel24.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
             this.flowlayoutpanel24.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
             this.flowlayoutpanel24.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
-            this.flowlayoutpanel24.Dock = (System.Windows.Forms.DockStyle)5;
+            this.flowlayoutpanel24.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowlayoutpanel24.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.flowlayoutpanel24.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.flowlayoutpanel24.Padding = new System.Windows.Forms.Padding(0, 5, 0, 10);
+            this.flowlayoutpanel24.Padding = new System.Windows.Forms.Padding(10, 8, 10, 4);
             this.flowlayoutpanel24.TabIndex = 32;
             this.flowlayoutpanel24.TabStop = false;
             this.flowlayoutpanel24.AutoSize = true;
@@ -1778,7 +1778,7 @@ namespace Tecnologia
             this.panel23.Controls.Add(this.lblobservacoes);
             this.panel23.Controls.Add(this.campoobservacoesFundo);
             this.campoobservacoesFundo.Controls.Add(this.campoobservacoes);
-            this.flowlayoutpanel10.Controls.Add(this.flowlayoutpanel24);
+            this.tabpage8.Controls.Add(this.flowlayoutpanel24);
             this.flowlayoutpanel24.Controls.Add(this.btnSalvar);
             this.flowlayoutpanel24.Controls.Add(this.button25);
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
