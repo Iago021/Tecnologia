@@ -86,9 +86,9 @@ internal static class ExportDesigner
                         {
                             if (c is Form && (name=="Location" || name=="Size" || name=="AutoSize" || name=="AutoScrollMinSize")) continue;
                             if (c is DateTimePicker && name=="Value") continue;
-                            PropertyInfo p=c.GetType().GetProperty(name);
-                            if (p==null || !p.CanWrite) continue;
-                            string literal=Literal(p.GetValue(c,null)); if(literal!=null) props[name]=literal;
+                            PropertyDescriptor p=TypeDescriptor.GetProperties(c)[name];
+                            if (p==null || p.IsReadOnly) continue;
+                            string literal=Literal(p.GetValue(c)); if(literal!=null) props[name]=literal;
                         }
                         if(c is Form) props["ClientSize"]=Literal(form.ClientSize);
                         if(c.BackgroundImage!=null) { resources.AddResource(names[c]+".BackgroundImage",c.BackgroundImage); props["BackgroundImage"]="((System.Drawing.Image)(resources.GetObject("+Literal(names[c]+".BackgroundImage")+")))"; }
