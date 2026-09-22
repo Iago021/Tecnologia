@@ -14,6 +14,8 @@ internal static class VisualSmoke
     {
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
+        System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("pt-BR");
+        System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("pt-BR");
         Assembly app = Assembly.LoadFrom(Path.GetFullPath(args[0]));
         string output = Path.GetFullPath(args[1]); Directory.CreateDirectory(output);
         string[] names = { "LoginForm", "CriarContaForm", "RecuperarSenhaForm", "RedefinirSenhaForm", "PrincipalForm",
@@ -33,6 +35,7 @@ internal static class VisualSmoke
                 object key = loadKey.GetValue(null);
                 events.RemoveHandler(key, events[key]);
                 form.Show(); Application.DoEvents(); form.PerformLayout();
+                form.Location = Point.Empty;
                 List<Control> all = Descendants(form).ToList();
                 foreach (FieldInfo field in type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic))
                 {
@@ -59,6 +62,19 @@ internal static class VisualSmoke
                     Assert(input.Width >= 100 && input.Height >= 15, name + ": campo cortado: " + input.Name + " " + input.Size); assertions++;
                 }
                 Console.WriteLine("PASS " + name);
+                InspectLayout(form, output, name + "-compacto");
+                if (name != "PrincipalForm" && !name.Contains("Senha") && name != "LoginForm" && name != "CriarContaForm")
+                {
+                    using (Form host = new Form())
+                    {
+                        host.ClientSize = new Size(940, 460); host.Location = Point.Empty;
+                        form.Hide(); form.TopLevel = false; form.FormBorderStyle = FormBorderStyle.None;
+                        form.MinimumSize = Size.Empty; form.Dock = DockStyle.Fill;
+                        host.Controls.Add(form); host.Show(); form.Show(); Application.DoEvents();
+                        InspectLayout(form, output, name + "-embutido");
+                        host.Controls.Remove(form);
+                    }
+                }
             }
         }
         foreach (string name in names)
@@ -94,7 +110,36 @@ internal static class VisualSmoke
     private static void Assert(bool condition, string message) { if (!condition) throw new Exception(message); }
     private static void Save(Form form, string path)
     {
-        using (Bitmap image = new Bitmap(form.Width, form.Height)) { form.DrawToBitmap(image, form.ClientRectangle); image.Save(path); }
+        using (Bitmap image = new Bitmap(form.Width, form.Height)) { form.DrawToBitmap(image, new Rectangle(Point.Empty, form.Size)); image.Save(path); }
+    }
+    private static void InspectLayout(Form form, string output, string prefix)
+    {
+        var tabs = Descendants(form).OfType<TabControl>().FirstOrDefault();
+        for (int tab = 0; tab < (tabs == null ? 1 : tabs.TabCount); tab++)
+        {
+            if (tabs != null) tabs.SelectedIndex = tab;
+            form.PerformLayout(); Application.DoEvents();
+            foreach (Control c in Descendants(form).Where(c => c.Visible && c.Parent != null))
+            {
+                var parent = c.Parent as ScrollableControl;
+                if (parent != null && parent.AutoScroll) continue;
+                if (c is TabPage || c.Parent is UpDownBase || c is HScrollBar || c is VScrollBar) continue;
+                if (c.Right > c.Parent.ClientSize.Width + 2 || c.Bottom > c.Parent.ClientSize.Height + 2 || c.Left < -2 || c.Top < -2)
+                    Console.WriteLine("LAYOUT " + prefix + " tab=" + tab + " " + c.Name + " " + c.Bounds + " parent=" + c.Parent.Name + " " + c.Parent.ClientSize);
+            }
+            Save(form, Path.Combine(output, prefix + "-" + tab + ".png"));
+            try
+            {
+                form.Refresh(); Application.DoEvents();
+                using (Bitmap actual = new Bitmap(form.ClientSize.Width, form.ClientSize.Height))
+                using (Graphics g = Graphics.FromImage(actual))
+                {
+                    g.CopyFromScreen(form.PointToScreen(Point.Empty), Point.Empty, form.ClientSize);
+                    actual.Save(Path.Combine(output, prefix + "-" + tab + "-screen.png"));
+                }
+            }
+            catch (System.ComponentModel.Win32Exception) { Console.WriteLine("Captura do desktop indisponível"); }
+        }
     }
     private static void ReviewSheet(string folder, string[] names)
     {
