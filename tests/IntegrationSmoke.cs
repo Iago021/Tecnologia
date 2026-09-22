@@ -99,19 +99,19 @@ internal static class IntegrationSmoke
             Field<TextBox>(users, "camposenha").Text = "NaoReaproveitar";
             Invoke(users, "btnEditar_Click");
             Check(Field<TextBox>(users, "camposenha").Text == "", "Editar limpa senha anterior");
-            Check(!LayoutTelas.TemAlteracoes(users), "Registro carregado não é alteração pendente");
+            Check(!AlteracoesFormulario.TemAlteracoes(users), "Registro carregado não é alteração pendente");
             Field<TextBox>(users, "txtBusca").Text = "pesquisa";
-            Check(!LayoutTelas.TemAlteracoes(users), "Pesquisa não causa alerta de perda de dados");
+            Check(!AlteracoesFormulario.TemAlteracoes(users), "Pesquisa não causa alerta de perda de dados");
             Field<TextBox>(users, "camponome").Text += " alterado";
-            Check(LayoutTelas.TemAlteracoes(users), "Alteração real detectada");
+            Check(AlteracoesFormulario.TemAlteracoes(users), "Alteração real detectada");
             Invoke(users, "btnNovo_Click");
-            Check(!LayoutTelas.TemAlteracoes(users), "Limpar reinicia controle de alterações");
+            Check(!AlteracoesFormulario.TemAlteracoes(users), "Limpar reinicia controle de alterações");
         }
         using (var orders = new OrdensForm())
         {
             orders.Show(); Application.DoEvents();
             Field<ComboBox>(orders, "cmbStatus").SelectedIndex = 1;
-            Check(!LayoutTelas.TemAlteracoes(orders), "Filtro não é edição de ordem");
+            Check(!AlteracoesFormulario.TemAlteracoes(orders), "Filtro não é edição de ordem");
         }
         Console.WriteLine("PASS INTEGRATION: " + checks + " verificações com MySQL isolado; nenhum e-mail externo enviado.");
         return 0;

@@ -21,22 +21,10 @@ jobs:
         shell: pwsh
         run: |
           $compiler = Join-Path $env:WINDIR 'Microsoft.NET/Framework64/v4.0.30319/csc.exe'
-          & $compiler /nologo /target:exe '/out:Tecnologia\bin\Release\VisualSmoke.exe' /r:System.Windows.Forms.dll /r:System.Drawing.dll /r:System.Core.dll '.\tests\VisualSmoke.cs'
+          & $compiler /nologo /target:exe '/out:Tecnologia\bin\Release\VisualSmoke.exe' /r:System.Windows.Forms.dll /r:System.Drawing.dll /r:System.Core.dll /r:System.Design.dll '.\tests\VisualSmoke.cs'
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           & ./Tecnologia/bin/Release/VisualSmoke.exe ./Tecnologia/bin/Release/Tecnologia.exe ./verificacao-telas
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - name: Capturar estrutura visual para migracao
-        shell: pwsh
-        run: |
-          $compiler = Join-Path $env:WINDIR 'Microsoft.NET/Framework64/v4.0.30319/csc.exe'
-          & $compiler /nologo /target:exe '/out:Tecnologia\bin\Release\ExportDesigner.exe' /r:System.Windows.Forms.dll /r:System.Drawing.dll /r:System.Core.dll /r:System.Web.Extensions.dll '.\tests\ExportDesigner.cs'
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          & ./Tecnologia/bin/Release/ExportDesigner.exe ./Tecnologia/bin/Release/Tecnologia.exe ./exportacao-designer
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-      - uses: actions/upload-artifact@v4
-        with:
-          name: designers-originais
-          path: exportacao-designer
       - uses: actions/upload-artifact@v4
         if: always()
         with:

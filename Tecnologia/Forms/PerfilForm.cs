@@ -6,9 +6,10 @@ namespace Tecnologia
 {
     public partial class PerfilForm : Form
     {
-        public PerfilForm() { InitializeComponent(); LayoutTelas.Aplicar(this); }
+        public PerfilForm() { InitializeComponent(); PrepararTela(); AlteracoesFormulario.Observar(this); }
         private void PerfilForm_Load(object sender, EventArgs e)
         {
+            if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime) return;
             try
             {
                 Sessao.Exigir();
@@ -21,7 +22,7 @@ namespace Tecnologia
             try
             {
                 Contas.AtualizarPerfil(txtNome.Text, txtEmail.Text, txtTelefone.Text, txtAtual.Text, txtNova.Text, txtConfirmacao.Text);
-                LayoutTelas.MarcarSalvo(this);
+                AlteracoesFormulario.MarcarSalvo(this);
                 MessageBox.Show("Dados atualizados."); Close();
             } catch(Exception erro) { Tela.Erro(erro); }
         }

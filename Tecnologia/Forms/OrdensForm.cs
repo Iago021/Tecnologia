@@ -6,11 +6,12 @@ namespace Tecnologia
 {
     public partial class OrdensForm : Form
     {
-        public OrdensForm() { InitializeComponent(); LayoutTelas.Aplicar(this); }
+        public OrdensForm() { InitializeComponent(); PrepararTela(); AlteracoesFormulario.Observar(this); }
         private string filtro="Todas";
         public OrdensForm(string status) : this() { filtro=status; }
         private void OrdensForm_Load(object sender,EventArgs e)
         {
+            if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime) return;
             try { Sessao.Exigir(); cmbStatus.SelectedItem=filtro; btnNova.Enabled=Sessao.Atendente; Carregar(); }
             catch(Exception erro) { Tela.Erro(erro); Close(); }
         }

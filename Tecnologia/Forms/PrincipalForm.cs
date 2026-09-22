@@ -6,9 +6,10 @@ namespace Tecnologia
 {
     public partial class PrincipalForm : Form
     {
-        public PrincipalForm() { InitializeComponent(); ConfigurarVisual(); }
+        public PrincipalForm() { InitializeComponent(); PrepararTela(); }
         private void PrincipalForm_Load(object sender, EventArgs e)
         {
+            if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime) return;
             // Os botões de navegação mantêm os mesmos eventos e permissões.
             Atualizar();
         }

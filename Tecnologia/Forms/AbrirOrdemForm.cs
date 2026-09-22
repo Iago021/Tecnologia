@@ -6,10 +6,11 @@ namespace Tecnologia
 {
     public partial class AbrirOrdemForm : Form
     {
-        public AbrirOrdemForm() { InitializeComponent(); LayoutTelas.Aplicar(this); }
+        public AbrirOrdemForm() { InitializeComponent(); PrepararTela(); AlteracoesFormulario.Observar(this); }
         private bool carregando;
         private void AbrirOrdemForm_Load(object sender,EventArgs e)
         {
+            if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime) return;
             try
             {
                 Sessao.Exigir("Atendente"); carregando=true;
@@ -29,7 +30,7 @@ namespace Tecnologia
             try
             {
                 int id=OperacoesOrdem.Abrir(Tela.Codigo(cmbAparelho),txtProblema.Text,dtPrevisao.Checked ? (DateTime?)dtPrevisao.Value.Date : null,txtObservacoes.Text);
-                LayoutTelas.MarcarSalvo(this); MessageBox.Show("Ordem "+id+" aberta."); Close();
+                AlteracoesFormulario.MarcarSalvo(this); MessageBox.Show("Ordem "+id+" aberta."); Close();
             } catch(Exception erro) { Tela.Erro(erro); }
         }
     }

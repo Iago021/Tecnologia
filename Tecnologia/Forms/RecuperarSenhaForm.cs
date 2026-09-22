@@ -4,26 +4,15 @@ using System.Windows.Forms;
 
 namespace Tecnologia
 {
-    public class RecuperarSenhaForm : Form
+    public partial class RecuperarSenhaForm : Form
     {
-        private readonly TextBox email;
-        private readonly Button enviar;
-        public RecuperarSenhaForm(string endereco = "")
-        {
-            Text = "Tecnologia — Esqueci a senha";
-            FlowLayoutPanel cartao = AcessoLayout.Montar(this, "Esqueceu a senha?", "Informe o e-mail da sua conta. Enviaremos um código de verificação para redefinir a senha.");
-            email = AcessoLayout.Campo(cartao, "E-mail"); email.Text = endereco;
-            enviar = AcessoLayout.Botao(cartao, "ENVIAR CÓDIGO");
-            enviar.Click += Enviar_Click;
-            AcessoLayout.Link(cartao, "Já tenho um código", delegate { AbrirRedefinicao(); });
-            AcessoLayout.Link(cartao, "Voltar para entrar", delegate { Close(); });
-            AcceptButton = enviar;
-        }
+        public RecuperarSenhaForm() : this("") { }
+        public RecuperarSenhaForm(string endereco) { InitializeComponent(); PrepararTela(); email.Text = endereco; }
         private async void Enviar_Click(object sender, EventArgs e)
         {
             string endereco = email.Text.Trim();
             enviar.Enabled = false; enviar.Text = "ENVIANDO...";
-            AcessoLayout.Ocupar(this, true);
+            cartaoAcesso.Enabled = false;
             try
             {
                 await Task.Run(() => Contas.SolicitarCodigo(endereco));
@@ -32,7 +21,7 @@ namespace Tecnologia
                 AbrirRedefinicao(endereco);
             }
             catch (Exception erro) { if (!IsDisposed) Tela.Erro(erro); }
-            finally { if (!IsDisposed) { AcessoLayout.Ocupar(this, false); enviar.Enabled = true; enviar.Text = "ENVIAR CÓDIGO"; } }
+            finally { if (!IsDisposed) { cartaoAcesso.Enabled = true; enviar.Enabled = true; enviar.Text = "ENVIAR CÓDIGO"; } }
         }
         private void AbrirRedefinicao(string endereco = null)
         {

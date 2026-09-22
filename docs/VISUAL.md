@@ -38,20 +38,19 @@ As variáveis TECNOLOGIA_SMTPHOST, TECNOLOGIA_SMTPPORT, TECNOLOGIA_SMTPFROM e TE
 
 O código tem seis dígitos aleatórios, expira em dez minutos, admite cinco tentativas e é consumido em uma transação junto com a alteração da senha. Somente o hash com salt é guardado. Um novo envio invalida o código anterior; o intervalo mínimo é de 60 segundos. A mensagem normal de envio não revela se o e-mail pertence a uma conta ativa. A redefinição não ativa contas inativas.
 
-## Código
+## Código e edição tela por tela
 
-- Tema.cs: cores e aparência dos controles.
-- LayoutTelas.cs: agrupamento e organização dos controles existentes.
-- AcessoLayout.cs: cartão comum de login/cadastro/recuperação.
-- Forms/PrincipalForm.Visual.cs: navegação e dashboard.
-- Contas.cs: cadastro e recuperação via banco/SMTP.
-- Forms/CriarContaForm.cs, RecuperarSenhaForm.cs e RedefinirSenhaForm.cs: novos fluxos.
+Cada uma das 15 telas tem seu próprio `NomeDaTela.Designer.cs`, `NomeDaTela.resx` e `NomeDaTela.Eventos.cs`. Cores, fontes, tamanhos, posições, campos, botões, painéis e abas estão declarados no Designer da própria tela. As imagens e o fundo estão no respectivo arquivo de recursos.
 
-Os layouts são montados em C# após InitializeComponent. Execute o aplicativo para ver a apresentação final; o Designer dos formulários antigos mantém a organização-base.
+No Visual Studio, abra `Tecnologia.sln`, expanda `Forms`, clique com o botão direito em um formulário e escolha **Exibir Designer** (Shift+F7). Selecione um controle e use **Propriedades** (F4) para editar. Faça alterações de aparência pelo Designer, que atualiza o código gerado.
+
+Os arquivos `.Eventos.cs` contêm apenas os eventos locais, como arredondamento e adaptação à largura da janela. A navegação fica em `PrincipalForm.Navegacao.cs` e `LoginForm.Navegacao.cs`. Os arquivos `Tema.cs`, `LayoutTelas.cs` e `AcessoLayout.cs` foram removidos: o programa não aplica um tema global nem recria a interface depois de `InitializeComponent`.
+
+`AlteracoesFormulario.cs` apenas acompanha alterações não salvas; não cria controles e não define cores ou posições. `Contas.cs` continua responsável pelo cadastro e pela recuperação de senha via banco/SMTP.
 
 ## Verificações
 
-O workflow .github/workflows/windows.yml restaura os pacotes, compila no Windows e executa tests/VisualSmoke.cs. O teste constrói 15 formulários, confere a conexão dos controles, alterna as abas, verifica campos após redimensionamento e gera imagens no artefato verificacao-windows. Também verifica formato, salt e comparação dos códigos. Consulte o resultado da execução no GitHub Actions.
+O workflow .github/workflows/windows.yml restaura os pacotes, compila no Windows e executa tests/VisualSmoke.cs. O teste constrói 15 formulários, confere a conexão dos controles, alterna as abas, verifica campos após redimensionamento e gera imagens no artefato verificacao-windows. Também abre cada formulário no host de design do Windows Forms e verifica formato, salt e comparação dos códigos. Consulte o resultado da execução no GitHub Actions.
 
 O teste não chama os eventos Load que acessam o banco e não envia e-mails. Portanto, ele não substitui a conferência funcional com MySQL e SMTP nem a inspeção visual das capturas.
 

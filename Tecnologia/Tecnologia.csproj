@@ -158,17 +158,15 @@
     <Compile Include="Senha.cs" />
     <Compile Include="Sessao.cs" />
     <Compile Include="Tela.cs" />
-    <Compile Include="Tema.cs" />
-    <Compile Include="AcessoLayout.cs" />
-    <Compile Include="LayoutTelas.cs" />
     <Compile Include="Contas.cs" />
+    <Compile Include="AlteracoesFormulario.cs" />
     <Compile Include="Forms\CriarContaForm.cs"><SubType>Form</SubType></Compile>
     <Compile Include="Forms\RecuperarSenhaForm.cs"><SubType>Form</SubType></Compile>
     <Compile Include="Forms\RedefinirSenhaForm.cs"><SubType>Form</SubType></Compile>
-    <Compile Include="Forms\LoginForm.Visual.cs">
+    <Compile Include="Forms\LoginForm.Navegacao.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\PrincipalForm.Visual.cs">
+    <Compile Include="Forms\PrincipalForm.Navegacao.cs">
       <DependentUpon>PrincipalForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Imagens\tecnologia-logo.png">
@@ -213,6 +211,27 @@
     <EmbeddedResource Include="Forms\UsuariosForm.resx">
       <DependentUpon>UsuariosForm.cs</DependentUpon>
     </EmbeddedResource>
+    <Compile Include="Forms\AbrirOrdemForm.Eventos.cs"><DependentUpon>AbrirOrdemForm.cs</DependentUpon></Compile>
+    <Compile Include="Forms\AparelhosForm.Eventos.cs"><DependentUpon>AparelhosForm.cs</DependentUpon></Compile>
+    <Compile Include="Forms\ClientesForm.Eventos.cs"><DependentUpon>ClientesForm.cs</DependentUpon></Compile>
+    <Compile Include="Forms\CriarContaForm.Eventos.cs"><DependentUpon>CriarContaForm.cs</DependentUpon></Compile>
+    <Compile Include="Forms\CriarContaForm.Designer.cs"><DependentUpon>CriarContaForm.cs</DependentUpon></Compile>
+    <EmbeddedResource Include="Forms\CriarContaForm.resx"><DependentUpon>CriarContaForm.cs</DependentUpon></EmbeddedResource>
+    <Compile Include="Forms\HistoricoForm.Eventos.cs"><DependentUpon>HistoricoForm.cs</DependentUpon></Compile>
+    <Compile Include="Forms\LoginForm.Eventos.cs"><DependentUpon>LoginForm.cs</DependentUpon></Compile>
+    <Compile Include="Forms\MovimentoForm.Eventos.cs"><DependentUpon>MovimentoForm.cs</DependentUpon></Compile>
+    <Compile Include="Forms\OrdemForm.Eventos.cs"><DependentUpon>OrdemForm.cs</DependentUpon></Compile>
+    <Compile Include="Forms\OrdensForm.Eventos.cs"><DependentUpon>OrdensForm.cs</DependentUpon></Compile>
+    <Compile Include="Forms\PecasForm.Eventos.cs"><DependentUpon>PecasForm.cs</DependentUpon></Compile>
+    <Compile Include="Forms\PerfilForm.Eventos.cs"><DependentUpon>PerfilForm.cs</DependentUpon></Compile>
+    <Compile Include="Forms\PrincipalForm.Eventos.cs"><DependentUpon>PrincipalForm.cs</DependentUpon></Compile>
+    <Compile Include="Forms\RecuperarSenhaForm.Eventos.cs"><DependentUpon>RecuperarSenhaForm.cs</DependentUpon></Compile>
+    <Compile Include="Forms\RecuperarSenhaForm.Designer.cs"><DependentUpon>RecuperarSenhaForm.cs</DependentUpon></Compile>
+    <EmbeddedResource Include="Forms\RecuperarSenhaForm.resx"><DependentUpon>RecuperarSenhaForm.cs</DependentUpon></EmbeddedResource>
+    <Compile Include="Forms\RedefinirSenhaForm.Eventos.cs"><DependentUpon>RedefinirSenhaForm.cs</DependentUpon></Compile>
+    <Compile Include="Forms\RedefinirSenhaForm.Designer.cs"><DependentUpon>RedefinirSenhaForm.cs</DependentUpon></Compile>
+    <EmbeddedResource Include="Forms\RedefinirSenhaForm.resx"><DependentUpon>RedefinirSenhaForm.cs</DependentUpon></EmbeddedResource>
+    <Compile Include="Forms\UsuariosForm.Eventos.cs"><DependentUpon>UsuariosForm.cs</DependentUpon></Compile>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>

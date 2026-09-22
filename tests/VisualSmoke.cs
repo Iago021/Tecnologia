@@ -19,6 +19,7 @@ internal static class VisualSmoke
         string[] names = { "LoginForm", "CriarContaForm", "RecuperarSenhaForm", "RedefinirSenhaForm", "PrincipalForm",
             "ClientesForm", "UsuariosForm", "AparelhosForm", "PecasForm", "OrdensForm", "OrdemForm", "AbrirOrdemForm", "MovimentoForm", "HistoricoForm", "PerfilForm" };
         int assertions = 0;
+        Assert(app.GetType("Tecnologia.Tema") == null && app.GetType("Tecnologia.LayoutTelas") == null && app.GetType("Tecnologia.AcessoLayout") == null, "As telas não podem depender do tema global"); assertions++;
         foreach (string name in names)
         {
             Type type = app.GetType("Tecnologia." + name, true);
@@ -58,6 +59,16 @@ internal static class VisualSmoke
                     Assert(input.Width >= 100 && input.Height >= 15, name + ": campo cortado: " + input.Name + " " + input.Size); assertions++;
                 }
                 Console.WriteLine("PASS " + name);
+            }
+        }
+        foreach (string name in names)
+        {
+            using (var surface = new System.ComponentModel.Design.DesignSurface(app.GetType("Tecnologia." + name, true)))
+            {
+                Assert(surface.IsLoaded && surface.LoadErrors.Count == 0, name + ": falha ao abrir no host de design"); assertions++;
+                var host = (System.ComponentModel.Design.IDesignerHost)surface.GetService(typeof(System.ComponentModel.Design.IDesignerHost));
+                Assert(((Form)host.RootComponent).Controls.Count > 0, name + ": Designer sem controles"); assertions++;
+                Console.WriteLine("PASS DESIGNER " + name);
             }
         }
         Type contas = app.GetType("Tecnologia.Contas", true);

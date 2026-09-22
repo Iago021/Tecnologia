@@ -6,10 +6,11 @@ namespace Tecnologia
 {
     public partial class AparelhosForm : Form
     {
-        public AparelhosForm() { InitializeComponent(); LayoutTelas.Aplicar(this); }
+        public AparelhosForm() { InitializeComponent(); PrepararTela(); AlteracoesFormulario.Observar(this); }
         private int codigo;
         private void AparelhosForm_Load(object sender, EventArgs e)
         {
+            if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime) return;
             try
             {
                 Sessao.Exigir("Atendente");
@@ -31,7 +32,7 @@ namespace Tecnologia
             campoestado_fisico.Clear();
             campoobservacoes.Clear();
             lblEdicao.Text = "Novo cadastro";
-            LayoutTelas.MarcarSalvo(this);
+            AlteracoesFormulario.MarcarSalvo(this);
         }
         private void Carregar()
         {
@@ -77,7 +78,7 @@ namespace Tecnologia
                 campoobservacoes.Text = linha["observacoes"].ToString();
                 codigo = selecionado;
                 lblEdicao.Text = "Editando código " + codigo;
-                LayoutTelas.MarcarSalvo(this);
+                AlteracoesFormulario.MarcarSalvo(this);
             } catch (Exception erro) { Tela.Erro(erro); }
         }
         private void btnSalvar_Click(object sender, EventArgs e)

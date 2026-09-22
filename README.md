@@ -103,7 +103,7 @@ O painel possui atalhos para ordens abertas, serviços em andamento, concluídos
 
 O código usa classes simples, `if`, laços, eventos de botão, `DataTable`, `MySqlConnection` e `MySqlCommand`. Não usa Entity Framework, API, injeção de dependência ou arquitetura em várias camadas. O cadastro e a alteração compartilham o mesmo formulário: código zero insere; um código selecionado atualiza.
 
-Para editar a interface, abra um formulário em **Exibir Designer**. Os construtores sem parâmetros apenas inicializam os controles; a consulta ao banco acontece no evento `Load`.
+Para editar a interface, abra o formulário em **Exibir Designer** (Shift+F7) e use **Propriedades** (F4). Cada tela tem seu próprio `.Designer.cs`, `.resx` e `.Eventos.cs`, com seus campos, cores, fontes e posições. O visual não depende de um tema global. Os construtores sem parâmetros inicializam os controles; a consulta ao banco acontece no evento `Load`, desativado durante a edição no Designer. Veja [como editar cada tela](docs/VISUAL.md#código-e-edição-tela-por-tela).
 
 ## Banco e requisitos
 

@@ -6,12 +6,13 @@ namespace Tecnologia
 {
     public partial class OrdemForm : Form
     {
-        public OrdemForm() { InitializeComponent(); LayoutTelas.Aplicar(this); }
+        public OrdemForm() { InitializeComponent(); PrepararTela(); AlteracoesFormulario.Observar(this); }
         private int codigo;
         private bool podeEditar;
         public OrdemForm(int id) : this() { codigo=id; }
         private void OrdemForm_Load(object sender,EventArgs e)
-        { try { Carregar(); } catch(Exception erro) { Tela.Erro(erro); Close(); } }
+        {
+            if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime) return; try { Carregar(); } catch(Exception erro) { Tela.Erro(erro); Close(); } }
         private void Carregar()
         {
             Sessao.Exigir();
@@ -37,7 +38,7 @@ namespace Tecnologia
             cmbStatus.Enabled=numMaoObra.Enabled=numDesconto.Enabled=btnSalvar.Enabled=btnAdicionar.Enabled=btnDevolver.Enabled=cmbPeca.Enabled=numQuantidade.Enabled=podeEditar;
             btnEntregar.Enabled=Sessao.Atendente && status=="Concluída";
             CarregarPecas();
-            LayoutTelas.MarcarSalvo(this);
+            AlteracoesFormulario.MarcarSalvo(this);
         }
         private void CarregarPecas()
         {

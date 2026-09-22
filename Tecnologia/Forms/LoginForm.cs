@@ -6,7 +6,7 @@ namespace Tecnologia
 {
     public partial class LoginForm : Form
     {
-        public LoginForm() { InitializeComponent(); ConfigurarVisual(); }
+        public LoginForm() { InitializeComponent(); PrepararTela(); }
         private void LoginForm_Load(object sender, EventArgs e)
         {
             AcceptButton = btnEntrar;
