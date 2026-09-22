@@ -394,8 +394,6 @@ namespace Tecnologia
             this.grade.BorderStyle = (System.Windows.Forms.BorderStyle)0;
             this.grade.ReadOnly = true;
             this.grade.ScrollBars = (System.Windows.Forms.ScrollBars)3;
-            this.grade.RowCount = 0;
-            this.grade.ColumnCount = 0;
             this.grade.AllowUserToAddRows = false;
             this.grade.AllowUserToDeleteRows = false;
             this.grade.AllowUserToResizeRows = true;
