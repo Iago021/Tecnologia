@@ -30,6 +30,14 @@ Todos os recursos do projeto de referência foram encaixados na assistência té
 
 Os diretórios `.vs`, `bin`, `obj`, os executáveis já compilados e os caches não são código-fonte necessário. O Visual Studio os recria. Os pacotes NuGet são restaurados pelas referências do projeto, sem duplicar bibliotecas no GitHub. Os arquivos vazios de configuração e recursos sem uso não viraram telas ou funções extras.
 
+## Funções adaptadas de escola2.0.zip
+
+| Sistema escolar | Tecnologia |
+|---|---|
+| Exportação CSV e PDF | Menu **Exportar...** nas tabelas e nos históricos |
+| Vínculo de professor com turma | Técnico responsável pela ordem, selecionado na aba **Recebimento** |
+| Vínculo de alunos com turma | Relacionamento já existente entre cliente, aparelho e ordem |
+
 ## Ajustes no código de referência
 
 - A concatenação de texto digitado nos comandos SQL foi substituída por parâmetros.

@@ -194,7 +194,7 @@ namespace Tecnologia
             this.lblTitulo.MaximumSize = new System.Drawing.Size(0, 0);
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 22F, (System.Drawing.FontStyle)1);
             this.lblTitulo.BackColor = System.Drawing.Color.FromArgb(0, 255, 255, 255);
-            this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.lblTitulo.Dock = (System.Windows.Forms.DockStyle)0;
             this.lblTitulo.Anchor = (System.Windows.Forms.AnchorStyles)13;
             this.lblTitulo.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
@@ -259,7 +259,7 @@ namespace Tecnologia
             this.tabpage4.MinimumSize = new System.Drawing.Size(0, 0);
             this.tabpage4.MaximumSize = new System.Drawing.Size(0, 0);
             this.tabpage4.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.tabpage4.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.tabpage4.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.tabpage4.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.tabpage4.Dock = (System.Windows.Forms.DockStyle)0;
             this.tabpage4.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -283,7 +283,7 @@ namespace Tecnologia
             this.tablelayoutpanel5.MinimumSize = new System.Drawing.Size(0, 0);
             this.tablelayoutpanel5.MaximumSize = new System.Drawing.Size(0, 0);
             this.tablelayoutpanel5.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.tablelayoutpanel5.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.tablelayoutpanel5.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.tablelayoutpanel5.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.tablelayoutpanel5.Dock = (System.Windows.Forms.DockStyle)5;
             this.tablelayoutpanel5.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -313,7 +313,7 @@ namespace Tecnologia
             this.flowlayoutpanel6.MinimumSize = new System.Drawing.Size(0, 0);
             this.flowlayoutpanel6.MaximumSize = new System.Drawing.Size(0, 0);
             this.flowlayoutpanel6.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.flowlayoutpanel6.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.flowlayoutpanel6.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.flowlayoutpanel6.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.flowlayoutpanel6.Dock = (System.Windows.Forms.DockStyle)5;
             this.flowlayoutpanel6.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -338,7 +338,7 @@ namespace Tecnologia
             this.cmbCampo.MinimumSize = new System.Drawing.Size(0, 0);
             this.cmbCampo.MaximumSize = new System.Drawing.Size(0, 0);
             this.cmbCampo.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.cmbCampo.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.cmbCampo.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.cmbCampo.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.cmbCampo.Dock = (System.Windows.Forms.DockStyle)0;
             this.cmbCampo.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -364,7 +364,7 @@ namespace Tecnologia
             this.txtBusca.MinimumSize = new System.Drawing.Size(0, 0);
             this.txtBusca.MaximumSize = new System.Drawing.Size(0, 0);
             this.txtBusca.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.txtBusca.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.txtBusca.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.txtBusca.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.txtBusca.Dock = (System.Windows.Forms.DockStyle)0;
             this.txtBusca.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -394,8 +394,8 @@ namespace Tecnologia
             this.btnPesquisar.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnPesquisar.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnPesquisar.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnPesquisar.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.btnPesquisar.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.btnPesquisar.BackColor = System.Drawing.Color.FromArgb(255, 226, 242, 236);
+            this.btnPesquisar.ForeColor = System.Drawing.Color.FromArgb(255, 21, 59, 50);
             this.btnPesquisar.Dock = (System.Windows.Forms.DockStyle)0;
             this.btnPesquisar.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnPesquisar.Margin = new System.Windows.Forms.Padding(0, 3, 10, 5);
@@ -410,20 +410,20 @@ namespace Tecnologia
             this.btnPesquisar.UseVisualStyleBackColor = false;
             this.btnPesquisar.UseCompatibleTextRendering = false;
             this.btnPesquisar.FlatAppearance.BorderSize = 0;
-            this.btnPesquisar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnPesquisar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnPesquisar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.btnPesquisar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnPesquisar.Name = "btnPesquisar";
             this.btnPesquisar.Cursor = System.Windows.Forms.Cursors.Hand;
             // btnNovo
-            this.btnNovo.Text = "Novo / limpar";
+            this.btnNovo.Text = "Novo";
             this.btnNovo.AccessibleName = null;
             this.btnNovo.Location = new System.Drawing.Point(604, 8);
             this.btnNovo.Size = new System.Drawing.Size(144, 38);
             this.btnNovo.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnNovo.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnNovo.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnNovo.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.btnNovo.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.btnNovo.BackColor = System.Drawing.Color.FromArgb(255, 226, 242, 236);
+            this.btnNovo.ForeColor = System.Drawing.Color.FromArgb(255, 21, 59, 50);
             this.btnNovo.Dock = (System.Windows.Forms.DockStyle)0;
             this.btnNovo.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnNovo.Margin = new System.Windows.Forms.Padding(0, 3, 10, 5);
@@ -438,8 +438,8 @@ namespace Tecnologia
             this.btnNovo.UseVisualStyleBackColor = false;
             this.btnNovo.UseCompatibleTextRendering = false;
             this.btnNovo.FlatAppearance.BorderSize = 0;
-            this.btnNovo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnNovo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnNovo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.btnNovo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Cursor = System.Windows.Forms.Cursors.Hand;
             // grade
@@ -450,7 +450,7 @@ namespace Tecnologia
             this.grade.MinimumSize = new System.Drawing.Size(0, 0);
             this.grade.MaximumSize = new System.Drawing.Size(0, 0);
             this.grade.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.grade.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.grade.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.grade.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.grade.Dock = (System.Windows.Forms.DockStyle)5;
             this.grade.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -475,7 +475,7 @@ namespace Tecnologia
             this.grade.ColumnHeadersHeightSizeMode = (System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode)0;
             this.grade.EnableHeadersVisualStyles = false;
             this.grade.GridColor = System.Drawing.Color.FromArgb(255, 218, 228, 220);
-            this.grade.BackgroundColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.grade.BackgroundColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.grade.RowTemplate.Height = 28;
             this.grade.Name = "grade";
             System.Windows.Forms.DataGridViewCellStyle gradeDefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle();
@@ -489,9 +489,9 @@ namespace Tecnologia
             gradeDefaultCellStyle.Format = "";
             this.grade.DefaultCellStyle = gradeDefaultCellStyle;
             System.Windows.Forms.DataGridViewCellStyle gradeColumnHeadersDefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle();
-            gradeColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            gradeColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             gradeColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(255, 255, 255, 255);
-            gradeColumnHeadersDefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(255, 0, 120, 215);
+            gradeColumnHeadersDefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             gradeColumnHeadersDefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(255, 255, 255, 255);
             gradeColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
             gradeColumnHeadersDefaultCellStyle.Alignment = (System.Windows.Forms.DataGridViewContentAlignment)16;
@@ -512,7 +512,7 @@ namespace Tecnologia
             this.flowlayoutpanel7.MinimumSize = new System.Drawing.Size(0, 0);
             this.flowlayoutpanel7.MaximumSize = new System.Drawing.Size(0, 0);
             this.flowlayoutpanel7.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.flowlayoutpanel7.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.flowlayoutpanel7.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.flowlayoutpanel7.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.flowlayoutpanel7.Dock = (System.Windows.Forms.DockStyle)5;
             this.flowlayoutpanel7.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -530,15 +530,15 @@ namespace Tecnologia
             this.flowlayoutpanel7.WrapContents = true;
             this.flowlayoutpanel7.Name = "flowlayoutpanel7";
             // btnEditar
-            this.btnEditar.Text = "Editar selecionado";
+            this.btnEditar.Text = "Editar";
             this.btnEditar.AccessibleName = null;
             this.btnEditar.Location = new System.Drawing.Point(0, 8);
             this.btnEditar.Size = new System.Drawing.Size(144, 38);
             this.btnEditar.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnEditar.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnEditar.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnEditar.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.btnEditar.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.btnEditar.BackColor = System.Drawing.Color.FromArgb(255, 226, 242, 236);
+            this.btnEditar.ForeColor = System.Drawing.Color.FromArgb(255, 21, 59, 50);
             this.btnEditar.Dock = (System.Windows.Forms.DockStyle)0;
             this.btnEditar.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnEditar.Margin = new System.Windows.Forms.Padding(0, 3, 10, 5);
@@ -553,20 +553,20 @@ namespace Tecnologia
             this.btnEditar.UseVisualStyleBackColor = false;
             this.btnEditar.UseCompatibleTextRendering = false;
             this.btnEditar.FlatAppearance.BorderSize = 0;
-            this.btnEditar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnEditar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnEditar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.btnEditar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Cursor = System.Windows.Forms.Cursors.Hand;
             // btnExcluir
-            this.btnExcluir.Text = "Excluir selecionado";
+            this.btnExcluir.Text = "Excluir";
             this.btnExcluir.AccessibleName = null;
             this.btnExcluir.Location = new System.Drawing.Point(154, 8);
             this.btnExcluir.Size = new System.Drawing.Size(144, 38);
             this.btnExcluir.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnExcluir.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnExcluir.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnExcluir.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.btnExcluir.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.btnExcluir.BackColor = System.Drawing.Color.FromArgb(255, 226, 242, 236);
+            this.btnExcluir.ForeColor = System.Drawing.Color.FromArgb(255, 21, 59, 50);
             this.btnExcluir.Dock = (System.Windows.Forms.DockStyle)0;
             this.btnExcluir.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnExcluir.Margin = new System.Windows.Forms.Padding(0, 3, 10, 5);
@@ -581,8 +581,8 @@ namespace Tecnologia
             this.btnExcluir.UseVisualStyleBackColor = false;
             this.btnExcluir.UseCompatibleTextRendering = false;
             this.btnExcluir.FlatAppearance.BorderSize = 0;
-            this.btnExcluir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnExcluir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnExcluir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.btnExcluir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnExcluir.Name = "btnExcluir";
             this.btnExcluir.Cursor = System.Windows.Forms.Cursors.Hand;
             // btnMovimentar
@@ -593,8 +593,8 @@ namespace Tecnologia
             this.btnMovimentar.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnMovimentar.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnMovimentar.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnMovimentar.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.btnMovimentar.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.btnMovimentar.BackColor = System.Drawing.Color.FromArgb(255, 226, 242, 236);
+            this.btnMovimentar.ForeColor = System.Drawing.Color.FromArgb(255, 21, 59, 50);
             this.btnMovimentar.Dock = (System.Windows.Forms.DockStyle)0;
             this.btnMovimentar.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnMovimentar.Margin = new System.Windows.Forms.Padding(0, 3, 10, 5);
@@ -609,8 +609,8 @@ namespace Tecnologia
             this.btnMovimentar.UseVisualStyleBackColor = false;
             this.btnMovimentar.UseCompatibleTextRendering = false;
             this.btnMovimentar.FlatAppearance.BorderSize = 0;
-            this.btnMovimentar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnMovimentar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnMovimentar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.btnMovimentar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnMovimentar.Name = "btnMovimentar";
             this.btnMovimentar.Cursor = System.Windows.Forms.Cursors.Hand;
             // btnHistorico
@@ -621,8 +621,8 @@ namespace Tecnologia
             this.btnHistorico.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnHistorico.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnHistorico.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnHistorico.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.btnHistorico.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.btnHistorico.BackColor = System.Drawing.Color.FromArgb(255, 226, 242, 236);
+            this.btnHistorico.ForeColor = System.Drawing.Color.FromArgb(255, 21, 59, 50);
             this.btnHistorico.Dock = (System.Windows.Forms.DockStyle)0;
             this.btnHistorico.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnHistorico.Margin = new System.Windows.Forms.Padding(0, 3, 10, 5);
@@ -637,20 +637,20 @@ namespace Tecnologia
             this.btnHistorico.UseVisualStyleBackColor = false;
             this.btnHistorico.UseCompatibleTextRendering = false;
             this.btnHistorico.FlatAppearance.BorderSize = 0;
-            this.btnHistorico.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnHistorico.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnHistorico.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.btnHistorico.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnHistorico.Name = "btnHistorico";
             this.btnHistorico.Cursor = System.Windows.Forms.Cursors.Hand;
             // btnExportar
-            this.btnExportar.Text = "Exportar Excel";
+            this.btnExportar.Text = "Exportar...";
             this.btnExportar.AccessibleName = null;
             this.btnExportar.Location = new System.Drawing.Point(628, 8);
             this.btnExportar.Size = new System.Drawing.Size(144, 38);
             this.btnExportar.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnExportar.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnExportar.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnExportar.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.btnExportar.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.btnExportar.BackColor = System.Drawing.Color.FromArgb(255, 226, 242, 236);
+            this.btnExportar.ForeColor = System.Drawing.Color.FromArgb(255, 21, 59, 50);
             this.btnExportar.Dock = (System.Windows.Forms.DockStyle)0;
             this.btnExportar.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnExportar.Margin = new System.Windows.Forms.Padding(0, 3, 10, 5);
@@ -665,8 +665,8 @@ namespace Tecnologia
             this.btnExportar.UseVisualStyleBackColor = false;
             this.btnExportar.UseCompatibleTextRendering = false;
             this.btnExportar.FlatAppearance.BorderSize = 0;
-            this.btnExportar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnExportar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnExportar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.btnExportar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnExportar.Name = "btnExportar";
             this.btnExportar.Cursor = System.Windows.Forms.Cursors.Hand;
             // tabpage8
@@ -677,7 +677,7 @@ namespace Tecnologia
             this.tabpage8.MinimumSize = new System.Drawing.Size(0, 0);
             this.tabpage8.MaximumSize = new System.Drawing.Size(0, 0);
             this.tabpage8.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.tabpage8.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.tabpage8.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.tabpage8.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.tabpage8.Dock = (System.Windows.Forms.DockStyle)0;
             this.tabpage8.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -701,7 +701,7 @@ namespace Tecnologia
             this.panel9.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel9.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel9.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel9.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.panel9.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.panel9.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel9.Dock = (System.Windows.Forms.DockStyle)5;
             this.panel9.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -724,7 +724,7 @@ namespace Tecnologia
             this.flowlayoutpanel10.MinimumSize = new System.Drawing.Size(910, 0);
             this.flowlayoutpanel10.MaximumSize = new System.Drawing.Size(910, 0);
             this.flowlayoutpanel10.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.flowlayoutpanel10.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.flowlayoutpanel10.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.flowlayoutpanel10.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.flowlayoutpanel10.Dock = (System.Windows.Forms.DockStyle)0;
             this.flowlayoutpanel10.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -750,7 +750,7 @@ namespace Tecnologia
             this.lblEdicao.MaximumSize = new System.Drawing.Size(0, 0);
             this.lblEdicao.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
             this.lblEdicao.BackColor = System.Drawing.Color.FromArgb(0, 255, 255, 255);
-            this.lblEdicao.ForeColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            this.lblEdicao.ForeColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.lblEdicao.Dock = (System.Windows.Forms.DockStyle)0;
             this.lblEdicao.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.lblEdicao.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
@@ -772,8 +772,8 @@ namespace Tecnologia
             this.label11.MinimumSize = new System.Drawing.Size(0, 0);
             this.label11.MaximumSize = new System.Drawing.Size(0, 0);
             this.label11.Font = new System.Drawing.Font("Segoe UI", 12F, (System.Drawing.FontStyle)1);
-            this.label11.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
-            this.label11.ForeColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            this.label11.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
+            this.label11.ForeColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.label11.Dock = (System.Windows.Forms.DockStyle)0;
             this.label11.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.label11.Margin = new System.Windows.Forms.Padding(3, 14, 3, 4);
@@ -795,7 +795,7 @@ namespace Tecnologia
             this.flowlayoutpanel12.MinimumSize = new System.Drawing.Size(884, 0);
             this.flowlayoutpanel12.MaximumSize = new System.Drawing.Size(884, 0);
             this.flowlayoutpanel12.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.flowlayoutpanel12.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.flowlayoutpanel12.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.flowlayoutpanel12.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.flowlayoutpanel12.Dock = (System.Windows.Forms.DockStyle)0;
             this.flowlayoutpanel12.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -820,7 +820,7 @@ namespace Tecnologia
             this.panel13.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel13.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel13.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel13.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.panel13.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.panel13.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel13.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel13.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -866,7 +866,7 @@ namespace Tecnologia
             this.campocodigoFundo.MinimumSize = new System.Drawing.Size(0, 0);
             this.campocodigoFundo.MaximumSize = new System.Drawing.Size(0, 0);
             this.campocodigoFundo.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.campocodigoFundo.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.campocodigoFundo.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.campocodigoFundo.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.campocodigoFundo.Dock = (System.Windows.Forms.DockStyle)0;
             this.campocodigoFundo.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -889,7 +889,7 @@ namespace Tecnologia
             this.campocodigo.MinimumSize = new System.Drawing.Size(0, 0);
             this.campocodigo.MaximumSize = new System.Drawing.Size(0, 0);
             this.campocodigo.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.campocodigo.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.campocodigo.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.campocodigo.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.campocodigo.Dock = (System.Windows.Forms.DockStyle)0;
             this.campocodigo.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -919,7 +919,7 @@ namespace Tecnologia
             this.panel14.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel14.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel14.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel14.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.panel14.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.panel14.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel14.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel14.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -965,7 +965,7 @@ namespace Tecnologia
             this.camponomeFundo.MinimumSize = new System.Drawing.Size(0, 0);
             this.camponomeFundo.MaximumSize = new System.Drawing.Size(0, 0);
             this.camponomeFundo.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.camponomeFundo.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.camponomeFundo.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.camponomeFundo.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.camponomeFundo.Dock = (System.Windows.Forms.DockStyle)0;
             this.camponomeFundo.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -988,7 +988,7 @@ namespace Tecnologia
             this.camponome.MinimumSize = new System.Drawing.Size(0, 0);
             this.camponome.MaximumSize = new System.Drawing.Size(0, 0);
             this.camponome.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.camponome.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.camponome.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.camponome.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.camponome.Dock = (System.Windows.Forms.DockStyle)0;
             this.camponome.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -1018,7 +1018,7 @@ namespace Tecnologia
             this.panel15.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel15.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel15.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel15.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.panel15.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.panel15.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel15.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel15.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -1091,8 +1091,8 @@ namespace Tecnologia
             this.label16.MinimumSize = new System.Drawing.Size(0, 0);
             this.label16.MaximumSize = new System.Drawing.Size(0, 0);
             this.label16.Font = new System.Drawing.Font("Segoe UI", 12F, (System.Drawing.FontStyle)1);
-            this.label16.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
-            this.label16.ForeColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            this.label16.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
+            this.label16.ForeColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.label16.Dock = (System.Windows.Forms.DockStyle)0;
             this.label16.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.label16.Margin = new System.Windows.Forms.Padding(3, 14, 3, 4);
@@ -1114,7 +1114,7 @@ namespace Tecnologia
             this.flowlayoutpanel17.MinimumSize = new System.Drawing.Size(884, 0);
             this.flowlayoutpanel17.MaximumSize = new System.Drawing.Size(884, 0);
             this.flowlayoutpanel17.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.flowlayoutpanel17.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.flowlayoutpanel17.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.flowlayoutpanel17.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.flowlayoutpanel17.Dock = (System.Windows.Forms.DockStyle)0;
             this.flowlayoutpanel17.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -1139,7 +1139,7 @@ namespace Tecnologia
             this.panel18.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel18.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel18.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel18.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.panel18.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.panel18.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel18.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel18.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -1185,7 +1185,7 @@ namespace Tecnologia
             this.campotipo.MinimumSize = new System.Drawing.Size(0, 0);
             this.campotipo.MaximumSize = new System.Drawing.Size(0, 0);
             this.campotipo.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.campotipo.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.campotipo.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.campotipo.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.campotipo.Dock = (System.Windows.Forms.DockStyle)0;
             this.campotipo.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -1211,7 +1211,7 @@ namespace Tecnologia
             this.panel19.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel19.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel19.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel19.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.panel19.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.panel19.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel19.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel19.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -1257,7 +1257,7 @@ namespace Tecnologia
             this.campomarcaFundo.MinimumSize = new System.Drawing.Size(0, 0);
             this.campomarcaFundo.MaximumSize = new System.Drawing.Size(0, 0);
             this.campomarcaFundo.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.campomarcaFundo.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.campomarcaFundo.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.campomarcaFundo.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.campomarcaFundo.Dock = (System.Windows.Forms.DockStyle)0;
             this.campomarcaFundo.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -1280,7 +1280,7 @@ namespace Tecnologia
             this.campomarca.MinimumSize = new System.Drawing.Size(0, 0);
             this.campomarca.MaximumSize = new System.Drawing.Size(0, 0);
             this.campomarca.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.campomarca.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.campomarca.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.campomarca.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.campomarca.Dock = (System.Windows.Forms.DockStyle)0;
             this.campomarca.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -1310,7 +1310,7 @@ namespace Tecnologia
             this.panel20.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel20.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel20.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel20.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.panel20.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.panel20.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel20.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel20.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -1356,7 +1356,7 @@ namespace Tecnologia
             this.campomodelo_compativelFundo.MinimumSize = new System.Drawing.Size(0, 0);
             this.campomodelo_compativelFundo.MaximumSize = new System.Drawing.Size(0, 0);
             this.campomodelo_compativelFundo.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.campomodelo_compativelFundo.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.campomodelo_compativelFundo.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.campomodelo_compativelFundo.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.campomodelo_compativelFundo.Dock = (System.Windows.Forms.DockStyle)0;
             this.campomodelo_compativelFundo.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -1379,7 +1379,7 @@ namespace Tecnologia
             this.campomodelo_compativel.MinimumSize = new System.Drawing.Size(0, 0);
             this.campomodelo_compativel.MaximumSize = new System.Drawing.Size(0, 0);
             this.campomodelo_compativel.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.campomodelo_compativel.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.campomodelo_compativel.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.campomodelo_compativel.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.campomodelo_compativel.Dock = (System.Windows.Forms.DockStyle)0;
             this.campomodelo_compativel.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -1409,8 +1409,8 @@ namespace Tecnologia
             this.label21.MinimumSize = new System.Drawing.Size(0, 0);
             this.label21.MaximumSize = new System.Drawing.Size(0, 0);
             this.label21.Font = new System.Drawing.Font("Segoe UI", 12F, (System.Drawing.FontStyle)1);
-            this.label21.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
-            this.label21.ForeColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            this.label21.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
+            this.label21.ForeColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.label21.Dock = (System.Windows.Forms.DockStyle)0;
             this.label21.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.label21.Margin = new System.Windows.Forms.Padding(3, 14, 3, 4);
@@ -1432,7 +1432,7 @@ namespace Tecnologia
             this.flowlayoutpanel22.MinimumSize = new System.Drawing.Size(884, 0);
             this.flowlayoutpanel22.MaximumSize = new System.Drawing.Size(884, 0);
             this.flowlayoutpanel22.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.flowlayoutpanel22.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.flowlayoutpanel22.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.flowlayoutpanel22.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.flowlayoutpanel22.Dock = (System.Windows.Forms.DockStyle)0;
             this.flowlayoutpanel22.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -1457,7 +1457,7 @@ namespace Tecnologia
             this.panel23.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel23.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel23.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel23.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.panel23.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.panel23.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel23.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel23.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -1503,7 +1503,7 @@ namespace Tecnologia
             this.campoestoque_minimo.MinimumSize = new System.Drawing.Size(0, 0);
             this.campoestoque_minimo.MaximumSize = new System.Drawing.Size(0, 0);
             this.campoestoque_minimo.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.campoestoque_minimo.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.campoestoque_minimo.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.campoestoque_minimo.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.campoestoque_minimo.Dock = (System.Windows.Forms.DockStyle)0;
             this.campoestoque_minimo.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -1533,7 +1533,7 @@ namespace Tecnologia
             this.panel24.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel24.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel24.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel24.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.panel24.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.panel24.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel24.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel24.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -1579,7 +1579,7 @@ namespace Tecnologia
             this.campovalor_compra.MinimumSize = new System.Drawing.Size(0, 0);
             this.campovalor_compra.MaximumSize = new System.Drawing.Size(0, 0);
             this.campovalor_compra.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.campovalor_compra.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.campovalor_compra.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.campovalor_compra.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.campovalor_compra.Dock = (System.Windows.Forms.DockStyle)0;
             this.campovalor_compra.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -1609,7 +1609,7 @@ namespace Tecnologia
             this.panel25.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel25.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel25.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel25.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.panel25.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.panel25.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel25.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel25.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -1655,7 +1655,7 @@ namespace Tecnologia
             this.campovalor_venda.MinimumSize = new System.Drawing.Size(0, 0);
             this.campovalor_venda.MaximumSize = new System.Drawing.Size(0, 0);
             this.campovalor_venda.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.campovalor_venda.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.campovalor_venda.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.campovalor_venda.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.campovalor_venda.Dock = (System.Windows.Forms.DockStyle)0;
             this.campovalor_venda.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -1685,7 +1685,7 @@ namespace Tecnologia
             this.flowlayoutpanel26.MinimumSize = new System.Drawing.Size(0, 0);
             this.flowlayoutpanel26.MaximumSize = new System.Drawing.Size(0, 0);
             this.flowlayoutpanel26.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.flowlayoutpanel26.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.flowlayoutpanel26.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.flowlayoutpanel26.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.flowlayoutpanel26.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowlayoutpanel26.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -1710,8 +1710,8 @@ namespace Tecnologia
             this.btnSalvar.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnSalvar.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnSalvar.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnSalvar.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.btnSalvar.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.btnSalvar.BackColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
+            this.btnSalvar.ForeColor = System.Drawing.Color.FromArgb(255, 255, 255, 255);
             this.btnSalvar.Dock = (System.Windows.Forms.DockStyle)0;
             this.btnSalvar.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnSalvar.Margin = new System.Windows.Forms.Padding(0, 3, 10, 5);
@@ -1726,8 +1726,8 @@ namespace Tecnologia
             this.btnSalvar.UseVisualStyleBackColor = false;
             this.btnSalvar.UseCompatibleTextRendering = false;
             this.btnSalvar.FlatAppearance.BorderSize = 0;
-            this.btnSalvar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnSalvar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnSalvar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 20, 82, 67);
+            this.btnSalvar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 16, 67, 56);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Cursor = System.Windows.Forms.Cursors.Hand;
             // button27
@@ -1738,8 +1738,8 @@ namespace Tecnologia
             this.button27.MinimumSize = new System.Drawing.Size(0, 0);
             this.button27.MaximumSize = new System.Drawing.Size(0, 0);
             this.button27.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.button27.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.button27.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.button27.BackColor = System.Drawing.Color.FromArgb(255, 226, 242, 236);
+            this.button27.ForeColor = System.Drawing.Color.FromArgb(255, 21, 59, 50);
             this.button27.Dock = (System.Windows.Forms.DockStyle)0;
             this.button27.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.button27.Margin = new System.Windows.Forms.Padding(0, 3, 10, 5);
@@ -1754,8 +1754,8 @@ namespace Tecnologia
             this.button27.UseVisualStyleBackColor = false;
             this.button27.UseCompatibleTextRendering = false;
             this.button27.FlatAppearance.BorderSize = 0;
-            this.button27.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.button27.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.button27.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.button27.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.button27.Name = "button27";
             this.button27.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Controls.Add(this.tablelayoutpanel1);
@@ -1833,19 +1833,6 @@ namespace Tecnologia
             this.btnMovimentar.Click += new System.EventHandler(this.btnMovimentar_Click);
             this.btnHistorico.Click += new System.EventHandler(this.btnHistorico_Click);
             this.Load += new System.EventHandler(this.PecasForm_Load);
-            this.btnPesquisar.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnNovo.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnEditar.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnExcluir.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnMovimentar.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnHistorico.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnExportar.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.campocodigoFundo.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.camponomeFundo.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.campomarcaFundo.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.campomodelo_compativelFundo.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnSalvar.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.button27.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
             this.panel9.SizeChanged += new System.EventHandler(this.flowlayoutpanel10_Redimensionar);
             this.btnNovo.Click += new System.EventHandler(this.NovoCadastro_Click);
             this.btnEditar.Click += new System.EventHandler(this.EditarCadastro_Click);

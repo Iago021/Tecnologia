@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Banco.cs" />
     <Compile Include="Exportar.cs" />
+    <Compile Include="ExportacaoPdf.cs" />
     <Compile Include="Forms\AbrirOrdemForm.Designer.cs">
       <DependentUpon>AbrirOrdemForm.cs</DependentUpon>
     </Compile>

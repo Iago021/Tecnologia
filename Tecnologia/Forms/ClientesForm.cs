@@ -40,7 +40,10 @@ namespace Tecnologia
             // Os nomes das colunas vêm desta lista fixa, nunca do texto digitado.
             string[] campos = { "nome", "id", "email", "telefone", "cpf", "rg", "cidade", "data_nascimento" };
             int indice = Math.Max(0,cmbCampo.SelectedIndex);
-            grade.DataSource = Banco.Consultar("SELECT id, nome, email, telefone, cpf, rg, cidade, endereco, data_nascimento, ativo, data_cadastro FROM clientes WHERE " + campos[indice] + " LIKE @busca ORDER BY id DESC", Banco.P("@busca", "%" + txtBusca.Text.Trim() + "%"));
+            string campo = campos[indice];
+            if (campo == "data_nascimento") campo = "DATE_FORMAT(data_nascimento, '%d/%m/%Y')";
+            string busca = txtBusca.Text.Trim();
+            grade.DataSource = Banco.Consultar("SELECT id, nome, email, telefone, cpf, rg, cidade, endereco, data_nascimento, ativo, data_cadastro FROM clientes WHERE (@vazia OR " + campo + " LIKE @busca) ORDER BY id DESC", Banco.P("@vazia", busca == ""), Banco.P("@busca", "%" + busca + "%"));
             grade.Columns["id"].HeaderText = "Código";
             grade.Columns["nome"].HeaderText = "Nome";
             grade.Columns["email"].HeaderText = "E-mail";
@@ -57,7 +60,7 @@ namespace Tecnologia
         private void btnPesquisar_Click(object sender, EventArgs e)
         { try { Carregar(); } catch (Exception erro) { Tela.Erro(erro); } }
         private void btnExportar_Click(object sender, EventArgs e)
-        { try { Sessao.Exigir("Atendente"); Exportar.Excel(grade); } catch (Exception erro) { Tela.Erro(erro); } }
+        { try { Sessao.Exigir("Atendente"); Exportar.Menu(btnExportar, grade, "Clientes"); } catch (Exception erro) { Tela.Erro(erro); } }
         private void btnEditar_Click(object sender, EventArgs e)
         {
             try

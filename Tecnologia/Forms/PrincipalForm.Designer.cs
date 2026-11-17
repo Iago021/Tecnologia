@@ -219,7 +219,7 @@ namespace Tecnologia
             this.btnAtualizar.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnAtualizar.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnAtualizar.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnAtualizar.BackColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            this.btnAtualizar.BackColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.btnAtualizar.ForeColor = System.Drawing.Color.FromArgb(255, 255, 255, 255);
             this.btnAtualizar.Dock = (System.Windows.Forms.DockStyle)0;
             this.btnAtualizar.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -235,8 +235,8 @@ namespace Tecnologia
             this.btnAtualizar.UseVisualStyleBackColor = false;
             this.btnAtualizar.UseCompatibleTextRendering = false;
             this.btnAtualizar.FlatAppearance.BorderSize = 0;
-            this.btnAtualizar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnAtualizar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnAtualizar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.btnAtualizar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnAtualizar.Name = "btnAtualizar";
             this.btnAtualizar.Cursor = System.Windows.Forms.Cursors.Hand;
             // btnOrdens
@@ -247,8 +247,8 @@ namespace Tecnologia
             this.btnOrdens.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnOrdens.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnOrdens.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnOrdens.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.btnOrdens.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.btnOrdens.BackColor = System.Drawing.Color.FromArgb(255, 226, 242, 236);
+            this.btnOrdens.ForeColor = System.Drawing.Color.FromArgb(255, 21, 59, 50);
             this.btnOrdens.Dock = (System.Windows.Forms.DockStyle)0;
             this.btnOrdens.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnOrdens.Margin = new System.Windows.Forms.Padding(0, 0, 12, 0);
@@ -263,8 +263,8 @@ namespace Tecnologia
             this.btnOrdens.UseVisualStyleBackColor = false;
             this.btnOrdens.UseCompatibleTextRendering = false;
             this.btnOrdens.FlatAppearance.BorderSize = 0;
-            this.btnOrdens.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnOrdens.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnOrdens.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.btnOrdens.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnOrdens.Name = "btnOrdens";
             this.btnOrdens.Cursor = System.Windows.Forms.Cursors.Hand;
             // btnPecas
@@ -275,8 +275,8 @@ namespace Tecnologia
             this.btnPecas.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnPecas.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnPecas.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnPecas.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.btnPecas.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.btnPecas.BackColor = System.Drawing.Color.FromArgb(255, 226, 242, 236);
+            this.btnPecas.ForeColor = System.Drawing.Color.FromArgb(255, 21, 59, 50);
             this.btnPecas.Dock = (System.Windows.Forms.DockStyle)0;
             this.btnPecas.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnPecas.Margin = new System.Windows.Forms.Padding(0, 0, 12, 0);
@@ -291,8 +291,8 @@ namespace Tecnologia
             this.btnPecas.UseVisualStyleBackColor = false;
             this.btnPecas.UseCompatibleTextRendering = false;
             this.btnPecas.FlatAppearance.BorderSize = 0;
-            this.btnPecas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnPecas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnPecas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.btnPecas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnPecas.Name = "btnPecas";
             this.btnPecas.Cursor = System.Windows.Forms.Cursors.Hand;
             // btnCadastros
@@ -303,8 +303,8 @@ namespace Tecnologia
             this.btnCadastros.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnCadastros.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnCadastros.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnCadastros.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.btnCadastros.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.btnCadastros.BackColor = System.Drawing.Color.FromArgb(255, 226, 242, 236);
+            this.btnCadastros.ForeColor = System.Drawing.Color.FromArgb(255, 21, 59, 50);
             this.btnCadastros.Dock = (System.Windows.Forms.DockStyle)0;
             this.btnCadastros.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnCadastros.Margin = new System.Windows.Forms.Padding(0, 0, 12, 0);
@@ -319,8 +319,8 @@ namespace Tecnologia
             this.btnCadastros.UseVisualStyleBackColor = false;
             this.btnCadastros.UseCompatibleTextRendering = false;
             this.btnCadastros.FlatAppearance.BorderSize = 0;
-            this.btnCadastros.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnCadastros.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnCadastros.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.btnCadastros.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnCadastros.Name = "btnCadastros";
             this.btnCadastros.Cursor = System.Windows.Forms.Cursors.Hand;
             // btnPerfil
@@ -331,8 +331,8 @@ namespace Tecnologia
             this.btnPerfil.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnPerfil.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnPerfil.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnPerfil.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.btnPerfil.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.btnPerfil.BackColor = System.Drawing.Color.FromArgb(255, 226, 242, 236);
+            this.btnPerfil.ForeColor = System.Drawing.Color.FromArgb(255, 21, 59, 50);
             this.btnPerfil.Dock = (System.Windows.Forms.DockStyle)0;
             this.btnPerfil.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnPerfil.Margin = new System.Windows.Forms.Padding(0, 0, 12, 0);
@@ -347,8 +347,8 @@ namespace Tecnologia
             this.btnPerfil.UseVisualStyleBackColor = false;
             this.btnPerfil.UseCompatibleTextRendering = false;
             this.btnPerfil.FlatAppearance.BorderSize = 0;
-            this.btnPerfil.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnPerfil.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnPerfil.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.btnPerfil.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnPerfil.Name = "btnPerfil";
             this.btnPerfil.Cursor = System.Windows.Forms.Cursors.Hand;
             // btnSair
@@ -359,8 +359,8 @@ namespace Tecnologia
             this.btnSair.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnSair.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnSair.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnSair.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.btnSair.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.btnSair.BackColor = System.Drawing.Color.FromArgb(255, 226, 242, 236);
+            this.btnSair.ForeColor = System.Drawing.Color.FromArgb(255, 21, 59, 50);
             this.btnSair.Dock = (System.Windows.Forms.DockStyle)0;
             this.btnSair.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnSair.Margin = new System.Windows.Forms.Padding(0, 0, 12, 0);
@@ -375,8 +375,8 @@ namespace Tecnologia
             this.btnSair.UseVisualStyleBackColor = false;
             this.btnSair.UseCompatibleTextRendering = false;
             this.btnSair.FlatAppearance.BorderSize = 0;
-            this.btnSair.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnSair.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnSair.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.btnSair.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnSair.Name = "btnSair";
             this.btnSair.Cursor = System.Windows.Forms.Cursors.Hand;
             // conteudo
@@ -442,8 +442,8 @@ namespace Tecnologia
             this.btnClientes.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnClientes.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnClientes.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnClientes.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.btnClientes.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.btnClientes.BackColor = System.Drawing.Color.FromArgb(255, 226, 242, 236);
+            this.btnClientes.ForeColor = System.Drawing.Color.FromArgb(255, 21, 59, 50);
             this.btnClientes.Dock = (System.Windows.Forms.DockStyle)0;
             this.btnClientes.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnClientes.Margin = new System.Windows.Forms.Padding(0, 0, 12, 0);
@@ -458,8 +458,8 @@ namespace Tecnologia
             this.btnClientes.UseVisualStyleBackColor = false;
             this.btnClientes.UseCompatibleTextRendering = false;
             this.btnClientes.FlatAppearance.BorderSize = 0;
-            this.btnClientes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnClientes.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnClientes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.btnClientes.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnClientes.Name = "btnClientes";
             this.btnClientes.Cursor = System.Windows.Forms.Cursors.Hand;
             // btnAparelhos
@@ -470,8 +470,8 @@ namespace Tecnologia
             this.btnAparelhos.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnAparelhos.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnAparelhos.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnAparelhos.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.btnAparelhos.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.btnAparelhos.BackColor = System.Drawing.Color.FromArgb(255, 226, 242, 236);
+            this.btnAparelhos.ForeColor = System.Drawing.Color.FromArgb(255, 21, 59, 50);
             this.btnAparelhos.Dock = (System.Windows.Forms.DockStyle)0;
             this.btnAparelhos.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnAparelhos.Margin = new System.Windows.Forms.Padding(0, 0, 12, 0);
@@ -486,8 +486,8 @@ namespace Tecnologia
             this.btnAparelhos.UseVisualStyleBackColor = false;
             this.btnAparelhos.UseCompatibleTextRendering = false;
             this.btnAparelhos.FlatAppearance.BorderSize = 0;
-            this.btnAparelhos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnAparelhos.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnAparelhos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.btnAparelhos.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnAparelhos.Name = "btnAparelhos";
             this.btnAparelhos.Cursor = System.Windows.Forms.Cursors.Hand;
             // btnUsuarios
@@ -498,8 +498,8 @@ namespace Tecnologia
             this.btnUsuarios.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnUsuarios.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnUsuarios.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnUsuarios.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.btnUsuarios.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.btnUsuarios.BackColor = System.Drawing.Color.FromArgb(255, 226, 242, 236);
+            this.btnUsuarios.ForeColor = System.Drawing.Color.FromArgb(255, 21, 59, 50);
             this.btnUsuarios.Dock = (System.Windows.Forms.DockStyle)0;
             this.btnUsuarios.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnUsuarios.Margin = new System.Windows.Forms.Padding(0, 0, 12, 0);
@@ -514,8 +514,8 @@ namespace Tecnologia
             this.btnUsuarios.UseVisualStyleBackColor = false;
             this.btnUsuarios.UseCompatibleTextRendering = false;
             this.btnUsuarios.FlatAppearance.BorderSize = 0;
-            this.btnUsuarios.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnUsuarios.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnUsuarios.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.btnUsuarios.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnUsuarios.Name = "btnUsuarios";
             this.btnUsuarios.Cursor = System.Windows.Forms.Cursors.Hand;
             // area
@@ -654,8 +654,8 @@ namespace Tecnologia
             this.btnNova.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnNova.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnNova.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnNova.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.btnNova.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.btnNova.BackColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
+            this.btnNova.ForeColor = System.Drawing.Color.FromArgb(255, 255, 255, 255);
             this.btnNova.Dock = (System.Windows.Forms.DockStyle)0;
             this.btnNova.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnNova.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
@@ -670,8 +670,8 @@ namespace Tecnologia
             this.btnNova.UseVisualStyleBackColor = false;
             this.btnNova.UseCompatibleTextRendering = false;
             this.btnNova.FlatAppearance.BorderSize = 0;
-            this.btnNova.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnNova.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnNova.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 20, 82, 67);
+            this.btnNova.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 16, 67, 56);
             this.btnNova.Name = "btnNova";
             this.btnNova.Cursor = System.Windows.Forms.Cursors.Hand;
             // picturebox7
@@ -735,8 +735,8 @@ namespace Tecnologia
             this.btnAbertas.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnAbertas.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnAbertas.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnAbertas.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
-            this.btnAbertas.ForeColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            this.btnAbertas.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
+            this.btnAbertas.ForeColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.btnAbertas.Dock = (System.Windows.Forms.DockStyle)5;
             this.btnAbertas.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnAbertas.Margin = new System.Windows.Forms.Padding(5, 10, 5, 14);
@@ -751,8 +751,8 @@ namespace Tecnologia
             this.btnAbertas.UseVisualStyleBackColor = false;
             this.btnAbertas.UseCompatibleTextRendering = false;
             this.btnAbertas.FlatAppearance.BorderSize = 0;
-            this.btnAbertas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnAbertas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnAbertas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.btnAbertas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnAbertas.Name = "btnAbertas";
             this.btnAbertas.Cursor = System.Windows.Forms.Cursors.Hand;
             // btnManutencao
@@ -763,8 +763,8 @@ namespace Tecnologia
             this.btnManutencao.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnManutencao.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnManutencao.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnManutencao.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
-            this.btnManutencao.ForeColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            this.btnManutencao.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
+            this.btnManutencao.ForeColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.btnManutencao.Dock = (System.Windows.Forms.DockStyle)5;
             this.btnManutencao.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnManutencao.Margin = new System.Windows.Forms.Padding(5, 10, 5, 14);
@@ -779,8 +779,8 @@ namespace Tecnologia
             this.btnManutencao.UseVisualStyleBackColor = false;
             this.btnManutencao.UseCompatibleTextRendering = false;
             this.btnManutencao.FlatAppearance.BorderSize = 0;
-            this.btnManutencao.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnManutencao.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnManutencao.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.btnManutencao.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnManutencao.Name = "btnManutencao";
             this.btnManutencao.Cursor = System.Windows.Forms.Cursors.Hand;
             // btnConcluidas
@@ -791,8 +791,8 @@ namespace Tecnologia
             this.btnConcluidas.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnConcluidas.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnConcluidas.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnConcluidas.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
-            this.btnConcluidas.ForeColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            this.btnConcluidas.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
+            this.btnConcluidas.ForeColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.btnConcluidas.Dock = (System.Windows.Forms.DockStyle)5;
             this.btnConcluidas.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnConcluidas.Margin = new System.Windows.Forms.Padding(5, 10, 5, 14);
@@ -807,8 +807,8 @@ namespace Tecnologia
             this.btnConcluidas.UseVisualStyleBackColor = false;
             this.btnConcluidas.UseCompatibleTextRendering = false;
             this.btnConcluidas.FlatAppearance.BorderSize = 0;
-            this.btnConcluidas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnConcluidas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnConcluidas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.btnConcluidas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnConcluidas.Name = "btnConcluidas";
             this.btnConcluidas.Cursor = System.Windows.Forms.Cursors.Hand;
             // btnProntas
@@ -819,8 +819,8 @@ namespace Tecnologia
             this.btnProntas.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnProntas.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnProntas.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnProntas.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
-            this.btnProntas.ForeColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            this.btnProntas.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
+            this.btnProntas.ForeColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.btnProntas.Dock = (System.Windows.Forms.DockStyle)5;
             this.btnProntas.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnProntas.Margin = new System.Windows.Forms.Padding(5, 10, 5, 14);
@@ -835,8 +835,8 @@ namespace Tecnologia
             this.btnProntas.UseVisualStyleBackColor = false;
             this.btnProntas.UseCompatibleTextRendering = false;
             this.btnProntas.FlatAppearance.BorderSize = 0;
-            this.btnProntas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnProntas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnProntas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.btnProntas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnProntas.Name = "btnProntas";
             this.btnProntas.Cursor = System.Windows.Forms.Cursors.Hand;
             // lblResumo
@@ -932,20 +932,6 @@ namespace Tecnologia
             this.btnPerfil.Click += new System.EventHandler(this.btnPerfil_Click);
             this.btnSair.Click += new System.EventHandler(this.btnSair_Click);
             this.Load += new System.EventHandler(this.PrincipalForm_Load);
-            this.btnAtualizar.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnOrdens.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnPecas.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnCadastros.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnPerfil.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnSair.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnClientes.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnAparelhos.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnUsuarios.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnNova.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnAbertas.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnManutencao.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnConcluidas.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnProntas.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
             this.btnCadastros.Click += new System.EventHandler(this.Cadastros_Click);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PrincipalForm_FormClosing);
             this.tablelayoutpanel8.ResumeLayout(false);

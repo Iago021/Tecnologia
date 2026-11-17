@@ -41,7 +41,10 @@ namespace Tecnologia
             // Os nomes das colunas vêm desta lista fixa, nunca do texto digitado.
             string[] campos = { "nome", "id", "email", "perfil", "cpf", "rg", "telefone", "cidade", "data_nascimento" };
             int indice = Math.Max(0,cmbCampo.SelectedIndex);
-            grade.DataSource = Banco.Consultar("SELECT id, nome, email, telefone, cpf, rg, cidade, data_nascimento, perfil, ativo, data_cadastro FROM usuarios WHERE " + campos[indice] + " LIKE @busca ORDER BY id DESC", Banco.P("@busca", "%" + txtBusca.Text.Trim() + "%"));
+            string campo = campos[indice];
+            if (campo == "data_nascimento") campo = "DATE_FORMAT(data_nascimento, '%d/%m/%Y')";
+            string busca = txtBusca.Text.Trim();
+            grade.DataSource = Banco.Consultar("SELECT id, nome, email, telefone, cpf, rg, cidade, data_nascimento, perfil, ativo, data_cadastro FROM usuarios WHERE (@vazia OR " + campo + " LIKE @busca) ORDER BY id DESC", Banco.P("@vazia", busca == ""), Banco.P("@busca", "%" + busca + "%"));
             grade.Columns["id"].HeaderText = "Código";
             grade.Columns["nome"].HeaderText = "Nome";
             grade.Columns["email"].HeaderText = "E-mail de acesso";
@@ -58,7 +61,7 @@ namespace Tecnologia
         private void btnPesquisar_Click(object sender, EventArgs e)
         { try { Carregar(); } catch (Exception erro) { Tela.Erro(erro); } }
         private void btnExportar_Click(object sender, EventArgs e)
-        { try { Sessao.Exigir("Atendente"); Exportar.Excel(grade); } catch (Exception erro) { Tela.Erro(erro); } }
+        { try { Sessao.Exigir("Atendente"); Exportar.Menu(btnExportar, grade, "Equipe"); } catch (Exception erro) { Tela.Erro(erro); } }
         private void btnEditar_Click(object sender, EventArgs e)
         {
             try
@@ -95,18 +98,15 @@ namespace Tecnologia
                 string cpf = campocpf.Text.Replace(".", "").Replace("-", "").Trim();
                 if (cpf != "" && !System.Text.RegularExpressions.Regex.IsMatch(cpf, @"^\d{11}$")) throw new Exception("Informe o CPF com 11 números ou deixe em branco.");
                 if (codigo == Sessao.Id) throw new Exception("Use Minha conta para alterar seus próprios dados.");
-                if (codigo != 0 && (!campoativo.Checked || campoperfil.Text != "Técnico") &&
-                    Convert.ToInt32(Banco.Valor("SELECT COUNT(*) FROM ordens_servico WHERE tecnico_id=@id AND status NOT IN ('Concluída','Entregue')",Banco.P("@id",codigo))) > 0)
-                    throw new Exception("Este técnico possui ordens em andamento. Conclua os serviços antes de desativar ou mudar seu perfil.");
                 string hash = "";
                 if (codigo == 0 || camposenha.Text != "") hash = Senha.Criar(camposenha.Text);
                 string sql;
                 if (codigo == 0) sql = "INSERT INTO usuarios(nome,email,telefone,cpf,rg,cidade,data_nascimento,perfil,ativo,senha_hash) VALUES(@nome,@email,@telefone,@cpf,@rg,@cidade,@data_nascimento,@perfil,@ativo,@senha_hash)";
                 else sql = "UPDATE usuarios SET nome=@nome,email=@email,telefone=@telefone,cpf=@cpf,rg=@rg,cidade=@cidade,data_nascimento=@data_nascimento,perfil=@perfil,ativo=@ativo,senha_hash=IF(@senha_hash='',senha_hash,@senha_hash) WHERE id=@id";
-                Contas.SalvarUsuario(sql, Banco.P("@nome", camponome.Text.Trim()),
+                Contas.SalvarUsuario(!campoativo.Checked || campoperfil.Text != "Técnico", sql, Banco.P("@nome", camponome.Text.Trim()),
                     Banco.P("@email", campoemail.Text.Trim()),
                     Banco.P("@telefone", campotelefone.Text.Trim()),
-                    Banco.P("@cpf", Tela.Opcional(campocpf.Text.Replace(".", "").Replace("-", "").Trim())),
+                    Banco.P("@cpf", Tela.Opcional(cpf)),
                     Banco.P("@rg", camporg.Text.Trim()),
                     Banco.P("@cidade", campocidade.Text.Trim()),
                     Banco.P("@data_nascimento", Tela.Nascimento(campodata_nascimento)),
