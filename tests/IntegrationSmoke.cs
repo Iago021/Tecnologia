@@ -21,10 +21,10 @@ internal static class IntegrationSmoke
         if (builder.Server != "127.0.0.1" || builder.Port != 3307 || builder.Database != "tecnologia_verificacao")
             throw new Exception("O teste só pode acessar o banco local isolado de verificação.");
         builder.Database = "";
+        string schema = File.ReadAllText(args[0]).Replace("tecnologia", "tecnologia_verificacao");
         using (var db = new MySqlConnection(builder.ConnectionString))
         {
             db.Open();
-            string schema = File.ReadAllText(args[0]).Replace("tecnologia", "tecnologia_verificacao");
             using (var cmd = new MySqlCommand(schema, db)) cmd.ExecuteNonQuery();
         }
         Check(Contas.Criar("Atendente", "admin@example.com", "admin@example.com", Password, Password), "Primeira conta ativa");
@@ -34,55 +34,64 @@ internal static class IntegrationSmoke
         Fails(() => Contas.Criar("Duplicado", "admin@example.com", "admin@example.com", Password, Password), "Cadastro duplicado", "Duplicate");
         Check(Senha.Conferir(Password, Hash(admin)), "Senha armazenada válida");
         Check(!Senha.Conferir("errada", Hash(admin)), "Senha errada negada");
-        Login(tech); Fails(() => Sessao.Exigir(), "Conta inativa negada", "inativa");
-        Banco.Executar("UPDATE usuarios SET ativo=1,perfil='Técnico',telefone='11999999999' WHERE id=@id", Banco.P("@id", tech));
+        Login(tech);
+        Fails(() => Sessao.Exigir(), "Conta inativa negada", "inativa");
+        Fails(() => Contas.Autenticar("tech@example.com", Password), "Login informa conta pendente", "inativa");
+        Fails(() => Contas.Autenticar("tech@example.com", "errada"), "Senha errada preserva o estado da conta", "incorretos");
+
+        Login(admin);
+        SalvarTecnico(tech, true);
+        Check(Convert.ToInt32(Contas.Autenticar("tech@example.com", Password)["id"]) == tech, "Conta pública ativada sem telefone");
+        Fails(() => Contas.ExcluirUsuario(admin), "Protege a própria conta", "própria conta");
 
         Token(admin, false);
-        Fails(() => Contas.Redefinir("admin@example.com", "999999", Password, Password), "Código incorreto", "Código inválido");
+        Fails(() => RecuperacaoSenha.Redefinir("admin@example.com", "999999", Password, Password), "Código incorreto", "Código inválido");
         Check(Convert.ToInt32(Banco.Valor("SELECT tentativas FROM recuperacao_senha WHERE usuario_id=@id", Banco.P("@id", admin))) == 1, "Tentativa incorreta registrada");
-        for (int i = 0; i < 4; i++) Fails(() => Contas.Redefinir("admin@example.com", "999999", Password, Password), "Limite de tentativas", "Código inválido");
-        Fails(() => Contas.Redefinir("admin@example.com", "123456", Password, Password), "Código bloqueado após cinco erros", "Código inválido");
+        for (int i = 0; i < 4; i++) Fails(() => RecuperacaoSenha.Redefinir("admin@example.com", "999999", Password, Password), "Limite de tentativas", "Código inválido");
+        Fails(() => RecuperacaoSenha.Redefinir("admin@example.com", "123456", Password, Password), "Código bloqueado após cinco erros", "Código inválido");
         Token(admin, true);
-        Fails(() => Contas.Redefinir("admin@example.com", "123456", Password, Password), "Código expirado", "Código inválido");
+        Fails(() => RecuperacaoSenha.Redefinir("admin@example.com", "123456", Password, Password), "Código expirado", "Código inválido");
         Token(admin, false);
-        Contas.Redefinir("admin@example.com", "123456", "Nova-123456", "Nova-123456");
+        RecuperacaoSenha.Redefinir("admin@example.com", "123456", "Nova-123456", "Nova-123456");
         Check(Senha.Conferir("Nova-123456", Hash(admin)) && !Senha.Conferir(Password, Hash(admin)), "Redefinição altera a senha");
-        Fails(() => Contas.Redefinir("admin@example.com", "123456", Password, Password), "Código de uso único", "Código inválido");
+        Fails(() => RecuperacaoSenha.Redefinir("admin@example.com", "123456", Password, Password), "Código de uso único", "Código inválido");
         Login(admin); Token(admin, false);
         Fails(() => Contas.AtualizarPerfil("Admin", "admin@example.com", "11999999999", "incorreta", Password, Password), "Perfil exige senha atual", "Senha atual incorreta");
         Contas.AtualizarPerfil("Admin", "admin@example.com", "11999999999", "Nova-123456", Password, Password);
         Check(Senha.Conferir(Password, Hash(admin)), "Senha alterada pelo perfil");
-        Fails(() => Contas.Redefinir("admin@example.com", "123456", Password, Password), "Troca de senha invalida código antigo", "Código inválido");
+        Fails(() => RecuperacaoSenha.Redefinir("admin@example.com", "123456", Password, Password), "Troca de senha invalida código antigo", "Código inválido");
         Token(tech, false);
         string oldHash = Hash(tech);
-        Contas.SalvarUsuario(false, "UPDATE usuarios SET nome='Técnico atualizado',senha_hash=IF(@senha_hash='',senha_hash,@senha_hash) WHERE id=@id", Banco.P("@id", tech), Banco.P("@senha_hash", ""));
+        SalvarTecnico(tech, true);
         Check(Hash(tech) == oldHash, "Edição sem senha preserva o hash");
         Check(Convert.ToInt32(Banco.Valor("SELECT COUNT(*) FROM recuperacao_senha WHERE usuario_id=@id", Banco.P("@id", tech))) == 0, "Edição administrativa invalida recuperação");
         Environment.SetEnvironmentVariable("TECNOLOGIA_SMTPHOST", "127.0.0.1");
         Environment.SetEnvironmentVariable("TECNOLOGIA_SMTPPORT", "1");
         Environment.SetEnvironmentVariable("TECNOLOGIA_SMTPFROM", "teste@example.com");
-        Fails(() => Contas.SolicitarCodigo("admin@example.com"), "Falha SMTP tratada", "Não foi possível enviar");
+        Fails(() => RecuperacaoSenha.SolicitarCodigo("admin@example.com"), "Falha SMTP tratada", "Não foi possível enviar");
         Check(Convert.ToInt32(Banco.Valor("SELECT COUNT(*) FROM recuperacao_senha WHERE usuario_id=@id", Banco.P("@id", admin))) == 0, "Código não enviado removido");
 
         Banco.Executar("INSERT INTO clientes(nome,telefone) VALUES('Cliente teste','11999999999')");
         int client = Convert.ToInt32(Banco.Valor("SELECT MAX(id) FROM clientes"));
-        Banco.Executar("INSERT INTO aparelhos(cliente_id,tipo,marca,modelo) VALUES(@id,'Celular','Teste','Modelo')", Banco.P("@id", client));
+        Aparelhos.Salvar(0, client, "Celular", "Teste", "Modelo", "", "", "", "", "");
         int device = Convert.ToInt32(Banco.Valor("SELECT MAX(id) FROM aparelhos"));
         Banco.Executar("INSERT INTO pecas(codigo,nome,tipo,marca,modelo_compativel,valor_venda) VALUES('P1','Peça teste','Celular','*','*',50)");
         int part = Convert.ToInt32(Banco.Valor("SELECT MAX(id) FROM pecas"));
         int order = OperacoesOrdem.Abrir(device, "Falha de teste", null, "");
         Fails(() => OperacoesOrdem.Abrir(device, "Duplicada", null, ""), "Ordem duplicada negada", "já possui");
+        Fails(() => Aparelhos.Salvar(device, client, "Celular", "Alterada", "Modelo", "", "", "", "", ""),
+            "Aparelho com ordem preservado", "fazem parte do histórico");
         Fails(() => OperacoesOrdem.Diagnosticar(order, "D", "S", "Em manutenção", 100, 0), "Atendente não altera reparo", "Técnico");
         Fails(() => OperacoesOrdem.AtribuirTecnico(order, admin), "Atendente não pode ser responsável", "técnico ativo");
         OperacoesOrdem.AtribuirTecnico(order, tech);
         Check(Convert.ToInt32(Banco.Valor("SELECT tecnico_id FROM ordens_servico WHERE id=@id", Banco.P("@id", order))) == tech, "Atribuição mantém técnico na ordem");
-        Fails(() => Contas.SalvarUsuario(true, "UPDATE usuarios SET ativo=0 WHERE id=@id", Banco.P("@id", tech)), "Técnico de ordem aberta não pode ser desativado", "ordens em andamento");
+        Fails(() => SalvarTecnico(tech, false), "Técnico de ordem aberta não pode ser desativado", "ordens em andamento");
         OperacoesOrdem.AtribuirTecnico(order, 0);
         Check(Banco.Valor("SELECT tecnico_id FROM ordens_servico WHERE id=@id", Banco.P("@id", order)) == DBNull.Value, "Ordem aberta pode ficar sem responsável");
         OperacoesOrdem.AtribuirTecnico(order, tech);
         Login(tech);
         Fails(() => OperacoesOrdem.AtribuirTecnico(order, 0), "Técnico não muda responsável", "Atendente");
-        OperacoesOrdem.Movimentar(part, "Entrada", 3, "Teste");
+        Estoque.Movimentar(part, "Entrada", 3, "Teste");
         Fails(() => OperacoesOrdem.UsarPeca(order, part, 1), "Exige assumir a ordem", "diagnóstico primeiro");
         OperacoesOrdem.Diagnosticar(order, "Diagnóstico teste", "Troca da peça", "Em manutenção", 100, 0);
         OperacoesOrdem.UsarPeca(order, part, 2);
@@ -107,6 +116,7 @@ internal static class IntegrationSmoke
         {
             users.Show(); Application.DoEvents();
             Field<TextBox>(users, "camposenha").Text = "NaoReaproveitar";
+            AlteracoesFormulario.MarcarSalvo(users);
             Invoke(users, "btnEditar_Click");
             Check(Field<TextBox>(users, "camposenha").Text == "", "Editar limpa senha anterior");
             Check(!AlteracoesFormulario.TemAlteracoes(users), "Registro carregado não é alteração pendente");
@@ -114,8 +124,9 @@ internal static class IntegrationSmoke
             Check(!AlteracoesFormulario.TemAlteracoes(users), "Pesquisa não causa alerta de perda de dados");
             Field<TextBox>(users, "camponome").Text += " alterado";
             Check(AlteracoesFormulario.TemAlteracoes(users), "Alteração real detectada");
+            Field<TextBox>(users, "camponome").Text = Field<TextBox>(users, "camponome").Text.Replace(" alterado", "");
             Invoke(users, "btnNovo_Click");
-            Check(!AlteracoesFormulario.TemAlteracoes(users), "Limpar reinicia controle de alterações");
+            Check(!AlteracoesFormulario.TemAlteracoes(users), "Novo cadastro reinicia controle de alterações");
         }
         using (var orders = new OrdensForm())
         {
@@ -123,6 +134,28 @@ internal static class IntegrationSmoke
             Field<ComboBox>(orders, "cmbStatus").SelectedIndex = 1;
             Check(!AlteracoesFormulario.TemAlteracoes(orders), "Filtro não é edição de ordem");
         }
+        using (var cadastro = new CriarContaForm())
+        {
+            cadastro.Show();
+            Application.DoEvents();
+            Field<CheckBox>(cadastro, "mostrarSenha").Checked = true;
+            Check(!Field<TextBox>(cadastro, "senha").UseSystemPasswordChar &&
+                !Field<TextBox>(cadastro, "confirmarSenha").UseSystemPasswordChar, "Mostrar senhas controla os dois campos");
+            Invoke(cadastro, "Criar_Click");
+            DateTime limite = DateTime.UtcNow.AddSeconds(8);
+            Label erro = Field<Label>(cadastro, "lblErro");
+            while (!erro.Visible && DateTime.UtcNow < limite)
+            {
+                Application.DoEvents();
+                System.Threading.Thread.Sleep(10);
+            }
+            Check(erro.Visible && erro.Text.Contains("Nome"), "Cadastro incompleto mostra o erro na tela");
+            Check(Field<Button>(cadastro, "criar").Enabled, "Cadastro libera nova tentativa");
+        }
+        Banco.Executar(schema);
+        Check(Id("admin@example.com") == admin &&
+            Convert.ToString(Banco.Valor("SELECT status FROM ordens_servico WHERE id=@id", Banco.P("@id", order))) == "Entregue",
+            "Reimportação preserva contas e ordens existentes");
         using (var tabela = new DataGridView())
         {
             tabela.Columns.Add("oculto", "Oculto");
@@ -144,6 +177,10 @@ internal static class IntegrationSmoke
     }
     private static T Field<T>(object obj, string name) { return (T)obj.GetType().GetField(name, BindingFlags.Instance | BindingFlags.NonPublic).GetValue(obj); }
     private static void Invoke(object obj, string name) { obj.GetType().GetMethod(name, BindingFlags.Instance | BindingFlags.NonPublic).Invoke(obj, new object[] { obj, EventArgs.Empty }); }
+    private static void SalvarTecnico(int id, bool ativo)
+    {
+        Contas.SalvarUsuario(id, "Técnico atualizado", "tech@example.com", "", null, "", "", null, "Técnico", ativo, "");
+    }
     private static void Login(int id) { Sessao.Id = id; }
     private static int Id(string email) { return Convert.ToInt32(Banco.Valor("SELECT id FROM usuarios WHERE email=@email", Banco.P("@email", email))); }
     private static string Hash(int id) { return Convert.ToString(Banco.Valor("SELECT senha_hash FROM usuarios WHERE id=@id", Banco.P("@id", id))); }
@@ -151,7 +188,7 @@ internal static class IntegrationSmoke
     private static void Token(int id, bool expired)
     {
         string salt = new string('A', 32);
-        string hash = (string)typeof(Contas).GetMethod("HashCodigo", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, new object[] { salt, "123456" });
+        string hash = (string)typeof(RecuperacaoSenha).GetMethod("HashCodigo", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, new object[] { salt, "123456" });
         Banco.Executar("REPLACE INTO recuperacao_senha(usuario_id,codigo_hash,salt,expira_em,tentativas,enviado_em) VALUES(@id,@hash,@salt,UTC_TIMESTAMP()+INTERVAL " + (expired ? "-1" : "10") + " MINUTE,0,UTC_TIMESTAMP())", Banco.P("@id", id), Banco.P("@hash", hash), Banco.P("@salt", salt));
     }
     private static void Check(bool condition, string name) { if (!condition) throw new Exception("FAIL: " + name); checks++; Console.WriteLine("PASS " + name); }

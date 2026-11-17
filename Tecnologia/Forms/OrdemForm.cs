@@ -107,7 +107,7 @@ namespace Tecnologia
         private void btnHistorico_Click(object sender,EventArgs e)
         { try { using(HistoricoForm janela=new HistoricoForm(codigo,true)) janela.ShowDialog(TopLevelControl); } catch(Exception erro) { Tela.Erro(erro); } }
         private void btnAtualizar_Click(object sender,EventArgs e)
-        { try { if(Tela.Confirmar("Recarregar os dados salvos? As alterações ainda não salvas serão descartadas.")) Carregar(); } catch(Exception erro) { Tela.Erro(erro); } }
+        { try { if (AlteracoesFormulario.PodeDescartar(this)) Carregar(); } catch(Exception erro) { Tela.Erro(erro); } }
         private void btnExportar_Click(object sender,EventArgs e)
         { try { Sessao.Exigir(); Exportar.Menu(btnExportar, grade, "Peças da ordem " + codigo); } catch(Exception erro) { Tela.Erro(erro); } }
     }

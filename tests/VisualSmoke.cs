@@ -87,7 +87,7 @@ internal static class VisualSmoke
                 Console.WriteLine("PASS DESIGNER " + name);
             }
         }
-        Type contas = app.GetType("Tecnologia.Contas", true);
+        Type contas = app.GetType("Tecnologia.RecuperacaoSenha", true);
         var generate = contas.GetMethod("GerarCodigo", BindingFlags.NonPublic | BindingFlags.Static);
         for (int i = 0; i < 100; i++)
         {

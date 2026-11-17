@@ -17,7 +17,7 @@ A interface segue as imagens do Figma: login, criação de conta e recuperação
 8. Na primeira execução, clique em **Criar conta**, preencha nome, e-mail e senha com as confirmações. Depois entre com a conta criada. A senha deve ter de 8 a 128 caracteres.
 9. Em **Atendentes e técnicos**, cadastre a conta do técnico. Use **Sair da conta** para entrar com o outro perfil.
 
-O sistema inicia sem usuários, clientes, peças ou ordens de exemplo. A primeira conta é um atendente ativo. Cadastros posteriores ficam inativos até um atendente aprovar o acesso em **Cadastros > Equipe**.
+O sistema inicia sem usuários, clientes, peças ou ordens de exemplo. A primeira conta é um atendente ativo. Cadastros posteriores ficam inativos até um atendente ativar a conta em **Cadastros > Equipe**. O telefone é opcional na equipe.
 
 O botão **Exportar...** salva CSV ou PDF diretamente. A opção **Abrir no Excel** usa o Microsoft Excel para desktop. Não há necessidade de instalar PHP ou um servidor web para executar os formulários; o XAMPP é usado apenas para disponibilizar o banco e facilitar a importação pelo phpMyAdmin.
 
@@ -91,7 +91,11 @@ O painel possui atalhos para ordens abertas, serviços em andamento, concluídos
 | `Tecnologia/Forms/` | Telas, eventos de botões, arquivos `.Designer.cs` e `.resx` |
 | `Tecnologia/Program.cs` | Início do sistema e troca de usuário |
 | `Tecnologia/Banco.cs` | Conexão, consultas e comandos MySQL |
-| `Tecnologia/OperacoesOrdem.cs` | Abertura, diagnóstico, peças, estoque e entrega |
+| `Tecnologia/OperacoesOrdem.cs` | Abertura, atribuição, diagnóstico, peças da ordem e entrega |
+| `Tecnologia/Aparelhos.cs` | Cadastro e edição de aparelhos com proteção do histórico |
+| `Tecnologia/Estoque.cs` | Saldo e registros de movimentação |
+| `Tecnologia/Contas.cs` | Cadastro, login, perfil e administração da equipe |
+| `Tecnologia/RecuperacaoSenha.cs` | Emissão e conferência dos códigos de recuperação |
 | `Tecnologia/Sessao.cs` | Usuário conectado e verificação do perfil |
 | `Tecnologia/Senha.cs` | Proteção e conferência das senhas |
 | `Tecnologia/Tela.cs` | Validações e mensagens comuns |
@@ -103,11 +107,18 @@ O painel possui atalhos para ordens abertas, serviços em andamento, concluídos
 
 O código usa classes simples, `if`, laços, eventos de botão, `DataTable`, `MySqlConnection` e `MySqlCommand`. Não usa Entity Framework, API, injeção de dependência ou arquitetura em várias camadas. O cadastro e a alteração compartilham o mesmo formulário: código zero insere; um código selecionado atualiza.
 
-Para editar a interface, abra o formulário em **Exibir Designer** (Shift+F7) e use **Propriedades** (F4). Cada tela tem seu próprio `.Designer.cs`, `.resx` e `.Eventos.cs`, com seus campos, cores, fontes e posições. O visual não depende de um tema global. Os construtores sem parâmetros inicializam os controles; a consulta ao banco acontece no evento `Load`, desativado durante a edição no Designer. Veja [como editar cada tela](docs/VISUAL.md#código-e-edição-tela-por-tela).
+Para editar a interface, abra o formulário em **Exibir Designer** (Shift+F7) e use **Propriedades** (F4). Os arquivos `.Designer.cs` e `.resx` de cada tela definem seus campos, cores, fontes e posições. O visual não depende de um tema global. Os construtores sem parâmetros inicializam os controles; a consulta ao banco acontece no evento `Load`, desativado durante a edição no Designer. Veja [como editar cada tela](docs/VISUAL.md#código-e-edição-tela-por-tela).
 
 ## Banco e requisitos
 
-As dez tabelas são `usuarios`, `clientes`, `aparelhos`, `ordens_servico`, `diagnosticos`, `pecas`, `ordem_pecas`, `movimentacoes_estoque`, `historico_status` e `recuperacao_senha`. O SQL é a definição utilizada pelo programa.
+| Área | Tabelas e vínculos |
+|---|---|
+| Acesso | `usuarios` guarda as contas. `recuperacao_senha` guarda até um código vigente por usuário. |
+| Atendimento | `clientes` têm `aparelhos`. Cada registro em `ordens_servico` aponta para o aparelho, o atendente e, quando definido, o técnico responsável. |
+| Reparo | Cada ordem tem até um registro em `diagnosticos` e pode ter vários itens em `ordem_pecas`. |
+| Estoque e histórico | `pecas` guarda o saldo atual. `movimentacoes_estoque` registra ajustes e uso de peças. `historico_status` registra o andamento das ordens. |
+
+A abertura da ordem e a edição do aparelho usam a mesma trava do banco, preservando a identificação do aparelho no histórico. A ordem, seu histórico e as movimentações relacionadas são gravados em transações. Instalações novas recebem índices compostos para consultas de ordens por aparelho ou técnico e status. Bancos existentes continuam compatíveis com esta versão.
 
 O [diagrama original](assets/diagrama-banco.png) foi preservado como referência. Na implementação, o cliente da ordem é obtido pelo aparelho, o próprio ID identifica a ordem e os totais são calculados a partir dos itens. Isso evita manter valores duplicados. Não há armazenamento de senha de desbloqueio dos aparelhos.
 

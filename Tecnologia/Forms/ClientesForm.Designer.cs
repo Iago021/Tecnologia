@@ -356,7 +356,7 @@ namespace Tecnologia
             this.cmbCampo.DropDownWidth = 180;
             this.cmbCampo.MaxDropDownItems = 8;
             this.cmbCampo.Name = "cmbCampo";
-            this.cmbCampo.Items.AddRange(new object[] { "Nome", "Código", "E-mail", "Telefone", "CPF", "RG", "Cidade", "Nascimento (AAAA-MM-DD)" });
+            this.cmbCampo.Items.AddRange(new object[] { "Nome", "Código", "E-mail", "Telefone", "CPF", "RG", "Cidade", "Nascimento" });
             // txtBusca
             this.txtBusca.Text = "";
             this.txtBusca.AccessibleName = "Texto para pesquisar";
@@ -1843,8 +1843,6 @@ namespace Tecnologia
             this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
             this.Load += new System.EventHandler(this.ClientesForm_Load);
             this.panel9.SizeChanged += new System.EventHandler(this.flowlayoutpanel10_Redimensionar);
-            this.btnNovo.Click += new System.EventHandler(this.NovoCadastro_Click);
-            this.btnEditar.Click += new System.EventHandler(this.EditarCadastro_Click);
             this.button27.Click += new System.EventHandler(this.VoltarConsulta_Click);
             this.flowlayoutpanel26.ResumeLayout(false);
             this.flowlayoutpanel26.PerformLayout();

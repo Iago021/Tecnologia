@@ -22,13 +22,13 @@ namespace Tecnologia
 
         private void linklabel7_Click(object sender, EventArgs e)
         {
-            using (RecuperarSenhaForm janela = new RecuperarSenhaForm(txtEmail.Text)) AbrirAcesso(janela);
+            using (RecuperarSenhaForm janela = new RecuperarSenhaForm(txtEmail.Text)) janela.ShowDialog(this);
         }
 
         private void linklabel8_Click(object sender, EventArgs e)
         {
             using (CriarContaForm janela = new CriarContaForm())
-                if (AbrirAcesso(janela) == DialogResult.OK) { txtEmail.Text = janela.EmailCriado; txtSenha.Clear(); txtSenha.Focus(); }
+                if (janela.ShowDialog(this) == DialogResult.OK) { txtEmail.Text = janela.EmailCriado; txtSenha.Clear(); txtSenha.Focus(); }
         }
     }
 }

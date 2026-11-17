@@ -40,11 +40,11 @@ O código tem seis dígitos aleatórios, expira em dez minutos, admite cinco ten
 
 ## Código e edição tela por tela
 
-Cada uma das 15 telas tem seu próprio `NomeDaTela.Designer.cs`, `NomeDaTela.resx` e `NomeDaTela.Eventos.cs`. Cores, fontes, tamanhos, posições, campos, botões, painéis e abas estão declarados no Designer da própria tela. As imagens e o fundo estão no respectivo arquivo de recursos.
+Cada uma das 15 telas tem seu próprio `NomeDaTela.Designer.cs` e `NomeDaTela.resx`. Cores, fontes, tamanhos, posições, campos, botões, painéis e abas estão declarados no Designer da própria tela. As imagens e o fundo estão no respectivo arquivo de recursos.
 
 No Visual Studio, abra `Tecnologia.sln`, expanda `Forms`, clique com o botão direito em um formulário e escolha **Exibir Designer** (Shift+F7). Selecione um controle e use **Propriedades** (F4) para editar. Faça alterações de aparência pelo Designer, que atualiza o código gerado.
 
-Os arquivos `.Eventos.cs` contêm apenas os eventos locais, como arredondamento e adaptação à largura da janela. A navegação fica em `PrincipalForm.Navegacao.cs` e `LoginForm.Navegacao.cs`. Os arquivos `Tema.cs`, `LayoutTelas.cs` e `AcessoLayout.cs` foram removidos: o programa não aplica um tema global nem recria a interface depois de `InitializeComponent`.
+Os arquivos `.Eventos.cs` ajustam o tamanho dos campos quando a janela muda. O menu é controlado em `PrincipalForm.Navegacao.cs`. O formulário Criar conta usa o layout nativo do Windows Forms para centralizar o cartão e permitir rolagem em janelas menores.
 
 `AlteracoesFormulario.cs` apenas acompanha alterações não salvas; não cria controles e não define cores ou posições. `Contas.cs` continua responsável pelo cadastro e pela recuperação de senha via banco/SMTP.
 

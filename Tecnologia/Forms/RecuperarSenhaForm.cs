@@ -15,7 +15,7 @@ namespace Tecnologia
             cartaoAcesso.Enabled = false;
             try
             {
-                await Task.Run(() => Contas.SolicitarCodigo(endereco));
+                await Task.Run(() => RecuperacaoSenha.SolicitarCodigo(endereco));
                 if (IsDisposed) return;
                 MessageBox.Show(this, "Se este e-mail pertence a uma conta ativa, você receberá um código. Confira também o spam. Aguarde 60 segundos entre os envios.", "Tecnologia");
                 AbrirRedefinicao(endereco);
@@ -30,11 +30,8 @@ namespace Tecnologia
             catch (Exception erro) { Tela.Erro(erro); return; }
             using (RedefinirSenhaForm janela = new RedefinirSenhaForm(endereco))
             {
-                bool sucesso = false;
-                Hide();
-                try { sucesso = janela.ShowDialog(this) == DialogResult.OK; }
-                finally { if (!IsDisposed && !sucesso) Show(); }
-                if (sucesso) { DialogResult = DialogResult.OK; Close(); }
+                if (janela.ShowDialog(this) == DialogResult.OK)
+                    DialogResult = DialogResult.OK;
             }
         }
     }

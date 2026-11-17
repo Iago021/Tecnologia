@@ -3,6 +3,8 @@
 SET NAMES utf8mb4;
 CREATE DATABASE IF NOT EXISTS tecnologia CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE tecnologia;
+
+-- Contas e permissões
 CREATE TABLE IF NOT EXISTS usuarios (
  id INT AUTO_INCREMENT PRIMARY KEY,
  nome VARCHAR(100) NOT NULL,
@@ -17,6 +19,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
  ativo BOOLEAN NOT NULL DEFAULT TRUE,
  data_cadastro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
+
+-- Cadastros de atendimento
 CREATE TABLE IF NOT EXISTS clientes (
  id INT AUTO_INCREMENT PRIMARY KEY,
  nome VARCHAR(100) NOT NULL,
@@ -30,6 +34,7 @@ CREATE TABLE IF NOT EXISTS clientes (
  ativo BOOLEAN NOT NULL DEFAULT TRUE,
  data_cadastro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
+
 CREATE TABLE IF NOT EXISTS aparelhos (
  id INT AUTO_INCREMENT PRIMARY KEY,
  cliente_id INT NOT NULL,
@@ -43,6 +48,8 @@ CREATE TABLE IF NOT EXISTS aparelhos (
  observacoes VARCHAR(500) NOT NULL DEFAULT '',
  FOREIGN KEY (cliente_id) REFERENCES clientes(id)
 ) ENGINE=InnoDB;
+
+-- Catálogo e saldo atual de peças
 CREATE TABLE IF NOT EXISTS pecas (
  id INT AUTO_INCREMENT PRIMARY KEY,
  codigo VARCHAR(40) NOT NULL UNIQUE,
@@ -55,9 +62,13 @@ CREATE TABLE IF NOT EXISTS pecas (
  valor_compra DECIMAL(10,2) NOT NULL DEFAULT 0,
  valor_venda DECIMAL(10,2) NOT NULL DEFAULT 0,
  ativo BOOLEAN NOT NULL DEFAULT TRUE,
- CHECK (quantidade >= 0), CHECK (estoque_minimo >= 0),
- CHECK (valor_compra >= 0), CHECK (valor_venda >= 0)
+ CHECK (quantidade >= 0),
+ CHECK (estoque_minimo >= 0),
+ CHECK (valor_compra >= 0),
+ CHECK (valor_venda >= 0)
 ) ENGINE=InnoDB;
+
+-- Ordens: uma ordem acompanha um único aparelho até a entrega.
 CREATE TABLE IF NOT EXISTS ordens_servico (
  id INT AUTO_INCREMENT PRIMARY KEY,
  aparelho_id INT NOT NULL,
@@ -75,8 +86,14 @@ CREATE TABLE IF NOT EXISTS ordens_servico (
  FOREIGN KEY (aparelho_id) REFERENCES aparelhos(id),
  FOREIGN KEY (atendente_id) REFERENCES usuarios(id),
  FOREIGN KEY (tecnico_id) REFERENCES usuarios(id),
- INDEX (status), CHECK (valor_mao_obra >= 0), CHECK (desconto >= 0)
+ INDEX idx_ordens_status (status),
+ INDEX idx_ordens_aparelho_status (aparelho_id, status),
+ INDEX idx_ordens_tecnico_status (tecnico_id, status),
+ CHECK (valor_mao_obra >= 0),
+ CHECK (desconto >= 0)
 ) ENGINE=InnoDB;
+
+-- Diagnóstico atual: no máximo um registro por ordem.
 CREATE TABLE IF NOT EXISTS diagnosticos (
  id INT AUTO_INCREMENT PRIMARY KEY,
  ordem_id INT NOT NULL UNIQUE,
@@ -87,6 +104,8 @@ CREATE TABLE IF NOT EXISTS diagnosticos (
  FOREIGN KEY (ordem_id) REFERENCES ordens_servico(id),
  FOREIGN KEY (tecnico_id) REFERENCES usuarios(id)
 ) ENGINE=InnoDB;
+
+-- Itens da ordem: o preço é fixado no momento do uso.
 CREATE TABLE IF NOT EXISTS ordem_pecas (
  id INT AUTO_INCREMENT PRIMARY KEY,
  ordem_id INT NOT NULL,
@@ -95,8 +114,11 @@ CREATE TABLE IF NOT EXISTS ordem_pecas (
  valor_unitario DECIMAL(10,2) NOT NULL,
  FOREIGN KEY (ordem_id) REFERENCES ordens_servico(id),
  FOREIGN KEY (peca_id) REFERENCES pecas(id),
- CHECK (quantidade > 0), CHECK (valor_unitario >= 0)
+ CHECK (quantidade > 0),
+ CHECK (valor_unitario >= 0)
 ) ENGINE=InnoDB;
+
+-- Históricos: registros de estoque e mudanças de status.
 CREATE TABLE IF NOT EXISTS movimentacoes_estoque (
  id INT AUTO_INCREMENT PRIMARY KEY,
  peca_id INT NOT NULL,
@@ -108,8 +130,10 @@ CREATE TABLE IF NOT EXISTS movimentacoes_estoque (
  data_movimentacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
  FOREIGN KEY (peca_id) REFERENCES pecas(id),
  FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
- FOREIGN KEY (ordem_id) REFERENCES ordens_servico(id), CHECK (quantidade > 0)
+ FOREIGN KEY (ordem_id) REFERENCES ordens_servico(id),
+ CHECK (quantidade > 0)
 ) ENGINE=InnoDB;
+
 CREATE TABLE IF NOT EXISTS historico_status (
  id INT AUTO_INCREMENT PRIMARY KEY,
  ordem_id INT NOT NULL,
@@ -120,6 +144,8 @@ CREATE TABLE IF NOT EXISTS historico_status (
  FOREIGN KEY (ordem_id) REFERENCES ordens_servico(id),
  FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 ) ENGINE=InnoDB;
+
+-- Acesso: um código de recuperação por conta. As datas deste bloco usam UTC.
 CREATE TABLE IF NOT EXISTS recuperacao_senha (
  usuario_id INT PRIMARY KEY,
  codigo_hash CHAR(64) NOT NULL,
