@@ -144,13 +144,14 @@ internal static class IntegrationSmoke
             Invoke(cadastro, "Criar_Click");
             DateTime limite = DateTime.UtcNow.AddSeconds(8);
             Label erro = Field<Label>(cadastro, "lblErro");
-            while (!erro.Visible && DateTime.UtcNow < limite)
+            Button criar = Field<Button>(cadastro, "criar");
+            while ((!erro.Visible || !criar.Enabled) && DateTime.UtcNow < limite)
             {
                 Application.DoEvents();
                 System.Threading.Thread.Sleep(10);
             }
             Check(erro.Visible && erro.Text.Contains("Nome"), "Cadastro incompleto mostra o erro na tela");
-            Check(Field<Button>(cadastro, "criar").Enabled, "Cadastro libera nova tentativa");
+            Check(criar.Enabled, "Cadastro libera nova tentativa");
         }
         Banco.Executar(schema);
         Check(Id("admin@example.com") == admin &&

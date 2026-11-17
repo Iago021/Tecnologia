@@ -28,7 +28,8 @@ namespace Tecnologia
             salvando = true;
             cartaoAcesso.Enabled = false;
             criar.Text = "Criando conta...";
-            bool primeiraConta;
+            bool primeiraConta = false;
+            string mensagemErro = null;
             try
             {
                 primeiraConta = await Task.Run(() =>
@@ -36,13 +37,7 @@ namespace Tecnologia
             }
             catch (Exception erro)
             {
-                if (!IsDisposed)
-                {
-                    lblErro.Text = Tela.Mensagem(erro);
-                    lblErro.Visible = true;
-                    ScrollControlIntoView(lblErro);
-                }
-                return;
+                mensagemErro = Tela.Mensagem(erro);
             }
             finally
             {
@@ -55,6 +50,14 @@ namespace Tecnologia
             }
 
             if (IsDisposed) return;
+            if (mensagemErro != null)
+            {
+                lblErro.Text = mensagemErro;
+                lblErro.Visible = true;
+                ScrollControlIntoView(lblErro);
+                return;
+            }
+
             EmailCriado = emailDigitado;
             string mensagem = primeiraConta
                 ? "Conta criada. Você já pode entrar."
