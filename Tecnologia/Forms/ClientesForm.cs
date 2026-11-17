@@ -56,7 +56,19 @@ namespace Tecnologia
             grade.Columns["ativo"].HeaderText = "Cadastro ativo";
             Tela.AjustarGrade(grade);
         }
-        private void btnNovo_Click(object sender, EventArgs e) { Limpar(); }
+        private void btnNovo_Click(object sender, EventArgs e)
+        {
+            if (!AlteracoesFormulario.PodeDescartar(this)) return;
+            Limpar();
+            tabcontrol3.SelectedIndex = 1;
+        }
+
+        private void VoltarConsulta_Click(object sender, EventArgs e)
+        {
+            if (!AlteracoesFormulario.PodeDescartar(this)) return;
+            Limpar();
+            tabcontrol3.SelectedIndex = 0;
+        }
         private void btnPesquisar_Click(object sender, EventArgs e)
         { try { Carregar(); } catch (Exception erro) { Tela.Erro(erro); } }
         private void btnExportar_Click(object sender, EventArgs e)
@@ -66,6 +78,7 @@ namespace Tecnologia
             try
             {
                 Sessao.Exigir("Atendente");
+                if (!AlteracoesFormulario.PodeDescartar(this)) return;
                 int selecionado = Tela.Selecionado(grade);
                 DataTable dados = Banco.Consultar("SELECT * FROM clientes WHERE id=@id",Banco.P("@id",selecionado));
                 if (dados.Rows.Count == 0) throw new Exception("O registro não existe mais. Atualize a lista.");
@@ -83,6 +96,7 @@ namespace Tecnologia
                 codigo = selecionado;
                 lblEdicao.Text = "Editando código " + codigo;
                 AlteracoesFormulario.MarcarSalvo(this);
+                tabcontrol3.SelectedIndex = 1;
             } catch (Exception erro) { Tela.Erro(erro); }
         }
         private void btnSalvar_Click(object sender, EventArgs e)
@@ -93,22 +107,23 @@ namespace Tecnologia
                 Tela.Obrigatorio(camponome.Text, "Nome");
                 Tela.Email(campoemail.Text.Trim(), false);
                 Tela.Obrigatorio(campotelefone.Text, "Telefone");
-                string cpf = campocpf.Text.Replace(".", "").Replace("-", "").Trim();
-                if (cpf != "" && !System.Text.RegularExpressions.Regex.IsMatch(cpf, @"^\d{11}$")) throw new Exception("Informe o CPF com 11 números ou deixe em branco.");
+                string cpf = Tela.Cpf(campocpf.Text);
                 string sql;
                 if (codigo == 0) sql = "INSERT INTO clientes(nome,email,telefone,cpf,rg,cidade,endereco,data_nascimento,ativo) VALUES(@nome,@email,@telefone,@cpf,@rg,@cidade,@endereco,@data_nascimento,@ativo)";
                 else sql = "UPDATE clientes SET nome=@nome,email=@email,telefone=@telefone,cpf=@cpf,rg=@rg,cidade=@cidade,endereco=@endereco,data_nascimento=@data_nascimento,ativo=@ativo WHERE id=@id";
                 Banco.Executar(sql, Banco.P("@nome", camponome.Text.Trim()),
                     Banco.P("@email", campoemail.Text.Trim()),
                     Banco.P("@telefone", campotelefone.Text.Trim()),
-                    Banco.P("@cpf", Tela.Opcional(campocpf.Text.Replace(".", "").Replace("-", "").Trim())),
+                    Banco.P("@cpf", cpf),
                     Banco.P("@rg", camporg.Text.Trim()),
                     Banco.P("@cidade", campocidade.Text.Trim()),
                     Banco.P("@endereco", campoendereco.Text.Trim()),
                     Banco.P("@data_nascimento", Tela.Nascimento(campodata_nascimento)),
                     Banco.P("@ativo", campoativo.Checked),
                     Banco.P("@id",codigo));
-                Limpar(); Carregar();
+                Limpar();
+                tabcontrol3.SelectedIndex = 0;
+                Carregar();
                 MessageBox.Show("Cadastro salvo.");
             } catch (Exception erro) { Tela.Erro(erro); }
         }
@@ -118,6 +133,7 @@ namespace Tecnologia
             {
                 Sessao.Exigir("Atendente");
                 int selecionado = Tela.Selecionado(grade);
+                if (!AlteracoesFormulario.PodeDescartar(this)) return;
                 if (!Tela.Confirmar("Excluir o cadastro " + selecionado + "?")) return;
                 Banco.Executar("DELETE FROM clientes WHERE id=@id",Banco.P("@id",selecionado));
                 Limpar(); Carregar();

@@ -53,7 +53,19 @@ namespace Tecnologia
             grade.Columns["ativo"].HeaderText = "Peça ativa";
             Tela.AjustarGrade(grade);
         }
-        private void btnNovo_Click(object sender, EventArgs e) { Limpar(); }
+        private void btnNovo_Click(object sender, EventArgs e)
+        {
+            if (!AlteracoesFormulario.PodeDescartar(this)) return;
+            Limpar();
+            tabcontrol3.SelectedIndex = 1;
+        }
+
+        private void VoltarConsulta_Click(object sender, EventArgs e)
+        {
+            if (!AlteracoesFormulario.PodeDescartar(this)) return;
+            Limpar();
+            tabcontrol3.SelectedIndex = 0;
+        }
         private void btnPesquisar_Click(object sender, EventArgs e)
         { try { Carregar(); } catch (Exception erro) { Tela.Erro(erro); } }
         private void btnExportar_Click(object sender, EventArgs e)
@@ -63,6 +75,7 @@ namespace Tecnologia
             try
             {
                 Sessao.Exigir("Técnico");
+                if (!AlteracoesFormulario.PodeDescartar(this)) return;
                 int selecionado = Tela.Selecionado(grade);
                 DataTable dados = Banco.Consultar("SELECT * FROM pecas WHERE id=@id",Banco.P("@id",selecionado));
                 if (dados.Rows.Count == 0) throw new Exception("O registro não existe mais. Atualize a lista.");
@@ -79,6 +92,7 @@ namespace Tecnologia
                 codigo = selecionado;
                 lblEdicao.Text = "Editando código " + codigo;
                 AlteracoesFormulario.MarcarSalvo(this);
+                tabcontrol3.SelectedIndex = 1;
             } catch (Exception erro) { Tela.Erro(erro); }
         }
         private void btnSalvar_Click(object sender, EventArgs e)
@@ -103,7 +117,9 @@ namespace Tecnologia
                     Banco.P("@valor_venda", campovalor_venda.Value),
                     Banco.P("@ativo", campoativo.Checked),
                     Banco.P("@id",codigo));
-                Limpar(); Carregar();
+                Limpar();
+                tabcontrol3.SelectedIndex = 0;
+                Carregar();
                 MessageBox.Show("Cadastro salvo.");
             } catch (Exception erro) { Tela.Erro(erro); }
         }
@@ -113,6 +129,7 @@ namespace Tecnologia
             {
                 Sessao.Exigir("Técnico");
                 int selecionado = Tela.Selecionado(grade);
+                if (!AlteracoesFormulario.PodeDescartar(this)) return;
                 if (!Tela.Confirmar("Excluir o cadastro " + selecionado + "?")) return;
                 Banco.Executar("DELETE FROM pecas WHERE id=@id",Banco.P("@id",selecionado));
                 Limpar(); Carregar();

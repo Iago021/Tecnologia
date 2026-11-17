@@ -23,6 +23,7 @@ namespace Tecnologia
         private void Limpar()
         {
             codigo = 0;
+            campocliente_id.SelectedIndex = -1;
             campotipo.SelectedIndex = 0;
             campomarca.Clear();
             campomodelo.Clear();
@@ -53,7 +54,19 @@ namespace Tecnologia
             grade.Columns["observacoes"].HeaderText = "Observações";
             Tela.AjustarGrade(grade);
         }
-        private void btnNovo_Click(object sender, EventArgs e) { Limpar(); }
+        private void btnNovo_Click(object sender, EventArgs e)
+        {
+            if (!AlteracoesFormulario.PodeDescartar(this)) return;
+            Limpar();
+            tabcontrol3.SelectedIndex = 1;
+        }
+
+        private void VoltarConsulta_Click(object sender, EventArgs e)
+        {
+            if (!AlteracoesFormulario.PodeDescartar(this)) return;
+            Limpar();
+            tabcontrol3.SelectedIndex = 0;
+        }
         private void btnPesquisar_Click(object sender, EventArgs e)
         { try { Carregar(); } catch (Exception erro) { Tela.Erro(erro); } }
         private void btnExportar_Click(object sender, EventArgs e)
@@ -63,6 +76,7 @@ namespace Tecnologia
             try
             {
                 Sessao.Exigir("Atendente");
+                if (!AlteracoesFormulario.PodeDescartar(this)) return;
                 int selecionado = Tela.Selecionado(grade);
                 DataTable dados = Banco.Consultar("SELECT * FROM aparelhos WHERE id=@id",Banco.P("@id",selecionado));
                 if (dados.Rows.Count == 0) throw new Exception("O registro não existe mais. Atualize a lista.");
@@ -79,32 +93,19 @@ namespace Tecnologia
                 codigo = selecionado;
                 lblEdicao.Text = "Editando código " + codigo;
                 AlteracoesFormulario.MarcarSalvo(this);
+                tabcontrol3.SelectedIndex = 1;
             } catch (Exception erro) { Tela.Erro(erro); }
         }
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             try
             {
-                Sessao.Exigir("Atendente");
-                Tela.Obrigatorio(campomarca.Text, "Marca");
-                Tela.Obrigatorio(campomodelo.Text, "Modelo");
-                if (Convert.ToInt32(Banco.Valor("SELECT COUNT(*) FROM clientes WHERE id=@id AND ativo=1",Banco.P("@id",Tela.Codigo(campocliente_id)))) == 0) throw new Exception("Selecione um cliente ativo.");
-                if (codigo != 0 && Convert.ToInt32(Banco.Valor("SELECT COUNT(*) FROM ordens_servico WHERE aparelho_id=@id",Banco.P("@id",codigo))) > 0)
-                    throw new Exception("Este aparelho já possui ordem de serviço. Preserve seus dados e cadastre outro aparelho se necessário.");
-                string sql;
-                if (codigo == 0) sql = "INSERT INTO aparelhos(cliente_id,tipo,marca,modelo,numero_serie,cor,acessorios,estado_fisico,observacoes) VALUES(@cliente_id,@tipo,@marca,@modelo,@numero_serie,@cor,@acessorios,@estado_fisico,@observacoes)";
-                else sql = "UPDATE aparelhos SET cliente_id=@cliente_id,tipo=@tipo,marca=@marca,modelo=@modelo,numero_serie=@numero_serie,cor=@cor,acessorios=@acessorios,estado_fisico=@estado_fisico,observacoes=@observacoes WHERE id=@id";
-                Banco.Executar(sql, Banco.P("@cliente_id", Tela.Codigo(campocliente_id)),
-                    Banco.P("@tipo", campotipo.Text),
-                    Banco.P("@marca", campomarca.Text.Trim()),
-                    Banco.P("@modelo", campomodelo.Text.Trim()),
-                    Banco.P("@numero_serie", camponumero_serie.Text.Trim()),
-                    Banco.P("@cor", campocor.Text.Trim()),
-                    Banco.P("@acessorios", campoacessorios.Text.Trim()),
-                    Banco.P("@estado_fisico", campoestado_fisico.Text.Trim()),
-                    Banco.P("@observacoes", campoobservacoes.Text.Trim()),
-                    Banco.P("@id",codigo));
-                Limpar(); Carregar();
+                Aparelhos.Salvar(codigo, Tela.Codigo(campocliente_id), campotipo.Text, campomarca.Text,
+                    campomodelo.Text, camponumero_serie.Text, campocor.Text, campoacessorios.Text,
+                    campoestado_fisico.Text, campoobservacoes.Text);
+                Limpar();
+                tabcontrol3.SelectedIndex = 0;
+                Carregar();
                 MessageBox.Show("Cadastro salvo.");
             } catch (Exception erro) { Tela.Erro(erro); }
         }
@@ -114,6 +115,7 @@ namespace Tecnologia
             {
                 Sessao.Exigir("Atendente");
                 int selecionado = Tela.Selecionado(grade);
+                if (!AlteracoesFormulario.PodeDescartar(this)) return;
                 if (!Tela.Confirmar("Excluir o cadastro " + selecionado + "?")) return;
                 Banco.Executar("DELETE FROM aparelhos WHERE id=@id",Banco.P("@id",selecionado));
                 Limpar(); Carregar();

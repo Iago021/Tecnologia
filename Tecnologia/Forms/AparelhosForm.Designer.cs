@@ -1792,8 +1792,6 @@ namespace Tecnologia
             this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
             this.Load += new System.EventHandler(this.AparelhosForm_Load);
             this.panel9.SizeChanged += new System.EventHandler(this.flowlayoutpanel10_Redimensionar);
-            this.btnNovo.Click += new System.EventHandler(this.NovoCadastro_Click);
-            this.btnEditar.Click += new System.EventHandler(this.EditarCadastro_Click);
             this.button25.Click += new System.EventHandler(this.VoltarConsulta_Click);
             this.flowlayoutpanel24.ResumeLayout(false);
             this.flowlayoutpanel24.PerformLayout();

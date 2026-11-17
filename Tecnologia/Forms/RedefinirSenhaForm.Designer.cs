@@ -387,8 +387,8 @@ namespace Tecnologia
             this.redefinir.MinimumSize = new System.Drawing.Size(0, 0);
             this.redefinir.MaximumSize = new System.Drawing.Size(0, 0);
             this.redefinir.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.redefinir.BackColor = System.Drawing.Color.FromArgb(255, 226, 242, 236);
-            this.redefinir.ForeColor = System.Drawing.Color.FromArgb(255, 21, 59, 50);
+            this.redefinir.BackColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
+            this.redefinir.ForeColor = System.Drawing.Color.FromArgb(255, 255, 255, 255);
             this.redefinir.Dock = (System.Windows.Forms.DockStyle)0;
             this.redefinir.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.redefinir.Margin = new System.Windows.Forms.Padding(51, 5, 0, 12);
@@ -403,8 +403,8 @@ namespace Tecnologia
             this.redefinir.UseVisualStyleBackColor = false;
             this.redefinir.UseCompatibleTextRendering = false;
             this.redefinir.FlatAppearance.BorderSize = 0;
-            this.redefinir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
-            this.redefinir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
+            this.redefinir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 20, 82, 67);
+            this.redefinir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 16, 67, 56);
             this.redefinir.Name = "redefinir";
             this.redefinir.Cursor = System.Windows.Forms.Cursors.Hand;
             // linklabel9
@@ -429,9 +429,9 @@ namespace Tecnologia
             this.linklabel9.TextAlign = (System.Drawing.ContentAlignment)32;
             this.linklabel9.FlatStyle = (System.Windows.Forms.FlatStyle)2;
             this.linklabel9.UseCompatibleTextRendering = false;
-            this.linklabel9.LinkColor = System.Drawing.Color.FromArgb(255, 0, 112, 153);
+            this.linklabel9.LinkColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.linklabel9.ActiveLinkColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
-            this.linklabel9.VisitedLinkColor = System.Drawing.Color.FromArgb(255, 0, 112, 153);
+            this.linklabel9.VisitedLinkColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.linklabel9.Name = "linklabel9";
             this.linklabel9.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Controls.Add(this.picturebox1);
@@ -451,7 +451,7 @@ namespace Tecnologia
             this.cartaoAcesso.Controls.Add(this.linklabel9);
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Resize += new System.EventHandler(this.CentralizarAcesso);
             this.cartaoAcesso.SizeChanged += new System.EventHandler(this.CentralizarAcesso);
             this.redefinir.Click += new System.EventHandler(this.Redefinir_Click);

@@ -61,6 +61,16 @@ internal static class VisualSmoke
                     if (input.Parent is UpDownBase) continue;
                     Assert(input.Width >= 100 && input.Height >= 15, name + ": campo cortado: " + input.Name + " " + input.Size); assertions++;
                 }
+                if (name == "PrincipalForm")
+                {
+                    Control abertura = form.Controls.Find("btnNova", true).Single();
+                    Control saudacao = form.Controls.Find("tablelayoutpanel5", true).Single();
+                    Control contadores = form.Controls.Find("tablelayoutpanel8", true).Single();
+                    Assert(abertura.Bottom <= abertura.Parent.ClientSize.Height,
+                        "PrincipalForm: botão de nova ordem cortado");
+                    Assert(saudacao.Bottom <= contadores.Top, "PrincipalForm: saudação sobrepõe os contadores");
+                    assertions += 2;
+                }
                 Console.WriteLine("PASS " + name);
                 assertions += InspectLayout(form, output, name + "-compacto");
                 if (name != "PrincipalForm" && !name.Contains("Senha") && name != "LoginForm" && name != "CriarContaForm")
@@ -87,7 +97,7 @@ internal static class VisualSmoke
                 Console.WriteLine("PASS DESIGNER " + name);
             }
         }
-        Type contas = app.GetType("Tecnologia.Contas", true);
+        Type contas = app.GetType("Tecnologia.RecuperacaoSenha", true);
         var generate = contas.GetMethod("GerarCodigo", BindingFlags.NonPublic | BindingFlags.Static);
         for (int i = 0; i < 100; i++)
         {

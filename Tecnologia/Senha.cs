@@ -7,15 +7,21 @@ namespace Tecnologia
         // PBKDF2 com salt diferente para cada senha; não guarda a senha original.
         public static string Criar(string senha)
         {
-            if (senha.Length < 8 || senha.Length > 128)
-                throw new Exception("A senha deve ter de 8 a 128 caracteres.");
+            Validar(senha);
             byte[] salt = new byte[16];
             using (RandomNumberGenerator gerador = RandomNumberGenerator.Create()) gerador.GetBytes(salt);
             using (Rfc2898DeriveBytes hash = new Rfc2898DeriveBytes(senha, salt, 600000, HashAlgorithmName.SHA256))
                 return "600000$" + Convert.ToBase64String(salt) + "$" + Convert.ToBase64String(hash.GetBytes(32));
         }
+        public static void Validar(string senha)
+        {
+            if (string.IsNullOrWhiteSpace(senha) || senha.Length < 8 || senha.Length > 128)
+                throw new InvalidOperationException("A senha deve ter de 8 a 128 caracteres e conter algum caractere além de espaços.");
+        }
+
         public static bool Conferir(string senha, string armazenada)
         {
+            if (string.IsNullOrEmpty(armazenada) || senha == null || senha.Length > 128) return false;
             try
             {
                 string[] partes = armazenada.Split('$');

@@ -8,14 +8,13 @@ namespace Tecnologia
         private Form paginaAtual;
         private void PrincipalForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (paginaAtual != null && !paginaAtual.IsDisposed && AlteracoesFormulario.TemAlteracoes(paginaAtual) &&
-                !Tela.Confirmar("Sair sem salvar as alterações desta tela?")) e.Cancel = true;
+            if (paginaAtual != null && !AlteracoesFormulario.PodeDescartar(paginaAtual)) e.Cancel = true;
         }
+
         private bool FecharPagina()
         {
             if (paginaAtual == null) return true;
-            if (!paginaAtual.IsDisposed && AlteracoesFormulario.TemAlteracoes(paginaAtual) &&
-                !Tela.Confirmar("Você alterou campos nesta tela. Deseja sair? Alterações que não foram salvas serão perdidas.")) return false;
+            if (!AlteracoesFormulario.PodeDescartar(paginaAtual)) return false;
             Form anterior = paginaAtual; paginaAtual = null;
             anterior.Dispose();
             return true;
@@ -24,9 +23,17 @@ namespace Tecnologia
         private void MostrarDashboard()
         {
             if (!FecharPagina()) return;
-            conteudo.RowStyles[0].Height = 0; menuCadastros.Visible = false;
-            dashboard.Visible = true; dashboard.BringToFront();
-            MarcarNavegacao(btnAtualizar); Atualizar();
+            ExibirDashboard();
+        }
+
+        private void ExibirDashboard()
+        {
+            conteudo.RowStyles[0].Height = 0;
+            menuCadastros.Visible = false;
+            dashboard.Visible = true;
+            dashboard.BringToFront();
+            MarcarNavegacao(btnAtualizar);
+            Atualizar();
         }
 
         private void MostrarCadastros()
@@ -47,12 +54,11 @@ namespace Tecnologia
             janela.MinimumSize = Size.Empty;
             foreach (Control marca in janela.Controls.Find("marcaSecundaria", true)) marca.Visible = false;
             area.Controls.Add(janela);
-            janela.FormClosed += delegate
+            janela.Disposed += delegate
             {
-                if (paginaAtual != janela) return;
+                if (paginaAtual != janela || Disposing || IsDisposed) return;
                 paginaAtual = null;
-                dashboard.Visible = true; conteudo.RowStyles[0].Height = 0; menuCadastros.Visible = false;
-                MarcarNavegacao(btnAtualizar); Atualizar();
+                ExibirDashboard();
             };
             janela.Show();
             if (janela.IsDisposed || paginaAtual != janela) return;

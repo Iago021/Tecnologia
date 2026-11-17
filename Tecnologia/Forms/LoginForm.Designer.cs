@@ -350,9 +350,9 @@ namespace Tecnologia
             this.linklabel7.TextAlign = (System.Drawing.ContentAlignment)32;
             this.linklabel7.FlatStyle = (System.Windows.Forms.FlatStyle)2;
             this.linklabel7.UseCompatibleTextRendering = false;
-            this.linklabel7.LinkColor = System.Drawing.Color.FromArgb(255, 0, 112, 153);
+            this.linklabel7.LinkColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.linklabel7.ActiveLinkColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
-            this.linklabel7.VisitedLinkColor = System.Drawing.Color.FromArgb(255, 0, 112, 153);
+            this.linklabel7.VisitedLinkColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.linklabel7.Name = "linklabel7";
             this.linklabel7.Cursor = System.Windows.Forms.Cursors.Hand;
             // btnEntrar
@@ -405,9 +405,9 @@ namespace Tecnologia
             this.linklabel8.TextAlign = (System.Drawing.ContentAlignment)32;
             this.linklabel8.FlatStyle = (System.Windows.Forms.FlatStyle)2;
             this.linklabel8.UseCompatibleTextRendering = false;
-            this.linklabel8.LinkColor = System.Drawing.Color.FromArgb(255, 0, 112, 153);
+            this.linklabel8.LinkColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.linklabel8.ActiveLinkColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
-            this.linklabel8.VisitedLinkColor = System.Drawing.Color.FromArgb(255, 0, 112, 153);
+            this.linklabel8.VisitedLinkColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.linklabel8.Name = "linklabel8";
             this.linklabel8.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Controls.Add(this.picturebox1);

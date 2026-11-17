@@ -6,22 +6,82 @@ namespace Tecnologia
 {
     public partial class CriarContaForm : Form
     {
-        public string EmailCriado { get { return email.Text.Trim(); } }
-        public CriarContaForm() { InitializeComponent(); PrepararTela(); }
+        private bool salvando;
+        public string EmailCriado { get; private set; }
+
+        public CriarContaForm()
+        {
+            InitializeComponent();
+        }
+
         private async void Criar_Click(object sender, EventArgs e)
         {
-            string n = nome.Text, m = email.Text, cm = confirmarEmail.Text, s = senha.Text, cs = confirmarSenha.Text;
-            criar.Enabled = false; criar.Text = "CRIANDO...";
+            if (salvando) return;
+
+            string nomeDigitado = nome.Text;
+            string emailDigitado = email.Text.Trim();
+            string emailConfirmado = confirmarEmail.Text;
+            string senhaDigitada = senha.Text;
+            string senhaConfirmada = confirmarSenha.Text;
+
+            lblErro.Visible = false;
+            salvando = true;
             cartaoAcesso.Enabled = false;
+            criar.Text = "Criando conta...";
+            bool primeiraConta = false;
+            string mensagemErro = null;
             try
             {
-                bool primeira = await Task.Run(() => Contas.Criar(n, m, cm, s, cs));
-                if (IsDisposed) return;
-                MessageBox.Show(this, primeira ? "Conta criada! Você já pode entrar." : "Conta criada! Um atendente precisa ativar seu acesso em Cadastros > Equipe.", "Tecnologia");
-                DialogResult = DialogResult.OK; Close();
+                primeiraConta = await Task.Run(() =>
+                    Contas.Criar(nomeDigitado, emailDigitado, emailConfirmado, senhaDigitada, senhaConfirmada));
             }
-            catch (Exception erro) { if (!IsDisposed) Tela.Erro(erro); }
-            finally { if (!IsDisposed) { cartaoAcesso.Enabled = true; criar.Enabled = true; criar.Text = "CRIAR CONTA"; } }
+            catch (Exception erro)
+            {
+                mensagemErro = Tela.Mensagem(erro);
+            }
+            finally
+            {
+                salvando = false;
+                if (!IsDisposed)
+                {
+                    cartaoAcesso.Enabled = true;
+                    criar.Text = "Criar conta";
+                }
+            }
+
+            if (IsDisposed) return;
+            if (mensagemErro != null)
+            {
+                lblErro.Text = mensagemErro;
+                lblErro.Visible = true;
+                ScrollControlIntoView(lblErro);
+                return;
+            }
+
+            EmailCriado = emailDigitado;
+            string mensagem = primeiraConta
+                ? "Conta criada. Você já pode entrar."
+                : "Cadastro recebido. Um atendente pode ativar seu acesso em Cadastros > Equipe.";
+            MessageBox.Show(this, mensagem, "Tecnologia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            DialogResult = DialogResult.OK;
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (salvando && e.CloseReason == CloseReason.UserClosing)
+                e.Cancel = true;
+        }
+
+        private void MostrarSenha_CheckedChanged(object sender, EventArgs e)
+        {
+            senha.UseSystemPasswordChar = !mostrarSenha.Checked;
+            confirmarSenha.UseSystemPasswordChar = !mostrarSenha.Checked;
+        }
+
+        private void Voltar_Click(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
         }
     }
 }

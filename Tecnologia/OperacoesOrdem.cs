@@ -8,21 +8,19 @@ namespace Tecnologia
     {
         public static int Abrir(int aparelho, string problema, DateTime? previsao, string observacoes)
         {
-            Sessao.Exigir("Atendente");
             Tela.Obrigatorio(problema, "problema relatado");
             if (previsao.HasValue && previsao.Value.Date < DateTime.Today) throw new Exception("A previsão não pode ser anterior a hoje.");
             using (MySqlConnection conexao = Banco.Abrir())
             using (MySqlTransaction transacao = conexao.BeginTransaction())
             {
-                using (MySqlCommand comando = Banco.Comando(conexao, transacao,
-                    "SELECT c.ativo FROM aparelhos a JOIN clientes c ON c.id=a.cliente_id WHERE a.id=@id FOR UPDATE", Banco.P("@id", aparelho)))
-                {
-                    object ativo = comando.ExecuteScalar();
-                    if (ativo == null || !Convert.ToBoolean(ativo)) throw new Exception("Selecione um aparelho de um cliente ativo.");
-                }
-                using (MySqlCommand comando = Banco.Comando(conexao, transacao,
-                    "SELECT COUNT(*) FROM ordens_servico WHERE aparelho_id=@id AND status<>'Entregue'", Banco.P("@id", aparelho)))
-                    if (Convert.ToInt32(comando.ExecuteScalar()) > 0) throw new Exception("Este aparelho já possui uma ordem em andamento ou aguardando entrega.");
+                Sessao.Exigir(conexao, transacao, "Atendente");
+                int cliente = Aparelhos.Travar(conexao, transacao, aparelho);
+                Aparelhos.ConferirClienteAtivo(conexao, transacao, cliente);
+                object pendente = Banco.Valor(conexao, transacao,
+                    "SELECT id FROM ordens_servico WHERE aparelho_id=@id AND status<>'Entregue' LIMIT 1", Banco.P("@id", aparelho));
+                if (pendente != null)
+                    throw new InvalidOperationException("Este aparelho já possui uma ordem em andamento ou aguardando entrega.");
+
                 int id;
                 using (MySqlCommand comando = Banco.Comando(conexao, transacao,
                     "INSERT INTO ordens_servico(aparelho_id,atendente_id,problema_relatado,previsao_entrega,observacoes) VALUES(@aparelho,@usuario,@problema,@previsao,@obs)",
@@ -36,10 +34,10 @@ namespace Tecnologia
         }
         public static void AtribuirTecnico(int id, int tecnico)
         {
-            Sessao.Exigir("Atendente");
             using (MySqlConnection conexao = Banco.Abrir())
             using (MySqlTransaction transacao = conexao.BeginTransaction())
             {
+                Sessao.Exigir(conexao, transacao, "Atendente");
                 if (tecnico != 0) ConferirTecnicoAtivo(conexao, transacao, tecnico);
                 DataRow ordem = Travar(conexao, transacao, id);
                 if (ordem["status"].ToString() != "Aberta")
@@ -63,17 +61,17 @@ namespace Tecnologia
             }
         }
 
-        public static DataRow Travar(MySqlConnection conexao, MySqlTransaction transacao, int ordem)
+        private static DataRow Travar(MySqlConnection conexao, MySqlTransaction transacao, int ordem)
         {
-            using (MySqlCommand comando = Banco.Comando(conexao, transacao,
-                "SELECT * FROM ordens_servico WHERE id=@id FOR UPDATE", Banco.P("@id", ordem)))
-            using (MySqlDataAdapter adaptador = new MySqlDataAdapter(comando))
-            {
-                DataTable tabela = new DataTable(); adaptador.Fill(tabela);
-                if (tabela.Rows.Count == 0) throw new Exception("Ordem não encontrada.");
-                return tabela.Rows[0];
-            }
+            DataTable tabela = Banco.Consultar(conexao, transacao,
+                "SELECT status,tecnico_id,aparelho_id,desconto,valor_mao_obra FROM ordens_servico WHERE id=@id FOR UPDATE",
+                Banco.P("@id", ordem));
+            if (tabela.Rows.Count == 0)
+                throw new InvalidOperationException("Ordem não encontrada.");
+
+            return tabela.Rows[0];
         }
+
         private static void ConferirTecnico(DataRow ordem, bool podeIniciar)
         {
             string status = ordem["status"].ToString();
@@ -85,20 +83,16 @@ namespace Tecnologia
         }
         public static void Diagnosticar(int id, string descricao, string servico, string status, decimal maoObra, decimal desconto)
         {
-            Sessao.Exigir("Técnico");
             Tela.Obrigatorio(descricao, "diagnóstico"); Tela.Obrigatorio(servico, "serviço necessário");
             if (status != "Em manutenção" && status != "Aguardando peça" && status != "Concluída") throw new Exception("Selecione um andamento válido.");
             if (maoObra < 0 || desconto < 0) throw new Exception("Os valores não podem ser negativos.");
             using (MySqlConnection conexao = Banco.Abrir())
             using (MySqlTransaction transacao = conexao.BeginTransaction())
             {
-                ConferirTecnicoAtivo(conexao, transacao, Sessao.Id);
+                Sessao.Exigir(conexao, transacao, "Técnico");
                 DataRow ordem = Travar(conexao, transacao, id);
                 ConferirTecnico(ordem, true);
-                decimal pecas;
-                using (MySqlCommand comando = Banco.Comando(conexao, transacao,
-                    "SELECT COALESCE(SUM(quantidade*valor_unitario),0) FROM ordem_pecas WHERE ordem_id=@id", Banco.P("@id", id)))
-                    pecas = Convert.ToDecimal(comando.ExecuteScalar());
+                decimal pecas = TotalPecas(conexao, transacao, id);
                 if (desconto > maoObra + pecas) throw new Exception("O desconto não pode ultrapassar o total do serviço.");
                 using (MySqlCommand comando = Banco.Comando(conexao, transacao,
                     "INSERT INTO diagnosticos(ordem_id,tecnico_id,descricao,servico_necessario) VALUES(@id,@tecnico,@descricao,@servico) ON DUPLICATE KEY UPDATE tecnico_id=@tecnico,descricao=@descricao,servico_necessario=@servico,data_diagnostico=NOW()",
@@ -114,10 +108,10 @@ namespace Tecnologia
         }
         public static void Entregar(int id)
         {
-            Sessao.Exigir("Atendente");
             using (MySqlConnection conexao = Banco.Abrir())
             using (MySqlTransaction transacao = conexao.BeginTransaction())
             {
+                Sessao.Exigir(conexao, transacao, "Atendente");
                 DataRow ordem = Travar(conexao, transacao, id);
                 if (ordem["status"].ToString() != "Concluída") throw new Exception("Apenas serviços concluídos podem ser entregues.");
                 using (MySqlCommand comando = Banco.Comando(conexao, transacao,
@@ -128,11 +122,11 @@ namespace Tecnologia
         }
         public static void UsarPeca(int id, int peca, int quantidade)
         {
-            Sessao.Exigir("Técnico");
             if (quantidade <= 0) throw new Exception("Informe uma quantidade positiva.");
             using (MySqlConnection conexao = Banco.Abrir())
             using (MySqlTransaction transacao = conexao.BeginTransaction())
             {
+                Sessao.Exigir(conexao, transacao, "Técnico");
                 DataRow ordem = Travar(conexao, transacao, id);
                 ConferirTecnico(ordem, false);
                 decimal preco;
@@ -144,22 +138,21 @@ namespace Tecnologia
                     if (valor == null) throw new Exception("A peça não está ativa ou não é compatível com o aparelho.");
                     preco = Convert.ToDecimal(valor);
                 }
-                using (MySqlCommand comando = Banco.Comando(conexao, transacao,
-                    "UPDATE pecas SET quantidade=quantidade-@qtd WHERE id=@peca AND quantidade>=@qtd", Banco.P("@peca", peca), Banco.P("@qtd", quantidade)))
-                    if (comando.ExecuteNonQuery() != 1) throw new Exception("Estoque insuficiente. Atualize a lista de peças.");
+                if (!Estoque.AjustarSaldo(conexao, transacao, peca, -quantidade, true))
+                    throw new InvalidOperationException("Estoque insuficiente. Atualize a lista de peças.");
                 using (MySqlCommand comando = Banco.Comando(conexao, transacao,
                     "INSERT INTO ordem_pecas(ordem_id,peca_id,quantidade,valor_unitario) VALUES(@ordem,@peca,@qtd,@valor)",
                     Banco.P("@ordem", id), Banco.P("@peca", peca), Banco.P("@qtd", quantidade), Banco.P("@valor", preco))) comando.ExecuteNonQuery();
-                Movimento(conexao, transacao, peca, id, "Saída", quantidade, "Peça utilizada no conserto");
+                Estoque.RegistrarMovimento(conexao, transacao, peca, id, "Saída", quantidade, "Peça utilizada no conserto");
                 transacao.Commit();
             }
         }
         public static void DevolverPeca(int ordemId, int itemId)
         {
-            Sessao.Exigir("Técnico");
             using (MySqlConnection conexao = Banco.Abrir())
             using (MySqlTransaction transacao = conexao.BeginTransaction())
             {
+                Sessao.Exigir(conexao, transacao, "Técnico");
                 DataRow ordem = Travar(conexao, transacao, ordemId);
                 ConferirTecnico(ordem, false);
                 int peca, quantidade; decimal subtotal;
@@ -170,44 +163,28 @@ namespace Tecnologia
                     if (!leitor.Read()) throw new Exception("Item não encontrado. Atualize a ordem.");
                     peca = leitor.GetInt32(0); quantidade = leitor.GetInt32(1); subtotal = quantidade * leitor.GetDecimal(2);
                 }
-                decimal totalPecas;
-                using (MySqlCommand comando = Banco.Comando(conexao, transacao,
-                    "SELECT COALESCE(SUM(quantidade*valor_unitario),0) FROM ordem_pecas WHERE ordem_id=@id",Banco.P("@id",ordemId))) totalPecas=Convert.ToDecimal(comando.ExecuteScalar());
+                decimal totalPecas = TotalPecas(conexao, transacao, ordemId);
                 if (Convert.ToDecimal(ordem["desconto"]) > Convert.ToDecimal(ordem["valor_mao_obra"]) + totalPecas - subtotal)
                     throw new Exception("Reduza e salve o desconto antes de devolver esta peça.");
-                using (MySqlCommand comando = Banco.Comando(conexao, transacao,"UPDATE pecas SET quantidade=quantidade+@qtd WHERE id=@peca", Banco.P("@qtd", quantidade), Banco.P("@peca", peca))) comando.ExecuteNonQuery();
+                if (!Estoque.AjustarSaldo(conexao, transacao, peca, quantidade, false))
+                    throw new InvalidOperationException("Peça não encontrada. Atualize a ordem.");
                 using (MySqlCommand comando = Banco.Comando(conexao, transacao,"DELETE FROM ordem_pecas WHERE id=@id",Banco.P("@id",itemId))) comando.ExecuteNonQuery();
-                Movimento(conexao, transacao, peca, ordemId, "Devolução", quantidade, "Peça removida da ordem e devolvida ao estoque");
+                Estoque.RegistrarMovimento(conexao, transacao, peca, ordemId, "Devolução", quantidade, "Peça removida da ordem e devolvida ao estoque");
                 transacao.Commit();
             }
         }
-        public static void Movimentar(int peca, string tipo, int quantidade, string observacao)
+        private static decimal TotalPecas(MySqlConnection conexao, MySqlTransaction transacao, int ordem)
         {
-            Sessao.Exigir("Técnico");
-            if (tipo != "Entrada" && tipo != "Saída") throw new Exception("Movimentação inválida.");
-            if (quantidade <= 0) throw new Exception("Informe uma quantidade positiva.");
-            Tela.Obrigatorio(observacao, "motivo da movimentação");
-            using (MySqlConnection conexao = Banco.Abrir())
-            using (MySqlTransaction transacao = conexao.BeginTransaction())
-            {
-                string sql = tipo == "Entrada" ? "UPDATE pecas SET quantidade=quantidade+@qtd WHERE id=@id AND ativo=1" : "UPDATE pecas SET quantidade=quantidade-@qtd WHERE id=@id AND ativo=1 AND quantidade>=@qtd";
-                using (MySqlCommand comando = Banco.Comando(conexao, transacao, sql, Banco.P("@qtd", quantidade), Banco.P("@id", peca)))
-                    if (comando.ExecuteNonQuery() != 1) throw new Exception("Peça inativa, inexistente ou estoque insuficiente.");
-                Movimento(conexao, transacao, peca, null, tipo, quantidade, observacao.Trim());
-                transacao.Commit();
-            }
+            return Convert.ToDecimal(Banco.Valor(conexao, transacao,
+                "SELECT COALESCE(SUM(quantidade*valor_unitario),0) FROM ordem_pecas WHERE ordem_id=@id",
+                Banco.P("@id", ordem)));
         }
+
         private static void Historico(MySqlConnection conexao, MySqlTransaction transacao, int id, string anterior, string novo)
         {
             using (MySqlCommand comando = Banco.Comando(conexao, transacao,
                 "INSERT INTO historico_status(ordem_id,usuario_id,status_anterior,status_novo) VALUES(@id,@usuario,@anterior,@novo)",
                 Banco.P("@id", id), Banco.P("@usuario", Sessao.Id), Banco.P("@anterior", anterior), Banco.P("@novo", novo))) comando.ExecuteNonQuery();
-        }
-        private static void Movimento(MySqlConnection conexao, MySqlTransaction transacao, int peca, int? ordem, string tipo, int qtd, string obs)
-        {
-            using (MySqlCommand comando = Banco.Comando(conexao, transacao,
-                "INSERT INTO movimentacoes_estoque(peca_id,usuario_id,ordem_id,tipo,quantidade,observacao) VALUES(@peca,@usuario,@ordem,@tipo,@qtd,@obs)",
-                Banco.P("@peca", peca), Banco.P("@usuario", Sessao.Id), Banco.P("@ordem", ordem), Banco.P("@tipo", tipo), Banco.P("@qtd", qtd), Banco.P("@obs", obs))) comando.ExecuteNonQuery();
         }
     }
 }

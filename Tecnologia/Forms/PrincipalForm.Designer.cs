@@ -568,15 +568,15 @@ namespace Tecnologia
             this.dashboard.GrowStyle = (System.Windows.Forms.TableLayoutPanelGrowStyle)1;
             this.dashboard.Name = "dashboard";
             this.dashboard.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle((System.Windows.Forms.SizeType)2, 100F));
-            this.dashboard.RowStyles.Add(new System.Windows.Forms.RowStyle((System.Windows.Forms.SizeType)2, 68F));
-            this.dashboard.RowStyles.Add(new System.Windows.Forms.RowStyle((System.Windows.Forms.SizeType)1, 100F));
-            this.dashboard.RowStyles.Add(new System.Windows.Forms.RowStyle((System.Windows.Forms.SizeType)2, 32F));
+            this.dashboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 220F));
+            this.dashboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 78F));
+            this.dashboard.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             // tablelayoutpanel5
             this.tablelayoutpanel5.Text = "";
             this.tablelayoutpanel5.AccessibleName = null;
             this.tablelayoutpanel5.Location = new System.Drawing.Point(35, 23);
             this.tablelayoutpanel5.Size = new System.Drawing.Size(946, 263);
-            this.tablelayoutpanel5.MinimumSize = new System.Drawing.Size(0, 230);
+            this.tablelayoutpanel5.MinimumSize = new System.Drawing.Size(0, 0);
             this.tablelayoutpanel5.MaximumSize = new System.Drawing.Size(0, 0);
             this.tablelayoutpanel5.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)0);
             this.tablelayoutpanel5.BackColor = System.Drawing.Color.FromArgb(0, 255, 255, 255);
@@ -624,15 +624,15 @@ namespace Tecnologia
             this.panel6.BorderStyle = (System.Windows.Forms.BorderStyle)0;
             this.panel6.Name = "panel6";
             // lblTitulo
-            this.lblTitulo.Text = "Bem\nvindo!";
+            this.lblTitulo.Text = "Bem-vindo!";
             this.lblTitulo.AccessibleName = null;
             this.lblTitulo.Location = new System.Drawing.Point(0, 0);
-            this.lblTitulo.Size = new System.Drawing.Size(514, 156);
+            this.lblTitulo.Size = new System.Drawing.Size(514, 96);
             this.lblTitulo.MinimumSize = new System.Drawing.Size(0, 0);
             this.lblTitulo.MaximumSize = new System.Drawing.Size(0, 0);
-            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 42F, (System.Drawing.FontStyle)1);
+            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 36F, (System.Drawing.FontStyle)1);
             this.lblTitulo.BackColor = System.Drawing.Color.FromArgb(0, 255, 255, 255);
-            this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(255, 133, 150, 140);
+            this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.lblTitulo.Dock = (System.Windows.Forms.DockStyle)0;
             this.lblTitulo.Anchor = (System.Windows.Forms.AnchorStyles)13;
             this.lblTitulo.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
@@ -649,7 +649,7 @@ namespace Tecnologia
             // btnNova
             this.btnNova.Text = "Nova ordem de serviço";
             this.btnNova.AccessibleName = null;
-            this.btnNova.Location = new System.Drawing.Point(6, 170);
+            this.btnNova.Location = new System.Drawing.Point(6, 116);
             this.btnNova.Size = new System.Drawing.Size(230, 38);
             this.btnNova.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnNova.MaximumSize = new System.Drawing.Size(0, 0);
@@ -739,7 +739,7 @@ namespace Tecnologia
             this.btnAbertas.ForeColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.btnAbertas.Dock = (System.Windows.Forms.DockStyle)5;
             this.btnAbertas.Anchor = (System.Windows.Forms.AnchorStyles)5;
-            this.btnAbertas.Margin = new System.Windows.Forms.Padding(5, 10, 5, 14);
+            this.btnAbertas.Margin = new System.Windows.Forms.Padding(5, 8, 5, 8);
             this.btnAbertas.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
             this.btnAbertas.TabIndex = 6;
             this.btnAbertas.TabStop = true;
@@ -767,7 +767,7 @@ namespace Tecnologia
             this.btnManutencao.ForeColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.btnManutencao.Dock = (System.Windows.Forms.DockStyle)5;
             this.btnManutencao.Anchor = (System.Windows.Forms.AnchorStyles)5;
-            this.btnManutencao.Margin = new System.Windows.Forms.Padding(5, 10, 5, 14);
+            this.btnManutencao.Margin = new System.Windows.Forms.Padding(5, 8, 5, 8);
             this.btnManutencao.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
             this.btnManutencao.TabIndex = 7;
             this.btnManutencao.TabStop = true;
@@ -795,7 +795,7 @@ namespace Tecnologia
             this.btnConcluidas.ForeColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.btnConcluidas.Dock = (System.Windows.Forms.DockStyle)5;
             this.btnConcluidas.Anchor = (System.Windows.Forms.AnchorStyles)5;
-            this.btnConcluidas.Margin = new System.Windows.Forms.Padding(5, 10, 5, 14);
+            this.btnConcluidas.Margin = new System.Windows.Forms.Padding(5, 8, 5, 8);
             this.btnConcluidas.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
             this.btnConcluidas.TabIndex = 8;
             this.btnConcluidas.TabStop = true;
@@ -823,7 +823,7 @@ namespace Tecnologia
             this.btnProntas.ForeColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.btnProntas.Dock = (System.Windows.Forms.DockStyle)5;
             this.btnProntas.Anchor = (System.Windows.Forms.AnchorStyles)5;
-            this.btnProntas.Margin = new System.Windows.Forms.Padding(5, 10, 5, 14);
+            this.btnProntas.Margin = new System.Windows.Forms.Padding(5, 8, 5, 8);
             this.btnProntas.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
             this.btnProntas.TabIndex = 9;
             this.btnProntas.TabStop = true;

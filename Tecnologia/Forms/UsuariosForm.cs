@@ -57,7 +57,19 @@ namespace Tecnologia
             grade.Columns["ativo"].HeaderText = "Conta ativa";
             Tela.AjustarGrade(grade);
         }
-        private void btnNovo_Click(object sender, EventArgs e) { Limpar(); }
+        private void btnNovo_Click(object sender, EventArgs e)
+        {
+            if (!AlteracoesFormulario.PodeDescartar(this)) return;
+            Limpar();
+            tabcontrol3.SelectedIndex = 1;
+        }
+
+        private void VoltarConsulta_Click(object sender, EventArgs e)
+        {
+            if (!AlteracoesFormulario.PodeDescartar(this)) return;
+            Limpar();
+            tabcontrol3.SelectedIndex = 0;
+        }
         private void btnPesquisar_Click(object sender, EventArgs e)
         { try { Carregar(); } catch (Exception erro) { Tela.Erro(erro); } }
         private void btnExportar_Click(object sender, EventArgs e)
@@ -67,6 +79,7 @@ namespace Tecnologia
             try
             {
                 Sessao.Exigir("Atendente");
+                if (!AlteracoesFormulario.PodeDescartar(this)) return;
                 int selecionado = Tela.Selecionado(grade);
                 DataTable dados = Banco.Consultar("SELECT * FROM usuarios WHERE id=@id",Banco.P("@id",selecionado));
                 if (dados.Rows.Count == 0) throw new Exception("O registro não existe mais. Atualize a lista.");
@@ -85,36 +98,19 @@ namespace Tecnologia
                 codigo = selecionado;
                 lblEdicao.Text = "Editando código " + codigo;
                 AlteracoesFormulario.MarcarSalvo(this);
+                tabcontrol3.SelectedIndex = 1;
             } catch (Exception erro) { Tela.Erro(erro); }
         }
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             try
             {
-                Sessao.Exigir("Atendente");
-                Tela.Obrigatorio(camponome.Text, "Nome");
-                Tela.Email(campoemail.Text.Trim(), true);
-                Tela.Obrigatorio(campotelefone.Text, "Telefone");
-                string cpf = campocpf.Text.Replace(".", "").Replace("-", "").Trim();
-                if (cpf != "" && !System.Text.RegularExpressions.Regex.IsMatch(cpf, @"^\d{11}$")) throw new Exception("Informe o CPF com 11 números ou deixe em branco.");
-                if (codigo == Sessao.Id) throw new Exception("Use Minha conta para alterar seus próprios dados.");
-                string hash = "";
-                if (codigo == 0 || camposenha.Text != "") hash = Senha.Criar(camposenha.Text);
-                string sql;
-                if (codigo == 0) sql = "INSERT INTO usuarios(nome,email,telefone,cpf,rg,cidade,data_nascimento,perfil,ativo,senha_hash) VALUES(@nome,@email,@telefone,@cpf,@rg,@cidade,@data_nascimento,@perfil,@ativo,@senha_hash)";
-                else sql = "UPDATE usuarios SET nome=@nome,email=@email,telefone=@telefone,cpf=@cpf,rg=@rg,cidade=@cidade,data_nascimento=@data_nascimento,perfil=@perfil,ativo=@ativo,senha_hash=IF(@senha_hash='',senha_hash,@senha_hash) WHERE id=@id";
-                Contas.SalvarUsuario(!campoativo.Checked || campoperfil.Text != "Técnico", sql, Banco.P("@nome", camponome.Text.Trim()),
-                    Banco.P("@email", campoemail.Text.Trim()),
-                    Banco.P("@telefone", campotelefone.Text.Trim()),
-                    Banco.P("@cpf", Tela.Opcional(cpf)),
-                    Banco.P("@rg", camporg.Text.Trim()),
-                    Banco.P("@cidade", campocidade.Text.Trim()),
-                    Banco.P("@data_nascimento", Tela.Nascimento(campodata_nascimento)),
-                    Banco.P("@perfil", campoperfil.Text),
-                    Banco.P("@ativo", campoativo.Checked),
-                    Banco.P("@senha_hash", hash),
-                    Banco.P("@id",codigo));
-                Limpar(); Carregar();
+                Contas.SalvarUsuario(codigo, camponome.Text, campoemail.Text, campotelefone.Text,
+                    Tela.Cpf(campocpf.Text), camporg.Text, campocidade.Text, Tela.Nascimento(campodata_nascimento),
+                    campoperfil.Text, campoativo.Checked, camposenha.Text);
+                Limpar();
+                tabcontrol3.SelectedIndex = 0;
+                Carregar();
                 MessageBox.Show("Cadastro salvo.");
             } catch (Exception erro) { Tela.Erro(erro); }
         }
@@ -125,8 +121,9 @@ namespace Tecnologia
                 Sessao.Exigir("Atendente");
                 int selecionado = Tela.Selecionado(grade);
                 if (selecionado == Sessao.Id) throw new Exception("Você não pode excluir sua própria conta.");
+                if (!AlteracoesFormulario.PodeDescartar(this)) return;
                 if (!Tela.Confirmar("Excluir o cadastro " + selecionado + "?")) return;
-                Banco.Executar("DELETE FROM usuarios WHERE id=@id",Banco.P("@id",selecionado));
+                Contas.ExcluirUsuario(selecionado);
                 Limpar(); Carregar();
             } catch (Exception erro) { Tela.Erro(erro); }
         }

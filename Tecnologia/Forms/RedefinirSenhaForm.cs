@@ -16,7 +16,7 @@ namespace Tecnologia
             cartaoAcesso.Enabled = false;
             try
             {
-                await Task.Run(() => Contas.Redefinir(email, c, s, cs));
+                await Task.Run(() => RecuperacaoSenha.Redefinir(email, c, s, cs));
                 if (IsDisposed) return;
                 MessageBox.Show(this, "Senha redefinida. Entre com a nova senha.", "Tecnologia");
                 DialogResult = DialogResult.OK; Close();
