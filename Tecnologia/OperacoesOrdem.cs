@@ -34,6 +34,35 @@ namespace Tecnologia
                 return id;
             }
         }
+        public static void AtribuirTecnico(int id, int tecnico)
+        {
+            Sessao.Exigir("Atendente");
+            using (MySqlConnection conexao = Banco.Abrir())
+            using (MySqlTransaction transacao = conexao.BeginTransaction())
+            {
+                if (tecnico != 0) ConferirTecnicoAtivo(conexao, transacao, tecnico);
+                DataRow ordem = Travar(conexao, transacao, id);
+                if (ordem["status"].ToString() != "Aberta")
+                    throw new Exception("O responsável só pode ser alterado antes do diagnóstico.");
+
+                using (MySqlCommand comando = Banco.Comando(conexao, transacao,
+                    "UPDATE ordens_servico SET tecnico_id=@tecnico WHERE id=@id",
+                    Banco.P("@tecnico", tecnico == 0 ? (int?)null : tecnico), Banco.P("@id", id)))
+                    comando.ExecuteNonQuery();
+                transacao.Commit();
+            }
+        }
+
+        private static void ConferirTecnicoAtivo(MySqlConnection conexao, MySqlTransaction transacao, int tecnico)
+        {
+            using (MySqlCommand comando = Banco.Comando(conexao, transacao,
+                "SELECT id FROM usuarios WHERE id=@id AND perfil='Técnico' AND ativo=1 FOR UPDATE", Banco.P("@id", tecnico)))
+            {
+                if (comando.ExecuteScalar() == null)
+                    throw new Exception("Selecione um técnico ativo.");
+            }
+        }
+
         public static DataRow Travar(MySqlConnection conexao, MySqlTransaction transacao, int ordem)
         {
             using (MySqlCommand comando = Banco.Comando(conexao, transacao,
@@ -45,14 +74,14 @@ namespace Tecnologia
                 return tabela.Rows[0];
             }
         }
-        private static void ConferirTecnico(DataRow ordem, bool permitirSemTecnico)
+        private static void ConferirTecnico(DataRow ordem, bool podeIniciar)
         {
             string status = ordem["status"].ToString();
             if (status == "Concluída" || status == "Entregue") throw new Exception("Esta ordem já foi concluída e não pode mais ser alterada.");
-            if (ordem["tecnico_id"] == DBNull.Value)
-            { if (!permitirSemTecnico) throw new Exception("Salve o diagnóstico primeiro para assumir esta ordem."); }
-            else if (Convert.ToInt32(ordem["tecnico_id"]) != Sessao.Id)
+            if (ordem["tecnico_id"] != DBNull.Value && Convert.ToInt32(ordem["tecnico_id"]) != Sessao.Id)
                 throw new Exception("Esta ordem está sob responsabilidade de outro técnico.");
+            if (!podeIniciar && (status == "Aberta" || ordem["tecnico_id"] == DBNull.Value))
+                throw new Exception("Salve o diagnóstico primeiro para iniciar o serviço.");
         }
         public static void Diagnosticar(int id, string descricao, string servico, string status, decimal maoObra, decimal desconto)
         {
@@ -63,6 +92,7 @@ namespace Tecnologia
             using (MySqlConnection conexao = Banco.Abrir())
             using (MySqlTransaction transacao = conexao.BeginTransaction())
             {
+                ConferirTecnicoAtivo(conexao, transacao, Sessao.Id);
                 DataRow ordem = Travar(conexao, transacao, id);
                 ConferirTecnico(ordem, true);
                 decimal pecas;

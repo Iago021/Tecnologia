@@ -6,7 +6,7 @@ namespace Tecnologia
 {
     public partial class HistoricoForm : Form
     {
-        public HistoricoForm() { InitializeComponent(); PrepararTela(); AlteracoesFormulario.Observar(this); }
+        public HistoricoForm() { InitializeComponent(); AlteracoesFormulario.Observar(this); }
         private int codigo;
         private bool ordem;
         public HistoricoForm(int id,bool historicoOrdem) : this() { codigo=id; ordem=historicoOrdem; }
@@ -24,6 +24,6 @@ namespace Tecnologia
             } catch(Exception erro) { Tela.Erro(erro); Close(); }
         }
         private void btnExportar_Click(object sender,EventArgs e)
-        { try { Sessao.Exigir(ordem ? "" : "Técnico"); Exportar.Excel(grade); } catch(Exception erro) { Tela.Erro(erro); } }
+        { try { Sessao.Exigir(ordem ? "" : "Técnico"); Exportar.Menu(btnExportar, grade, lblTitulo.Text); } catch(Exception erro) { Tela.Erro(erro); } }
     }
 }

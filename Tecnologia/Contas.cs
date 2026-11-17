@@ -35,7 +35,7 @@ namespace Tecnologia
             Sessao.Nome = nome.Trim();
         }
 
-        public static void SalvarUsuario(string sql, params MySqlParameter[] parametros)
+        public static void SalvarUsuario(bool retirarTecnico, string sql, params MySqlParameter[] parametros)
         {
             Sessao.Exigir("Atendente");
             int id = 0;
@@ -43,6 +43,19 @@ namespace Tecnologia
             using (MySqlConnection conexao = Banco.Abrir())
             using (MySqlTransaction transacao = conexao.BeginTransaction())
             {
+                if (id != 0 && retirarTecnico)
+                {
+                    using (MySqlCommand travar = Banco.Comando(conexao, transacao,
+                        "SELECT id FROM usuarios WHERE id=@id FOR UPDATE", Banco.P("@id", id)))
+                        travar.ExecuteScalar();
+                    using (MySqlCommand contar = Banco.Comando(conexao, transacao,
+                        "SELECT COUNT(*) FROM ordens_servico WHERE tecnico_id=@id AND status NOT IN ('Concluída','Entregue')",
+                        Banco.P("@id", id)))
+                    {
+                        if (Convert.ToInt32(contar.ExecuteScalar()) > 0)
+                            throw new Exception("Este técnico possui ordens em andamento. Conclua os serviços ou remova a atribuição das ordens abertas.");
+                    }
+                }
                 using (MySqlCommand salvar = Banco.Comando(conexao, transacao, sql, parametros))
                     if (salvar.ExecuteNonQuery() != 1) throw new Exception("Conta não encontrada. Atualize a lista.");
                 if (id != 0) InvalidarCodigo(conexao, transacao, id);

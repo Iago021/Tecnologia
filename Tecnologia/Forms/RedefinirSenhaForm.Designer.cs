@@ -88,7 +88,7 @@ namespace Tecnologia
             this.cartaoAcesso.MinimumSize = new System.Drawing.Size(384, 0);
             this.cartaoAcesso.MaximumSize = new System.Drawing.Size(384, 0);
             this.cartaoAcesso.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.cartaoAcesso.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.cartaoAcesso.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.cartaoAcesso.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.cartaoAcesso.Dock = (System.Windows.Forms.DockStyle)0;
             this.cartaoAcesso.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -114,7 +114,7 @@ namespace Tecnologia
             this.label2.MaximumSize = new System.Drawing.Size(322, 0);
             this.label2.Font = new System.Drawing.Font("Segoe UI", 18F, (System.Drawing.FontStyle)1);
             this.label2.BackColor = System.Drawing.Color.FromArgb(0, 255, 255, 255);
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.label2.Dock = (System.Windows.Forms.DockStyle)0;
             this.label2.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.label2.Margin = new System.Windows.Forms.Padding(0, 0, 0, 14);
@@ -182,7 +182,7 @@ namespace Tecnologia
             this.Fundo.MinimumSize = new System.Drawing.Size(0, 0);
             this.Fundo.MaximumSize = new System.Drawing.Size(0, 0);
             this.Fundo.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.Fundo.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.Fundo.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.Fundo.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.Fundo.Dock = (System.Windows.Forms.DockStyle)0;
             this.Fundo.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -205,7 +205,7 @@ namespace Tecnologia
             this.codigo.MinimumSize = new System.Drawing.Size(0, 0);
             this.codigo.MaximumSize = new System.Drawing.Size(0, 0);
             this.codigo.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.codigo.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.codigo.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.codigo.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.codigo.Dock = (System.Windows.Forms.DockStyle)0;
             this.codigo.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -258,7 +258,7 @@ namespace Tecnologia
             this.panel6.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel6.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel6.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel6.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.panel6.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.panel6.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel6.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel6.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -281,7 +281,7 @@ namespace Tecnologia
             this.senha.MinimumSize = new System.Drawing.Size(0, 0);
             this.senha.MaximumSize = new System.Drawing.Size(0, 0);
             this.senha.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.senha.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.senha.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.senha.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.senha.Dock = (System.Windows.Forms.DockStyle)0;
             this.senha.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -334,7 +334,7 @@ namespace Tecnologia
             this.panel8.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel8.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel8.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel8.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.panel8.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.panel8.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel8.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel8.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -357,7 +357,7 @@ namespace Tecnologia
             this.confirmacao.MinimumSize = new System.Drawing.Size(0, 0);
             this.confirmacao.MaximumSize = new System.Drawing.Size(0, 0);
             this.confirmacao.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.confirmacao.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.confirmacao.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.confirmacao.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.confirmacao.Dock = (System.Windows.Forms.DockStyle)0;
             this.confirmacao.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -387,8 +387,8 @@ namespace Tecnologia
             this.redefinir.MinimumSize = new System.Drawing.Size(0, 0);
             this.redefinir.MaximumSize = new System.Drawing.Size(0, 0);
             this.redefinir.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.redefinir.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.redefinir.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.redefinir.BackColor = System.Drawing.Color.FromArgb(255, 226, 242, 236);
+            this.redefinir.ForeColor = System.Drawing.Color.FromArgb(255, 21, 59, 50);
             this.redefinir.Dock = (System.Windows.Forms.DockStyle)0;
             this.redefinir.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.redefinir.Margin = new System.Windows.Forms.Padding(51, 5, 0, 12);
@@ -403,8 +403,8 @@ namespace Tecnologia
             this.redefinir.UseVisualStyleBackColor = false;
             this.redefinir.UseCompatibleTextRendering = false;
             this.redefinir.FlatAppearance.BorderSize = 0;
-            this.redefinir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.redefinir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.redefinir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.redefinir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.redefinir.Name = "redefinir";
             this.redefinir.Cursor = System.Windows.Forms.Cursors.Hand;
             // linklabel9
@@ -430,7 +430,7 @@ namespace Tecnologia
             this.linklabel9.FlatStyle = (System.Windows.Forms.FlatStyle)2;
             this.linklabel9.UseCompatibleTextRendering = false;
             this.linklabel9.LinkColor = System.Drawing.Color.FromArgb(255, 0, 112, 153);
-            this.linklabel9.ActiveLinkColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            this.linklabel9.ActiveLinkColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.linklabel9.VisitedLinkColor = System.Drawing.Color.FromArgb(255, 0, 112, 153);
             this.linklabel9.Name = "linklabel9";
             this.linklabel9.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -452,11 +452,6 @@ namespace Tecnologia
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.cartaoAcesso.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.Fundo.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.panel6.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.panel8.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.redefinir.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
             this.Resize += new System.EventHandler(this.CentralizarAcesso);
             this.cartaoAcesso.SizeChanged += new System.EventHandler(this.CentralizarAcesso);
             this.redefinir.Click += new System.EventHandler(this.Redefinir_Click);

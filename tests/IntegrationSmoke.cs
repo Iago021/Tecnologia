@@ -55,7 +55,7 @@ internal static class IntegrationSmoke
         Fails(() => Contas.Redefinir("admin@example.com", "123456", Password, Password), "Troca de senha invalida código antigo", "Código inválido");
         Token(tech, false);
         string oldHash = Hash(tech);
-        Contas.SalvarUsuario("UPDATE usuarios SET nome='Técnico atualizado',senha_hash=IF(@senha_hash='',senha_hash,@senha_hash) WHERE id=@id", Banco.P("@id", tech), Banco.P("@senha_hash", ""));
+        Contas.SalvarUsuario(false, "UPDATE usuarios SET nome='Técnico atualizado',senha_hash=IF(@senha_hash='',senha_hash,@senha_hash) WHERE id=@id", Banco.P("@id", tech), Banco.P("@senha_hash", ""));
         Check(Hash(tech) == oldHash, "Edição sem senha preserva o hash");
         Check(Convert.ToInt32(Banco.Valor("SELECT COUNT(*) FROM recuperacao_senha WHERE usuario_id=@id", Banco.P("@id", tech))) == 0, "Edição administrativa invalida recuperação");
         Environment.SetEnvironmentVariable("TECNOLOGIA_SMTPHOST", "127.0.0.1");
@@ -73,7 +73,15 @@ internal static class IntegrationSmoke
         int order = OperacoesOrdem.Abrir(device, "Falha de teste", null, "");
         Fails(() => OperacoesOrdem.Abrir(device, "Duplicada", null, ""), "Ordem duplicada negada", "já possui");
         Fails(() => OperacoesOrdem.Diagnosticar(order, "D", "S", "Em manutenção", 100, 0), "Atendente não altera reparo", "Técnico");
+        Fails(() => OperacoesOrdem.AtribuirTecnico(order, admin), "Atendente não pode ser responsável", "técnico ativo");
+        OperacoesOrdem.AtribuirTecnico(order, tech);
+        Check(Convert.ToInt32(Banco.Valor("SELECT tecnico_id FROM ordens_servico WHERE id=@id", Banco.P("@id", order))) == tech, "Atribuição mantém técnico na ordem");
+        Fails(() => Contas.SalvarUsuario(true, "UPDATE usuarios SET ativo=0 WHERE id=@id", Banco.P("@id", tech)), "Técnico de ordem aberta não pode ser desativado", "ordens em andamento");
+        OperacoesOrdem.AtribuirTecnico(order, 0);
+        Check(Banco.Valor("SELECT tecnico_id FROM ordens_servico WHERE id=@id", Banco.P("@id", order)) == DBNull.Value, "Ordem aberta pode ficar sem responsável");
+        OperacoesOrdem.AtribuirTecnico(order, tech);
         Login(tech);
+        Fails(() => OperacoesOrdem.AtribuirTecnico(order, 0), "Técnico não muda responsável", "Atendente");
         OperacoesOrdem.Movimentar(part, "Entrada", 3, "Teste");
         Fails(() => OperacoesOrdem.UsarPeca(order, part, 1), "Exige assumir a ordem", "diagnóstico primeiro");
         OperacoesOrdem.Diagnosticar(order, "Diagnóstico teste", "Troca da peça", "Em manutenção", 100, 0);
@@ -89,7 +97,9 @@ internal static class IntegrationSmoke
         Fails(() => OperacoesOrdem.Diagnosticar(order, "D", "S", "Concluída", 100, 151), "Desconto acima do total negado", "desconto");
         OperacoesOrdem.Diagnosticar(order, "D", "S", "Concluída", 100, 10);
         Fails(() => OperacoesOrdem.UsarPeca(order, part, 1), "Ordem concluída bloqueada", "concluída");
-        Login(admin); OperacoesOrdem.Entregar(order);
+        Login(admin);
+        Fails(() => OperacoesOrdem.AtribuirTecnico(order, 0), "Ordem concluída bloqueia atribuição", "antes do diagnóstico");
+        OperacoesOrdem.Entregar(order);
         Check(Convert.ToString(Banco.Valor("SELECT status FROM ordens_servico WHERE id=@id", Banco.P("@id", order))) == "Entregue", "Entrega concluída");
         Fails(() => OperacoesOrdem.Entregar(order), "Entrega repetida negada", "Apenas serviços concluídos");
 
@@ -112,6 +122,22 @@ internal static class IntegrationSmoke
             orders.Show(); Application.DoEvents();
             Field<ComboBox>(orders, "cmbStatus").SelectedIndex = 1;
             Check(!AlteracoesFormulario.TemAlteracoes(orders), "Filtro não é edição de ordem");
+        }
+        using (var tabela = new DataGridView())
+        {
+            tabela.Columns.Add("oculto", "Oculto");
+            tabela.Columns["oculto"].Visible = false;
+            tabela.Columns.Add("nome", "Nome");
+            tabela.Columns.Add("nota", "Nota");
+            tabela.Rows.Add("segredo", "João", "Texto; com \"aspas\"");
+            tabela.Rows.Add("segredo", "=1+1", "Segunda linha");
+            var dados = Exportar.LerTabela(tabela);
+            string csv = Exportar.GerarCsv(dados);
+            Check(dados.Count == 3 && dados[0].Length == 2 && !csv.Contains("segredo"), "Exportação ignora coluna oculta e linha de cadastro");
+            Check(csv.Contains("\"João\";\"Texto; com \"\"aspas\"\"\"") && csv.Contains("\"'=1+1\""), "CSV preserva acentos e aspas e protege fórmulas");
+            for (int i = 0; i < 55; i++) dados.Add(new[] { "Registro " + i, "Observação" });
+            string pdf = System.Text.Encoding.GetEncoding(1252).GetString(ExportacaoPdf.Gerar(dados, "Ordens de serviço"));
+            Check(pdf.StartsWith("%PDF-1.4") && pdf.Contains("/Count 3") && pdf.Contains("Registro 54") && pdf.Contains("Ordens de serviço"), "PDF exporta acentos e todas as páginas");
         }
         Console.WriteLine("PASS INTEGRATION: " + checks + " verificações com MySQL isolado; nenhum e-mail externo enviado.");
         return 0;

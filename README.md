@@ -1,6 +1,6 @@
 # Tecnologia
 
-Sistema de assistência técnica para celulares, notebooks e computadores, feito em **C# com Windows Forms**, **.NET Framework 4.7.2** e **MySQL/MariaDB**, com o conector **MySqlConnector**. A solução abre no Visual Studio e segue a base do `ProjetoEscola.zip`: formulários, eventos de botões, `DataGridView`, consultas SQL e exportação para Excel.
+Sistema de assistência técnica para celulares, notebooks e computadores, feito em **C# com Windows Forms**, **.NET Framework 4.7.2** e **MySQL/MariaDB**, com o conector **MySqlConnector**. A solução abre no Visual Studio e segue a base do `ProjetoEscola.zip`: formulários, eventos de botões, `DataGridView`, consultas SQL e exportação de tabelas.
 
 ## Abrir e executar
 
@@ -19,7 +19,7 @@ A interface segue as imagens do Figma: login, criação de conta e recuperação
 
 O sistema inicia sem usuários, clientes, peças ou ordens de exemplo. A primeira conta é um atendente ativo. Cadastros posteriores ficam inativos até um atendente aprovar o acesso em **Cadastros > Equipe**.
 
-O Microsoft Excel para desktop é necessário **somente para exportar**. As outras funções não dependem dele. Não há necessidade de instalar PHP ou um servidor web para executar os formulários; o XAMPP é usado apenas para disponibilizar o banco e facilitar a importação pelo phpMyAdmin.
+O botão **Exportar...** salva CSV ou PDF diretamente. A opção **Abrir no Excel** usa o Microsoft Excel para desktop. Não há necessidade de instalar PHP ou um servidor web para executar os formulários; o XAMPP é usado apenas para disponibilizar o banco e facilitar a importação pelo phpMyAdmin.
 
 ## Esqueci a senha
 
@@ -32,18 +32,18 @@ Importe novamente **Banco/tecnologia.sql** para criar a nova tabela de recupera�
 | Clientes | Cadastrar, pesquisar, alterar, excluir e desativar | Consulta os dados do cliente na ordem |
 | Aparelhos | Cadastrar, pesquisar, alterar e excluir | Consulta o aparelho e suas condições na ordem |
 | Equipe | Cadastrar e gerenciar atendentes e técnicos | Altera os próprios dados em Minha conta |
-| Ordens | Abrir, pesquisar, acompanhar e entregar | Pesquisar, assumir, diagnosticar e concluir |
+| Ordens | Abrir, atribuir técnico, pesquisar, acompanhar e entregar | Pesquisar, assumir, diagnosticar e concluir |
 | Peças | Consulta as peças utilizadas na ordem | Cadastrar, pesquisar, alterar, excluir e movimentar estoque |
 | Minha conta | Nome, e-mail, telefone e senha | Nome, e-mail, telefone e senha |
 | Exportação | Listas acessíveis ao perfil | Listas acessíveis ao perfil |
 
-Os cadastros têm **Novo / limpar**, **Salvar**, **Editar selecionado**, **Excluir selecionado**, pesquisa por campo e **Exportar Excel**. Para alterar, selecione a linha, clique em **Editar selecionado**, mude os campos e salve. Na equipe, a senha vazia durante a edição mantém a senha existente.
+Os cadastros têm **Novo**, **Salvar**, **Editar**, **Excluir**, pesquisa por campo e **Exportar...**. Para alterar, selecione a linha, clique em **Editar**, mude os campos e salve. Na equipe, a senha vazia durante a edição mantém a senha existente.
 
 ## Fluxo de atendimento
 
 1. O atendente cadastra o cliente e seu aparelho, com tipo, marca, modelo, série/IMEI, cor, acessórios e estado físico.
 2. Abre uma ordem com o problema relatado e, se desejar, a previsão de entrega e as observações.
-3. O técnico abre a ordem e salva o diagnóstico e o serviço necessário. Isso o define como responsável.
+3. Em **Ordens > Ver detalhes > Recebimento**, o atendente pode atribuir ou trocar o técnico antes do diagnóstico. Se deixar a ordem sem responsável, quem salvar o primeiro diagnóstico assume a ordem.
 4. Se precisar de peças, cadastra os componentes em **Peças e estoque** e registra a entrada em **Movimentar estoque**.
 5. Na ordem, seleciona uma peça compatível e informa a quantidade utilizada. A saída é registrada e o saldo é atualizado automaticamente.
 6. Define mão de obra e desconto, atualiza o andamento e, ao terminar, salva o status **Concluída**.
@@ -95,7 +95,7 @@ O painel possui atalhos para ordens abertas, serviços em andamento, concluídos
 | `Tecnologia/Sessao.cs` | Usuário conectado e verificação do perfil |
 | `Tecnologia/Senha.cs` | Proteção e conferência das senhas |
 | `Tecnologia/Tela.cs` | Validações e mensagens comuns |
-| `Tecnologia/Exportar.cs` | Exportação de tabelas para o Excel |
+| `Tecnologia/Exportar.cs` | Exportação de tabelas para CSV, PDF e Excel |
 | `Tecnologia/App.config` | Configuração da conexão |
 | `Banco/tecnologia.sql` | Criação do banco completo em um único arquivo |
 | [docs/ADAPTACAO.md](docs/ADAPTACAO.md) | Correspondência entre o ZIP e o Tecnologia |
@@ -137,6 +137,6 @@ Os requisitos não funcionais são atendidos pela aplicação em C#, banco SQL, 
 - **Referências ausentes:** restaure os pacotes NuGet na solução e confira se o .NET Framework 4.7.2 Developer Pack está instalado.
 - **Lista de aparelhos vazia:** cadastre o cliente e o aparelho antes de abrir a ordem.
 - **Peça não aparece na ordem:** confira tipo, marca, modelo, situação ativa e saldo maior que zero.
-- **Exportação não abre:** é necessário Microsoft Excel instalado no Windows; ele só é iniciado ao exportar.
+- **Exportação:** use CSV para preservar textos longos na íntegra. O relatório PDF abrevia células que excedem a largura da coluna.
 
 Referências: [Windows Forms e Designer do Visual Studio](https://learn.microsoft.com/en-us/dotnet/desktop/winforms/overview/) e [compatibilidade do MySqlConnector com a API usada na base](https://mysqlconnector.net/tutorials/migrating-from-connector-net/).

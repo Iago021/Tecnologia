@@ -65,8 +65,8 @@ namespace Tecnologia
         {
             foreach (Button botao in new[] { btnAtualizar, btnOrdens, btnPecas, btnCadastros, btnPerfil })
             {
-                botao.BackColor = botao == selecionado ? Color.FromArgb(0, 118, 69) : Color.FromArgb(0, 235, 112);
-                botao.ForeColor = botao == selecionado ? Color.White : Color.FromArgb(0, 61, 36);
+                botao.BackColor = botao == selecionado ? Color.FromArgb(25, 97, 78) : Color.FromArgb(226, 242, 236);
+                botao.ForeColor = botao == selecionado ? Color.White : Color.FromArgb(21, 59, 50);
             }
         }
     }

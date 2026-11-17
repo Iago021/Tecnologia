@@ -57,7 +57,7 @@ namespace Tecnologia
         private void btnPesquisar_Click(object sender, EventArgs e)
         { try { Carregar(); } catch (Exception erro) { Tela.Erro(erro); } }
         private void btnExportar_Click(object sender, EventArgs e)
-        { try { Sessao.Exigir("Atendente"); Exportar.Excel(grade); } catch (Exception erro) { Tela.Erro(erro); } }
+        { try { Sessao.Exigir("Atendente"); Exportar.Menu(btnExportar, grade, "Aparelhos"); } catch (Exception erro) { Tela.Erro(erro); } }
         private void btnEditar_Click(object sender, EventArgs e)
         {
             try

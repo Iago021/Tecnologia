@@ -23,11 +23,12 @@ namespace Tecnologia
             if(tabela.Rows.Count==0) throw new Exception("Ordem não encontrada.");
             DataRow ordem=tabela.Rows[0];
             string status=ordem["status"].ToString();
-            lblTitulo.Text="Ordem "+codigo+" | "+status+" | Técnico: "+ordem["tecnico"];
+            lblTitulo.Text = "Ordem " + codigo + " | " + status;
             txtRecebimento.Text="Cliente: "+ordem["cliente"]+" | Telefone: "+ordem["telefone"]+" | E-mail: "+ordem["email"]+Environment.NewLine+
                 "Aparelho: "+ordem["tipo"]+" "+ordem["marca"]+" "+ordem["modelo"]+" | Série/IMEI: "+ordem["numero_serie"]+" | Cor: "+ordem["cor"]+Environment.NewLine+
                 "Acessórios: "+ordem["acessorios"]+" | Estado físico: "+ordem["estado_fisico"]+" | Observações do aparelho: "+ordem["obs_aparelho"]+Environment.NewLine+
-                "Atendente: "+ordem["atendente"]+" | Entrada: "+ordem["data_entrada"]+" | Previsão: "+ordem["previsao_entrega"]+Environment.NewLine+
+                "Atendente: "+ordem["atendente"]+" | Técnico: "+ordem["tecnico"]+Environment.NewLine+
+                "Entrada: "+ordem["data_entrada"]+" | Previsão: "+ordem["previsao_entrega"]+Environment.NewLine+
                 "Conclusão: "+ordem["data_conclusao"]+" | Entrega: "+ordem["data_entrega"]+Environment.NewLine+
                 "Problema: "+ordem["problema_relatado"]+Environment.NewLine+"Observações: "+ordem["observacoes"];
             txtDiagnostico.Text=ordem["descricao"].ToString(); txtServico.Text=ordem["servico_necessario"].ToString();
@@ -37,6 +38,19 @@ namespace Tecnologia
             txtDiagnostico.ReadOnly=txtServico.ReadOnly=!podeEditar;
             cmbStatus.Enabled=numMaoObra.Enabled=numDesconto.Enabled=btnSalvar.Enabled=btnAdicionar.Enabled=btnDevolver.Enabled=cmbPeca.Enabled=numQuantidade.Enabled=podeEditar;
             btnEntregar.Enabled=Sessao.Atendente && status=="Concluída";
+            painelTecnico.Visible = Sessao.Atendente && status == "Aberta";
+            if (Sessao.Atendente && status == "Aberta")
+            {
+                DataTable tecnicos = Banco.Consultar("SELECT id, CONCAT(nome, ' (#', id, ')') AS nome FROM usuarios WHERE ativo=1 AND perfil='Técnico' ORDER BY nome");
+                DataRow semTecnico = tecnicos.NewRow();
+                semTecnico["id"] = 0;
+                semTecnico["nome"] = "Sem responsável";
+                tecnicos.Rows.InsertAt(semTecnico, 0);
+                Tela.Combo(cmbTecnico, tecnicos);
+                cmbTecnico.SelectedValue = ordem["tecnico_id"] == DBNull.Value ? 0 : Convert.ToInt32(ordem["tecnico_id"]);
+                if (cmbTecnico.SelectedIndex < 0) cmbTecnico.SelectedIndex = 0;
+            }
+            btnAdicionar.Enabled = btnDevolver.Enabled = podeEditar && status != "Aberta";
             CarregarPecas();
             AlteracoesFormulario.MarcarSalvo(this);
         }
@@ -55,6 +69,17 @@ namespace Tecnologia
                 FROM ordens_servico WHERE id=@id",Banco.P("@id",codigo)));
             lblTotal.Text="Total salvo: "+total.ToString("C2");
         }
+        private void btnAtribuir_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OperacoesOrdem.AtribuirTecnico(codigo, Tela.Codigo(cmbTecnico));
+                Carregar();
+                MessageBox.Show("Responsável atualizado.");
+            }
+            catch (Exception erro) { Tela.Erro(erro); }
+        }
+
         private void btnSalvar_Click(object sender,EventArgs e)
         {
             try
@@ -84,6 +109,6 @@ namespace Tecnologia
         private void btnAtualizar_Click(object sender,EventArgs e)
         { try { if(Tela.Confirmar("Recarregar os dados salvos? As alterações ainda não salvas serão descartadas.")) Carregar(); } catch(Exception erro) { Tela.Erro(erro); } }
         private void btnExportar_Click(object sender,EventArgs e)
-        { try { Sessao.Exigir(); Exportar.Excel(grade); } catch(Exception erro) { Tela.Erro(erro); } }
+        { try { Sessao.Exigir(); Exportar.Menu(btnExportar, grade, "Peças da ordem " + codigo); } catch(Exception erro) { Tela.Erro(erro); } }
     }
 }

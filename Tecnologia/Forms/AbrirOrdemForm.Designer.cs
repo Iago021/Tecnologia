@@ -145,7 +145,7 @@ namespace Tecnologia
             this.lblTitulo.MaximumSize = new System.Drawing.Size(0, 0);
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 22F, (System.Drawing.FontStyle)1);
             this.lblTitulo.BackColor = System.Drawing.Color.FromArgb(0, 255, 255, 255);
-            this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.lblTitulo.Dock = (System.Windows.Forms.DockStyle)0;
             this.lblTitulo.Anchor = (System.Windows.Forms.AnchorStyles)13;
             this.lblTitulo.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
@@ -210,7 +210,7 @@ namespace Tecnologia
             this.tabpage4.MinimumSize = new System.Drawing.Size(0, 0);
             this.tabpage4.MaximumSize = new System.Drawing.Size(0, 0);
             this.tabpage4.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.tabpage4.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.tabpage4.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.tabpage4.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.tabpage4.Dock = (System.Windows.Forms.DockStyle)0;
             this.tabpage4.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -234,7 +234,7 @@ namespace Tecnologia
             this.panel5.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel5.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel5.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel5.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.panel5.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.panel5.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel5.Dock = (System.Windows.Forms.DockStyle)5;
             this.panel5.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -257,7 +257,7 @@ namespace Tecnologia
             this.flowlayoutpanel6.MinimumSize = new System.Drawing.Size(893, 0);
             this.flowlayoutpanel6.MaximumSize = new System.Drawing.Size(893, 0);
             this.flowlayoutpanel6.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.flowlayoutpanel6.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.flowlayoutpanel6.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.flowlayoutpanel6.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.flowlayoutpanel6.Dock = (System.Windows.Forms.DockStyle)0;
             this.flowlayoutpanel6.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -282,8 +282,8 @@ namespace Tecnologia
             this.label7.MinimumSize = new System.Drawing.Size(0, 0);
             this.label7.MaximumSize = new System.Drawing.Size(0, 0);
             this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, (System.Drawing.FontStyle)1);
-            this.label7.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
-            this.label7.ForeColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            this.label7.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.label7.Dock = (System.Windows.Forms.DockStyle)0;
             this.label7.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.label7.Margin = new System.Windows.Forms.Padding(3, 14, 3, 4);
@@ -305,7 +305,7 @@ namespace Tecnologia
             this.flowlayoutpanel8.MinimumSize = new System.Drawing.Size(867, 0);
             this.flowlayoutpanel8.MaximumSize = new System.Drawing.Size(867, 0);
             this.flowlayoutpanel8.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.flowlayoutpanel8.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.flowlayoutpanel8.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.flowlayoutpanel8.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.flowlayoutpanel8.Dock = (System.Windows.Forms.DockStyle)0;
             this.flowlayoutpanel8.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -330,7 +330,7 @@ namespace Tecnologia
             this.panel9.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel9.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel9.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel9.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.panel9.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.panel9.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel9.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel9.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -376,7 +376,7 @@ namespace Tecnologia
             this.cmbCliente.MinimumSize = new System.Drawing.Size(0, 0);
             this.cmbCliente.MaximumSize = new System.Drawing.Size(0, 0);
             this.cmbCliente.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.cmbCliente.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.cmbCliente.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.cmbCliente.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.cmbCliente.Dock = (System.Windows.Forms.DockStyle)0;
             this.cmbCliente.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -401,7 +401,7 @@ namespace Tecnologia
             this.panel10.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel10.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel10.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel10.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.panel10.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.panel10.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel10.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel10.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -447,7 +447,7 @@ namespace Tecnologia
             this.cmbAparelho.MinimumSize = new System.Drawing.Size(0, 0);
             this.cmbAparelho.MaximumSize = new System.Drawing.Size(0, 0);
             this.cmbAparelho.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.cmbAparelho.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.cmbAparelho.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.cmbAparelho.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.cmbAparelho.Dock = (System.Windows.Forms.DockStyle)0;
             this.cmbAparelho.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -472,8 +472,8 @@ namespace Tecnologia
             this.label11.MinimumSize = new System.Drawing.Size(0, 0);
             this.label11.MaximumSize = new System.Drawing.Size(0, 0);
             this.label11.Font = new System.Drawing.Font("Segoe UI", 12F, (System.Drawing.FontStyle)1);
-            this.label11.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
-            this.label11.ForeColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            this.label11.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
+            this.label11.ForeColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.label11.Dock = (System.Windows.Forms.DockStyle)0;
             this.label11.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.label11.Margin = new System.Windows.Forms.Padding(3, 14, 3, 4);
@@ -495,7 +495,7 @@ namespace Tecnologia
             this.flowlayoutpanel12.MinimumSize = new System.Drawing.Size(867, 0);
             this.flowlayoutpanel12.MaximumSize = new System.Drawing.Size(867, 0);
             this.flowlayoutpanel12.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.flowlayoutpanel12.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.flowlayoutpanel12.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.flowlayoutpanel12.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.flowlayoutpanel12.Dock = (System.Windows.Forms.DockStyle)0;
             this.flowlayoutpanel12.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -520,7 +520,7 @@ namespace Tecnologia
             this.panel13.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel13.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel13.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel13.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.panel13.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.panel13.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel13.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel13.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -566,7 +566,7 @@ namespace Tecnologia
             this.txtProblema.MinimumSize = new System.Drawing.Size(0, 0);
             this.txtProblema.MaximumSize = new System.Drawing.Size(0, 0);
             this.txtProblema.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.txtProblema.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.txtProblema.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.txtProblema.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.txtProblema.Dock = (System.Windows.Forms.DockStyle)0;
             this.txtProblema.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -596,7 +596,7 @@ namespace Tecnologia
             this.panel14.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel14.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel14.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel14.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.panel14.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.panel14.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel14.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel14.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -664,7 +664,7 @@ namespace Tecnologia
             this.panel15.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel15.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel15.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel15.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.panel15.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.panel15.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel15.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel15.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -710,7 +710,7 @@ namespace Tecnologia
             this.txtObservacoesFundo.MinimumSize = new System.Drawing.Size(0, 0);
             this.txtObservacoesFundo.MaximumSize = new System.Drawing.Size(0, 0);
             this.txtObservacoesFundo.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.txtObservacoesFundo.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.txtObservacoesFundo.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.txtObservacoesFundo.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.txtObservacoesFundo.Dock = (System.Windows.Forms.DockStyle)0;
             this.txtObservacoesFundo.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -733,7 +733,7 @@ namespace Tecnologia
             this.txtObservacoes.MinimumSize = new System.Drawing.Size(0, 0);
             this.txtObservacoes.MaximumSize = new System.Drawing.Size(0, 0);
             this.txtObservacoes.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.txtObservacoes.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.txtObservacoes.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.txtObservacoes.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.txtObservacoes.Dock = (System.Windows.Forms.DockStyle)0;
             this.txtObservacoes.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -763,7 +763,7 @@ namespace Tecnologia
             this.flowlayoutpanel16.MinimumSize = new System.Drawing.Size(0, 0);
             this.flowlayoutpanel16.MaximumSize = new System.Drawing.Size(0, 0);
             this.flowlayoutpanel16.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.flowlayoutpanel16.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.flowlayoutpanel16.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.flowlayoutpanel16.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.flowlayoutpanel16.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowlayoutpanel16.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -788,8 +788,8 @@ namespace Tecnologia
             this.btnSalvar.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnSalvar.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnSalvar.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnSalvar.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.btnSalvar.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.btnSalvar.BackColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
+            this.btnSalvar.ForeColor = System.Drawing.Color.FromArgb(255, 255, 255, 255);
             this.btnSalvar.Dock = (System.Windows.Forms.DockStyle)0;
             this.btnSalvar.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnSalvar.Margin = new System.Windows.Forms.Padding(0, 3, 10, 5);
@@ -804,8 +804,8 @@ namespace Tecnologia
             this.btnSalvar.UseVisualStyleBackColor = false;
             this.btnSalvar.UseCompatibleTextRendering = false;
             this.btnSalvar.FlatAppearance.BorderSize = 0;
-            this.btnSalvar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnSalvar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnSalvar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 20, 82, 67);
+            this.btnSalvar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 16, 67, 56);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Controls.Add(this.tablelayoutpanel1);
@@ -844,8 +844,6 @@ namespace Tecnologia
             this.cmbCliente.SelectedIndexChanged += new System.EventHandler(this.cmbCliente_SelectedIndexChanged);
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
             this.Load += new System.EventHandler(this.AbrirOrdemForm_Load);
-            this.txtObservacoesFundo.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnSalvar.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
             this.panel5.SizeChanged += new System.EventHandler(this.flowlayoutpanel6_Redimensionar);
             this.flowlayoutpanel16.ResumeLayout(false);
             this.flowlayoutpanel16.PerformLayout();

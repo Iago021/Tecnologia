@@ -20,7 +20,12 @@ namespace Tecnologia
         }
         private void Aparelhos()
         {
-            if (carregando || cmbCliente.SelectedValue==null) return;
+            if (carregando) return;
+            if (cmbCliente.SelectedValue == null || cmbCliente.SelectedValue is DataRowView)
+            {
+                cmbAparelho.DataSource = null;
+                return;
+            }
             Tela.Combo(cmbAparelho,Banco.Consultar("SELECT id,CONCAT(id,' - ',tipo,' ',marca,' ',modelo) nome FROM aparelhos WHERE cliente_id=@cliente ORDER BY id DESC",Banco.P("@cliente",Tela.Codigo(cmbCliente))));
         }
         private void cmbCliente_SelectedIndexChanged(object sender,EventArgs e)

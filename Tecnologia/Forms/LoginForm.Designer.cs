@@ -86,7 +86,7 @@ namespace Tecnologia
             this.cartaoAcesso.MinimumSize = new System.Drawing.Size(384, 0);
             this.cartaoAcesso.MaximumSize = new System.Drawing.Size(384, 0);
             this.cartaoAcesso.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.cartaoAcesso.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.cartaoAcesso.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.cartaoAcesso.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.cartaoAcesso.Dock = (System.Windows.Forms.DockStyle)0;
             this.cartaoAcesso.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -112,7 +112,7 @@ namespace Tecnologia
             this.label2.MaximumSize = new System.Drawing.Size(322, 0);
             this.label2.Font = new System.Drawing.Font("Segoe UI", 18F, (System.Drawing.FontStyle)1);
             this.label2.BackColor = System.Drawing.Color.FromArgb(0, 255, 255, 255);
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.label2.Dock = (System.Windows.Forms.DockStyle)0;
             this.label2.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.label2.Margin = new System.Windows.Forms.Padding(0, 0, 0, 14);
@@ -180,7 +180,7 @@ namespace Tecnologia
             this.Fundo.MinimumSize = new System.Drawing.Size(0, 0);
             this.Fundo.MaximumSize = new System.Drawing.Size(0, 0);
             this.Fundo.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.Fundo.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.Fundo.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.Fundo.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.Fundo.Dock = (System.Windows.Forms.DockStyle)0;
             this.Fundo.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -203,7 +203,7 @@ namespace Tecnologia
             this.txtEmail.MinimumSize = new System.Drawing.Size(0, 0);
             this.txtEmail.MaximumSize = new System.Drawing.Size(0, 0);
             this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.txtEmail.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.txtEmail.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.txtEmail.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.txtEmail.Dock = (System.Windows.Forms.DockStyle)0;
             this.txtEmail.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -256,7 +256,7 @@ namespace Tecnologia
             this.panel6.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel6.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel6.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel6.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.panel6.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.panel6.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel6.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel6.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -279,7 +279,7 @@ namespace Tecnologia
             this.txtSenha.MinimumSize = new System.Drawing.Size(0, 0);
             this.txtSenha.MaximumSize = new System.Drawing.Size(0, 0);
             this.txtSenha.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.txtSenha.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.txtSenha.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.txtSenha.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.txtSenha.Dock = (System.Windows.Forms.DockStyle)0;
             this.txtSenha.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -351,7 +351,7 @@ namespace Tecnologia
             this.linklabel7.FlatStyle = (System.Windows.Forms.FlatStyle)2;
             this.linklabel7.UseCompatibleTextRendering = false;
             this.linklabel7.LinkColor = System.Drawing.Color.FromArgb(255, 0, 112, 153);
-            this.linklabel7.ActiveLinkColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            this.linklabel7.ActiveLinkColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.linklabel7.VisitedLinkColor = System.Drawing.Color.FromArgb(255, 0, 112, 153);
             this.linklabel7.Name = "linklabel7";
             this.linklabel7.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -363,8 +363,8 @@ namespace Tecnologia
             this.btnEntrar.MinimumSize = new System.Drawing.Size(0, 0);
             this.btnEntrar.MaximumSize = new System.Drawing.Size(0, 0);
             this.btnEntrar.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.btnEntrar.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.btnEntrar.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.btnEntrar.BackColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
+            this.btnEntrar.ForeColor = System.Drawing.Color.FromArgb(255, 255, 255, 255);
             this.btnEntrar.Dock = (System.Windows.Forms.DockStyle)0;
             this.btnEntrar.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.btnEntrar.Margin = new System.Windows.Forms.Padding(51, 5, 0, 12);
@@ -379,8 +379,8 @@ namespace Tecnologia
             this.btnEntrar.UseVisualStyleBackColor = false;
             this.btnEntrar.UseCompatibleTextRendering = false;
             this.btnEntrar.FlatAppearance.BorderSize = 0;
-            this.btnEntrar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.btnEntrar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.btnEntrar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 20, 82, 67);
+            this.btnEntrar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 16, 67, 56);
             this.btnEntrar.Name = "btnEntrar";
             this.btnEntrar.Cursor = System.Windows.Forms.Cursors.Hand;
             // linklabel8
@@ -406,7 +406,7 @@ namespace Tecnologia
             this.linklabel8.FlatStyle = (System.Windows.Forms.FlatStyle)2;
             this.linklabel8.UseCompatibleTextRendering = false;
             this.linklabel8.LinkColor = System.Drawing.Color.FromArgb(255, 0, 112, 153);
-            this.linklabel8.ActiveLinkColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            this.linklabel8.ActiveLinkColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.linklabel8.VisitedLinkColor = System.Drawing.Color.FromArgb(255, 0, 112, 153);
             this.linklabel8.Name = "linklabel8";
             this.linklabel8.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -430,10 +430,6 @@ namespace Tecnologia
             this.chkMostrar.CheckedChanged += new System.EventHandler(this.chkMostrar_CheckedChanged);
             this.btnEntrar.Click += new System.EventHandler(this.btnEntrar_Click);
             this.Load += new System.EventHandler(this.LoginForm_Load);
-            this.cartaoAcesso.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.Fundo.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.panel6.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.btnEntrar.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
             this.Resize += new System.EventHandler(this.CentralizarAcesso);
             this.cartaoAcesso.SizeChanged += new System.EventHandler(this.CentralizarAcesso);
             this.AcceptButton = this.btnEntrar;

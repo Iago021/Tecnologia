@@ -96,7 +96,7 @@ namespace Tecnologia
             this.cartaoAcesso.MinimumSize = new System.Drawing.Size(384, 0);
             this.cartaoAcesso.MaximumSize = new System.Drawing.Size(384, 0);
             this.cartaoAcesso.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.cartaoAcesso.BackColor = System.Drawing.Color.FromArgb(255, 238, 238, 238);
+            this.cartaoAcesso.BackColor = System.Drawing.Color.FromArgb(255, 245, 248, 247);
             this.cartaoAcesso.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.cartaoAcesso.Dock = (System.Windows.Forms.DockStyle)0;
             this.cartaoAcesso.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -122,7 +122,7 @@ namespace Tecnologia
             this.label2.MaximumSize = new System.Drawing.Size(322, 0);
             this.label2.Font = new System.Drawing.Font("Segoe UI", 18F, (System.Drawing.FontStyle)1);
             this.label2.BackColor = System.Drawing.Color.FromArgb(0, 255, 255, 255);
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.label2.Dock = (System.Windows.Forms.DockStyle)0;
             this.label2.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.label2.Margin = new System.Windows.Forms.Padding(0, 0, 0, 14);
@@ -190,7 +190,7 @@ namespace Tecnologia
             this.Fundo.MinimumSize = new System.Drawing.Size(0, 0);
             this.Fundo.MaximumSize = new System.Drawing.Size(0, 0);
             this.Fundo.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.Fundo.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.Fundo.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.Fundo.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.Fundo.Dock = (System.Windows.Forms.DockStyle)0;
             this.Fundo.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -213,7 +213,7 @@ namespace Tecnologia
             this.nome.MinimumSize = new System.Drawing.Size(0, 0);
             this.nome.MaximumSize = new System.Drawing.Size(0, 0);
             this.nome.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.nome.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.nome.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.nome.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.nome.Dock = (System.Windows.Forms.DockStyle)0;
             this.nome.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -266,7 +266,7 @@ namespace Tecnologia
             this.panel6.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel6.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel6.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel6.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.panel6.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.panel6.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel6.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel6.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -289,7 +289,7 @@ namespace Tecnologia
             this.email.MinimumSize = new System.Drawing.Size(0, 0);
             this.email.MaximumSize = new System.Drawing.Size(0, 0);
             this.email.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.email.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.email.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.email.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.email.Dock = (System.Windows.Forms.DockStyle)0;
             this.email.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -342,7 +342,7 @@ namespace Tecnologia
             this.panel8.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel8.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel8.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel8.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.panel8.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.panel8.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel8.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel8.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -365,7 +365,7 @@ namespace Tecnologia
             this.confirmarEmail.MinimumSize = new System.Drawing.Size(0, 0);
             this.confirmarEmail.MaximumSize = new System.Drawing.Size(0, 0);
             this.confirmarEmail.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.confirmarEmail.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.confirmarEmail.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.confirmarEmail.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.confirmarEmail.Dock = (System.Windows.Forms.DockStyle)0;
             this.confirmarEmail.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -418,7 +418,7 @@ namespace Tecnologia
             this.panel10.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel10.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel10.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel10.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.panel10.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.panel10.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel10.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel10.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -441,7 +441,7 @@ namespace Tecnologia
             this.senha.MinimumSize = new System.Drawing.Size(0, 0);
             this.senha.MaximumSize = new System.Drawing.Size(0, 0);
             this.senha.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.senha.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.senha.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.senha.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.senha.Dock = (System.Windows.Forms.DockStyle)0;
             this.senha.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -494,7 +494,7 @@ namespace Tecnologia
             this.panel12.MinimumSize = new System.Drawing.Size(0, 0);
             this.panel12.MaximumSize = new System.Drawing.Size(0, 0);
             this.panel12.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.panel12.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.panel12.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.panel12.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.panel12.Dock = (System.Windows.Forms.DockStyle)0;
             this.panel12.Anchor = (System.Windows.Forms.AnchorStyles)5;
@@ -517,7 +517,7 @@ namespace Tecnologia
             this.confirmarSenha.MinimumSize = new System.Drawing.Size(0, 0);
             this.confirmarSenha.MaximumSize = new System.Drawing.Size(0, 0);
             this.confirmarSenha.Font = new System.Drawing.Font("Segoe UI", 10F, (System.Drawing.FontStyle)0);
-            this.confirmarSenha.BackColor = System.Drawing.Color.FromArgb(255, 218, 218, 218);
+            this.confirmarSenha.BackColor = System.Drawing.Color.FromArgb(255, 233, 240, 237);
             this.confirmarSenha.ForeColor = System.Drawing.Color.FromArgb(255, 70, 82, 76);
             this.confirmarSenha.Dock = (System.Windows.Forms.DockStyle)0;
             this.confirmarSenha.Anchor = (System.Windows.Forms.AnchorStyles)13;
@@ -547,8 +547,8 @@ namespace Tecnologia
             this.criar.MinimumSize = new System.Drawing.Size(0, 0);
             this.criar.MaximumSize = new System.Drawing.Size(0, 0);
             this.criar.Font = new System.Drawing.Font("Segoe UI", 9F, (System.Drawing.FontStyle)1);
-            this.criar.BackColor = System.Drawing.Color.FromArgb(255, 0, 235, 112);
-            this.criar.ForeColor = System.Drawing.Color.FromArgb(255, 0, 61, 36);
+            this.criar.BackColor = System.Drawing.Color.FromArgb(255, 226, 242, 236);
+            this.criar.ForeColor = System.Drawing.Color.FromArgb(255, 21, 59, 50);
             this.criar.Dock = (System.Windows.Forms.DockStyle)0;
             this.criar.Anchor = (System.Windows.Forms.AnchorStyles)5;
             this.criar.Margin = new System.Windows.Forms.Padding(51, 5, 0, 12);
@@ -563,8 +563,8 @@ namespace Tecnologia
             this.criar.UseVisualStyleBackColor = false;
             this.criar.UseCompatibleTextRendering = false;
             this.criar.FlatAppearance.BorderSize = 0;
-            this.criar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 0, 211, 100);
-            this.criar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 0, 183, 88);
+            this.criar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(255, 207, 233, 222);
+            this.criar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.criar.Name = "criar";
             this.criar.Cursor = System.Windows.Forms.Cursors.Hand;
             // linklabel13
@@ -590,7 +590,7 @@ namespace Tecnologia
             this.linklabel13.FlatStyle = (System.Windows.Forms.FlatStyle)2;
             this.linklabel13.UseCompatibleTextRendering = false;
             this.linklabel13.LinkColor = System.Drawing.Color.FromArgb(255, 0, 112, 153);
-            this.linklabel13.ActiveLinkColor = System.Drawing.Color.FromArgb(255, 0, 118, 69);
+            this.linklabel13.ActiveLinkColor = System.Drawing.Color.FromArgb(255, 25, 97, 78);
             this.linklabel13.VisitedLinkColor = System.Drawing.Color.FromArgb(255, 0, 112, 153);
             this.linklabel13.Name = "linklabel13";
             this.linklabel13.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -618,13 +618,6 @@ namespace Tecnologia
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.cartaoAcesso.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.Fundo.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.panel6.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.panel8.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.panel10.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.panel12.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
-            this.criar.SizeChanged += new System.EventHandler(this.ControlRedimensionado);
             this.Resize += new System.EventHandler(this.CentralizarAcesso);
             this.cartaoAcesso.SizeChanged += new System.EventHandler(this.CentralizarAcesso);
             this.criar.Click += new System.EventHandler(this.Criar_Click);
