@@ -35,7 +35,8 @@ Os diretórios `.vs`, `bin`, `obj`, os executáveis já compilados e os caches n
 | Sistema escolar | Tecnologia |
 |---|---|
 | Exportação CSV e PDF | Menu **Exportar...** nas tabelas e nos históricos |
-| Vínculo de professor com turma | Técnico responsável pela ordem, selecionado na aba **Recebimento** |
+| Vínculo de professor com turma | Técnico responsável na aba **Recebimento**, com confirmação ao trocar ou remover uma atribuição existente |
+| Alteração e exclusão de turma | Edição dos dados de recebimento e cancelamento de ordens abertas, com cancelamento registrado no histórico |
 | Vínculo de alunos com turma | Relacionamento já existente entre cliente, aparelho e ordem |
 
 ## Ajustes no código de referência

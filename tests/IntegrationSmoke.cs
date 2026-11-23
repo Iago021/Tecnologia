@@ -77,7 +77,32 @@ internal static class IntegrationSmoke
         int device = Convert.ToInt32(Banco.Valor("SELECT MAX(id) FROM aparelhos"));
         Banco.Executar("INSERT INTO pecas(codigo,nome,tipo,marca,modelo_compativel,valor_venda) VALUES('P1','Peça teste','Celular','*','*',50)");
         int part = Convert.ToInt32(Banco.Valor("SELECT MAX(id) FROM pecas"));
+        int cancelada = OperacoesOrdem.Abrir(device, "Abertura indevida", null, "");
+        OperacoesOrdem.AtribuirTecnico(cancelada, tech);
+        Login(tech);
+        Fails(() => OperacoesOrdem.Cancelar(cancelada), "Cancelamento exige atendente", "Atendente");
+        Login(admin);
+        OperacoesOrdem.Cancelar(cancelada);
+        Check(Convert.ToInt32(Banco.Valor(@"SELECT COUNT(*) FROM historico_status
+            WHERE ordem_id=@id AND usuario_id=@usuario AND status_anterior='Aberta' AND status_novo='Cancelada'",
+            Banco.P("@id", cancelada), Banco.P("@usuario", admin))) == 1, "Cancelamento preserva o histórico");
+        Fails(() => OperacoesOrdem.Cancelar(cancelada), "Cancelamento repetido bloqueado", "Apenas ordens abertas");
+        Login(tech);
+        Fails(() => OperacoesOrdem.Diagnosticar(cancelada, "D", "S", "Em manutenção", 100, 0),
+            "Diagnóstico após cancelamento bloqueado", "cancelada");
+        Login(admin);
         int order = OperacoesOrdem.Abrir(device, "Falha de teste", null, "");
+        DataRow recebimento = Banco.Consultar(@"SELECT problema_relatado, previsao_entrega, observacoes
+            FROM ordens_servico WHERE id=@id", Banco.P("@id", order)).Rows[0];
+        DateTime previsao = DateTime.Today.AddDays(2);
+        OperacoesOrdem.EditarRecebimento(order, "Problema corrigido", previsao, "Observação revisada", recebimento);
+        DataRow atualizado = Banco.Consultar(@"SELECT problema_relatado, previsao_entrega, observacoes, aparelho_id
+            FROM ordens_servico WHERE id=@id", Banco.P("@id", order)).Rows[0];
+        Check((string)atualizado["problema_relatado"] == "Problema corrigido" && (DateTime)atualizado["previsao_entrega"] == previsao
+            && (string)atualizado["observacoes"] == "Observação revisada" && (int)atualizado["aparelho_id"] == device,
+            "Recebimento é atualizado preservando o aparelho");
+        Fails(() => OperacoesOrdem.EditarRecebimento(order, "Alteração antiga", null, "", recebimento),
+            "Edição desatualizada não sobrescreve recebimento", "recebimento foi alterado");
         Fails(() => OperacoesOrdem.Abrir(device, "Duplicada", null, ""), "Ordem duplicada negada", "já possui");
         Fails(() => Aparelhos.Salvar(device, client, "Celular", "Alterada", "Modelo", "", "", "", "", ""),
             "Aparelho com ordem preservado", "fazem parte do histórico");
@@ -86,6 +111,8 @@ internal static class IntegrationSmoke
         OperacoesOrdem.AtribuirTecnico(order, tech);
         Check(Convert.ToInt32(Banco.Valor("SELECT tecnico_id FROM ordens_servico WHERE id=@id", Banco.P("@id", order))) == tech, "Atribuição mantém técnico na ordem");
         Fails(() => SalvarTecnico(tech, false), "Técnico de ordem aberta não pode ser desativado", "ordens em andamento");
+        Fails(() => OperacoesOrdem.AtribuirTecnico(order, 0, 0),
+            "Atribuição desatualizada não remove técnico", "responsável mudou");
         OperacoesOrdem.AtribuirTecnico(order, 0);
         Check(Banco.Valor("SELECT tecnico_id FROM ordens_servico WHERE id=@id", Banco.P("@id", order)) == DBNull.Value, "Ordem aberta pode ficar sem responsável");
         OperacoesOrdem.AtribuirTecnico(order, tech);
@@ -108,6 +135,13 @@ internal static class IntegrationSmoke
         Fails(() => OperacoesOrdem.UsarPeca(order, part, 1), "Ordem concluída bloqueada", "concluída");
         Login(admin);
         Fails(() => OperacoesOrdem.AtribuirTecnico(order, 0), "Ordem concluída bloqueia atribuição", "antes do diagnóstico");
+        Fails(() => OperacoesOrdem.EditarRecebimento(order, "Tardia", null, "", atualizado),
+            "Ordem concluída bloqueia edição de recebimento", "Apenas ordens abertas");
+        Fails(() => OperacoesOrdem.Cancelar(order), "Ordem concluída bloqueia cancelamento", "Apenas ordens abertas");
+        SalvarTecnico(tech, false);
+        Check(!Convert.ToBoolean(Banco.Valor("SELECT ativo FROM usuarios WHERE id=@id", Banco.P("@id", tech))),
+            "Ordem cancelada não impede desativar o técnico");
+        SalvarTecnico(tech, true);
         OperacoesOrdem.Entregar(order);
         Check(Convert.ToString(Banco.Valor("SELECT status FROM ordens_servico WHERE id=@id", Banco.P("@id", order))) == "Entregue", "Entrega concluída");
         Fails(() => OperacoesOrdem.Entregar(order), "Entrega repetida negada", "Apenas serviços concluídos");

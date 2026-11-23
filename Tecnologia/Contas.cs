@@ -149,7 +149,7 @@ namespace Tecnologia
         {
             Banco.Valor(conexao, transacao, "SELECT id FROM usuarios WHERE id=@id FOR UPDATE", Banco.P("@id", id));
             object ordem = Banco.Valor(conexao, transacao,
-                "SELECT id FROM ordens_servico WHERE tecnico_id=@id AND status NOT IN ('Concluída','Entregue') LIMIT 1",
+                "SELECT id FROM ordens_servico WHERE tecnico_id=@id AND status NOT IN ('Concluída','Entregue','Cancelada') LIMIT 1",
                 Banco.P("@id", id));
             if (ordem != null)
                 throw new InvalidOperationException("Este técnico possui ordens em andamento. Conclua os serviços ou remova a atribuição das ordens abertas.");

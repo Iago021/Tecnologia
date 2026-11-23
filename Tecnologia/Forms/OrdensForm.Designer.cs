@@ -286,7 +286,7 @@ namespace Tecnologia
             this.cmbStatus.DropDownWidth = 180;
             this.cmbStatus.MaxDropDownItems = 8;
             this.cmbStatus.Name = "cmbStatus";
-            this.cmbStatus.Items.AddRange(new object[] { "Todas", "Aberta", "Em manutenção", "Aguardando peça", "Concluída", "Entregue", "Em andamento", "Concluídas e entregues" });
+            this.cmbStatus.Items.AddRange(new object[] { "Todas", "Aberta", "Em manutenção", "Aguardando peça", "Concluída", "Entregue", "Cancelada", "Em andamento", "Concluídas e entregues" });
             // txtBusca
             this.txtBusca.Text = "";
             this.txtBusca.AccessibleName = "Pesquisar ordem, cliente ou aparelho";
