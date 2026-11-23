@@ -57,6 +57,10 @@ Os cadastros têm **Novo**, **Salvar**, **Editar**, **Excluir**, pesquisa por ca
 | Concluída | Conserto finalizado e equipamento pronto para entrega |
 | Entregue | Equipamento devolvido ao cliente |
 
+Na aba **Recebimento**, o atendente pode corrigir o problema relatado, as observações e a previsão de entrega de uma ordem aberta. A troca ou remoção do técnico responsável pede confirmação. **Cancelar ordem** encerra uma ordem aberta, registra o cancelamento no histórico e libera o aparelho para um novo atendimento. Use o filtro **Cancelada** em **Manutenção** para consultar esses registros.
+
+Se o banco já existe, reimporte `Banco/tecnologia.sql` antes de executar esta versão para disponibilizar o status **Cancelada** e preservar os dados cadastrados.
+
 O painel possui atalhos para ordens abertas, serviços em andamento, concluídos e aguardando entrega. **Concluídas** inclui as ordens já entregues; **Em manutenção** inclui as que aguardam peças. O histórico registra cada mudança de status com usuário e data.
 
 ## Peças e valores

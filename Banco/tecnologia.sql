@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS ordens_servico (
  atendente_id INT NOT NULL,
  tecnico_id INT NULL,
  problema_relatado VARCHAR(2000) NOT NULL,
- status ENUM('Aberta','Em manutenção','Aguardando peça','Concluída','Entregue') NOT NULL DEFAULT 'Aberta',
+ status ENUM('Aberta','Em manutenção','Aguardando peça','Concluída','Entregue','Cancelada') NOT NULL DEFAULT 'Aberta',
  data_entrada DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
  previsao_entrega DATE NULL,
  data_conclusao DATETIME NULL,
@@ -92,6 +92,9 @@ CREATE TABLE IF NOT EXISTS ordens_servico (
  CHECK (valor_mao_obra >= 0),
  CHECK (desconto >= 0)
 ) ENGINE=InnoDB;
+
+-- Atualiza também bancos já criados, preservando as ordens e os valores existentes.
+ALTER TABLE ordens_servico MODIFY COLUMN status ENUM('Aberta','Em manutenção','Aguardando peça','Concluída','Entregue','Cancelada') NOT NULL DEFAULT 'Aberta';
 
 -- Diagnóstico atual: no máximo um registro por ordem.
 CREATE TABLE IF NOT EXISTS diagnosticos (

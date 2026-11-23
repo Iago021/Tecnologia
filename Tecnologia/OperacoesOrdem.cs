@@ -17,7 +17,7 @@ namespace Tecnologia
                 int cliente = Aparelhos.Travar(conexao, transacao, aparelho);
                 Aparelhos.ConferirClienteAtivo(conexao, transacao, cliente);
                 object pendente = Banco.Valor(conexao, transacao,
-                    "SELECT id FROM ordens_servico WHERE aparelho_id=@id AND status<>'Entregue' LIMIT 1", Banco.P("@id", aparelho));
+                    "SELECT id FROM ordens_servico WHERE aparelho_id=@id AND status NOT IN ('Entregue','Cancelada') LIMIT 1", Banco.P("@id", aparelho));
                 if (pendente != null)
                     throw new InvalidOperationException("Este aparelho já possui uma ordem em andamento ou aguardando entrega.");
 
@@ -32,7 +32,53 @@ namespace Tecnologia
                 return id;
             }
         }
-        public static void AtribuirTecnico(int id, int tecnico)
+        public static void EditarRecebimento(int id, string problema, DateTime? previsao, string observacoes, DataRow original)
+        {
+            Tela.Obrigatorio(problema, "problema relatado");
+            using (MySqlConnection conexao = Banco.Abrir())
+            using (MySqlTransaction transacao = conexao.BeginTransaction())
+            {
+                Sessao.Exigir(conexao, transacao, "Atendente");
+                DataRow ordem = Travar(conexao, transacao, id);
+                if (ordem["status"].ToString() != "Aberta")
+                    throw new InvalidOperationException("Apenas ordens abertas permitem editar o recebimento.");
+
+                foreach (string campo in new[] { "problema_relatado", "previsao_entrega", "observacoes" })
+                    if (!Equals(ordem[campo], original[campo]))
+                        throw new InvalidOperationException("O recebimento foi alterado. Feche e abra a edição novamente.");
+
+                DateTime? dataAnterior = ordem.Field<DateTime?>("previsao_entrega");
+                if (previsao.HasValue && previsao.Value.Date < DateTime.Today && previsao.Value.Date != dataAnterior)
+                    throw new InvalidOperationException("A previsão não pode ser anterior a hoje.");
+
+                using (MySqlCommand comando = Banco.Comando(conexao, transacao,
+                    "UPDATE ordens_servico SET problema_relatado=@problema,previsao_entrega=@previsao,observacoes=@obs WHERE id=@id",
+                    Banco.P("@problema", problema.Trim()), Banco.P("@previsao", previsao),
+                    Banco.P("@obs", observacoes.Trim()), Banco.P("@id", id)))
+                    comando.ExecuteNonQuery();
+                transacao.Commit();
+            }
+        }
+
+        public static void Cancelar(int id)
+        {
+            using (MySqlConnection conexao = Banco.Abrir())
+            using (MySqlTransaction transacao = conexao.BeginTransaction())
+            {
+                Sessao.Exigir(conexao, transacao, "Atendente");
+                DataRow ordem = Travar(conexao, transacao, id);
+                if (ordem["status"].ToString() != "Aberta")
+                    throw new InvalidOperationException("Apenas ordens abertas podem ser canceladas.");
+
+                using (MySqlCommand comando = Banco.Comando(conexao, transacao,
+                    "UPDATE ordens_servico SET status='Cancelada' WHERE id=@id", Banco.P("@id", id)))
+                    comando.ExecuteNonQuery();
+                Historico(conexao, transacao, id, "Aberta", "Cancelada");
+                transacao.Commit();
+            }
+        }
+
+        public static void AtribuirTecnico(int id, int tecnico, int? responsavelEsperado = null)
         {
             using (MySqlConnection conexao = Banco.Abrir())
             using (MySqlTransaction transacao = conexao.BeginTransaction())
@@ -42,6 +88,10 @@ namespace Tecnologia
                 DataRow ordem = Travar(conexao, transacao, id);
                 if (ordem["status"].ToString() != "Aberta")
                     throw new Exception("O responsável só pode ser alterado antes do diagnóstico.");
+
+                int responsavel = ordem.Field<int?>("tecnico_id") ?? 0;
+                if (responsavelEsperado.HasValue && responsavelEsperado.Value != responsavel)
+                    throw new InvalidOperationException("O responsável mudou. Atualize a ordem antes de tentar novamente.");
 
                 using (MySqlCommand comando = Banco.Comando(conexao, transacao,
                     "UPDATE ordens_servico SET tecnico_id=@tecnico WHERE id=@id",
@@ -64,7 +114,7 @@ namespace Tecnologia
         private static DataRow Travar(MySqlConnection conexao, MySqlTransaction transacao, int ordem)
         {
             DataTable tabela = Banco.Consultar(conexao, transacao,
-                "SELECT status,tecnico_id,aparelho_id,desconto,valor_mao_obra FROM ordens_servico WHERE id=@id FOR UPDATE",
+                "SELECT status,tecnico_id,aparelho_id,desconto,valor_mao_obra,problema_relatado,previsao_entrega,observacoes FROM ordens_servico WHERE id=@id FOR UPDATE",
                 Banco.P("@id", ordem));
             if (tabela.Rows.Count == 0)
                 throw new InvalidOperationException("Ordem não encontrada.");
@@ -75,6 +125,7 @@ namespace Tecnologia
         private static void ConferirTecnico(DataRow ordem, bool podeIniciar)
         {
             string status = ordem["status"].ToString();
+            if (status == "Cancelada") throw new InvalidOperationException("Esta ordem foi cancelada.");
             if (status == "Concluída" || status == "Entregue") throw new Exception("Esta ordem já foi concluída e não pode mais ser alterada.");
             if (ordem["tecnico_id"] != DBNull.Value && Convert.ToInt32(ordem["tecnico_id"]) != Sessao.Id)
                 throw new Exception("Esta ordem está sob responsabilidade de outro técnico.");

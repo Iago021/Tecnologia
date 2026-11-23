@@ -8,7 +8,8 @@ namespace Tecnologia
     {
         public OrdemForm() { InitializeComponent(); PrepararTela(); AlteracoesFormulario.Observar(this); }
         private int codigo;
-        private bool podeEditar;
+        private int tecnicoAtual;
+        private string nomeTecnicoAtual;
         public OrdemForm(int id) : this() { codigo=id; }
         private void OrdemForm_Load(object sender,EventArgs e)
         {
@@ -34,7 +35,10 @@ namespace Tecnologia
             txtDiagnostico.Text=ordem["descricao"].ToString(); txtServico.Text=ordem["servico_necessario"].ToString();
             numMaoObra.Value=Convert.ToDecimal(ordem["valor_mao_obra"]); numDesconto.Value=Convert.ToDecimal(ordem["desconto"]);
             cmbStatus.SelectedItem=status=="Aberta" ? "Em manutenção" : status;
-            podeEditar=!Sessao.Atendente && status!="Concluída" && status!="Entregue" && (ordem["tecnico_id"]==DBNull.Value || Convert.ToInt32(ordem["tecnico_id"])==Sessao.Id);
+            tecnicoAtual = ordem.Field<int?>("tecnico_id") ?? 0;
+            nomeTecnicoAtual = ordem["tecnico"].ToString();
+            bool podeEditar = !Sessao.Atendente && (status == "Aberta" || status == "Em manutenção" || status == "Aguardando peça")
+                && (tecnicoAtual == 0 || tecnicoAtual == Sessao.Id);
             txtDiagnostico.ReadOnly=txtServico.ReadOnly=!podeEditar;
             cmbStatus.Enabled=numMaoObra.Enabled=numDesconto.Enabled=btnSalvar.Enabled=btnAdicionar.Enabled=btnDevolver.Enabled=cmbPeca.Enabled=numQuantidade.Enabled=podeEditar;
             btnEntregar.Enabled=Sessao.Atendente && status=="Concluída";
@@ -47,7 +51,7 @@ namespace Tecnologia
                 semTecnico["nome"] = "Sem responsável";
                 tecnicos.Rows.InsertAt(semTecnico, 0);
                 Tela.Combo(cmbTecnico, tecnicos);
-                cmbTecnico.SelectedValue = ordem["tecnico_id"] == DBNull.Value ? 0 : Convert.ToInt32(ordem["tecnico_id"]);
+                cmbTecnico.SelectedValue = tecnicoAtual;
                 if (cmbTecnico.SelectedIndex < 0) cmbTecnico.SelectedIndex = 0;
             }
             btnAdicionar.Enabled = btnDevolver.Enabled = podeEditar && status != "Aberta";
@@ -73,9 +77,45 @@ namespace Tecnologia
         {
             try
             {
-                OperacoesOrdem.AtribuirTecnico(codigo, Tela.Codigo(cmbTecnico));
+                int tecnico = Tela.Codigo(cmbTecnico);
+                if (tecnico == tecnicoAtual)
+                {
+                    MessageBox.Show("A ordem já está com essa atribuição.");
+                    return;
+                }
+
+                if (tecnicoAtual != 0)
+                {
+                    string confirmacao = tecnico == 0
+                        ? "Remover " + nomeTecnicoAtual + " da ordem?"
+                        : "Trocar " + nomeTecnicoAtual + " por " + cmbTecnico.Text + "?";
+                    if (!Tela.Confirmar(confirmacao)) return;
+                }
+                OperacoesOrdem.AtribuirTecnico(codigo, tecnico, tecnicoAtual);
                 Carregar();
                 MessageBox.Show("Responsável atualizado.");
+            }
+            catch (Exception erro) { Tela.Erro(erro); }
+        }
+
+        private void btnEditarRecebimento_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!AlteracoesFormulario.PodeDescartar(this)) return;
+                using (AbrirOrdemForm janela = new AbrirOrdemForm(codigo))
+                    if (janela.ShowDialog(this) == DialogResult.OK) Carregar();
+            }
+            catch (Exception erro) { Tela.Erro(erro); }
+        }
+
+        private void btnCancelarOrdem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!Tela.Confirmar("Cancelar a ordem " + codigo + "? O cancelamento ficará registrado no histórico.")) return;
+                OperacoesOrdem.Cancelar(codigo);
+                Carregar();
             }
             catch (Exception erro) { Tela.Erro(erro); }
         }
