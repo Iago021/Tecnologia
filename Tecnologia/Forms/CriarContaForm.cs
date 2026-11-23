@@ -8,6 +8,7 @@ namespace Tecnologia
     {
         private bool salvando;
         public string EmailCriado { get; private set; }
+        internal bool PrimeiraConta { get; private set; }
 
         public CriarContaForm()
         {
@@ -27,6 +28,7 @@ namespace Tecnologia
             lblErro.Visible = false;
             salvando = true;
             cartaoAcesso.Enabled = false;
+            acoes.Enabled = false;
             criar.Text = "Criando conta...";
             bool primeiraConta = false;
             string mensagemErro = null;
@@ -45,6 +47,7 @@ namespace Tecnologia
                 if (!IsDisposed)
                 {
                     cartaoAcesso.Enabled = true;
+                    acoes.Enabled = true;
                     criar.Text = "Criar conta";
                 }
             }
@@ -54,15 +57,11 @@ namespace Tecnologia
             {
                 lblErro.Text = mensagemErro;
                 lblErro.Visible = true;
-                ScrollControlIntoView(lblErro);
                 return;
             }
 
             EmailCriado = emailDigitado;
-            string mensagem = primeiraConta
-                ? "Conta criada. Você já pode entrar."
-                : "Cadastro recebido. Um atendente pode ativar seu acesso em Cadastros > Equipe.";
-            MessageBox.Show(this, mensagem, "Tecnologia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            PrimeiraConta = primeiraConta;
             DialogResult = DialogResult.OK;
         }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -27,8 +28,8 @@ internal static class IntegrationSmoke
             db.Open();
             using (var cmd = new MySqlCommand(schema, db)) cmd.ExecuteNonQuery();
         }
-        Check(Contas.Criar("Atendente", "admin@example.com", "admin@example.com", Password, Password), "Primeira conta ativa");
-        Check(!Contas.Criar("Técnico", "tech@example.com", "tech@example.com", Password, Password), "Segunda conta pendente");
+        CriarPelaTela("Atendente", "admin@example.com", true);
+        CriarPelaTela("Técnico", "tech@example.com", false);
         int admin = Id("admin@example.com"), tech = Id("tech@example.com");
         Check(!Convert.ToBoolean(Banco.Valor("SELECT ativo FROM usuarios WHERE id=@id", Banco.P("@id", tech))), "Sem ativação pública");
         Fails(() => Contas.Criar("Duplicado", "admin@example.com", "admin@example.com", Password, Password), "Cadastro duplicado", "Duplicate");
@@ -136,15 +137,18 @@ internal static class IntegrationSmoke
         }
         using (var cadastro = new CriarContaForm())
         {
+            cadastro.ClientSize = new Size(480, 340);
             cadastro.Show();
             Application.DoEvents();
             Field<CheckBox>(cadastro, "mostrarSenha").Checked = true;
             Check(!Field<TextBox>(cadastro, "senha").UseSystemPasswordChar &&
                 !Field<TextBox>(cadastro, "confirmarSenha").UseSystemPasswordChar, "Mostrar senhas controla os dois campos");
-            Invoke(cadastro, "Criar_Click");
-            DateTime limite = DateTime.UtcNow.AddSeconds(8);
             Label erro = Field<Label>(cadastro, "lblErro");
             Button criar = Field<Button>(cadastro, "criar");
+            Check(cadastro.RectangleToScreen(cadastro.ClientRectangle).Contains(criar.RectangleToScreen(criar.ClientRectangle)),
+                "Botão Criar conta acessível em janela compacta");
+            criar.PerformClick();
+            DateTime limite = DateTime.UtcNow.AddSeconds(8);
             while ((!erro.Visible || !criar.Enabled) && DateTime.UtcNow < limite)
             {
                 Application.DoEvents();
@@ -152,6 +156,8 @@ internal static class IntegrationSmoke
             }
             Check(erro.Visible && erro.Text.Contains("Nome"), "Cadastro incompleto mostra o erro na tela");
             Check(criar.Enabled, "Cadastro libera nova tentativa");
+            Check(cadastro.RectangleToScreen(cadastro.ClientRectangle).Contains(erro.RectangleToScreen(erro.ClientRectangle)),
+                "Erro fica acessível em janela compacta");
         }
         Banco.Executar(schema);
         Check(Id("admin@example.com") == admin &&
@@ -176,6 +182,25 @@ internal static class IntegrationSmoke
         Console.WriteLine("PASS INTEGRATION: " + checks + " verificações com MySQL isolado; nenhum e-mail externo enviado.");
         return 0;
     }
+    private static void CriarPelaTela(string nome, string email, bool primeiraConta)
+    {
+        using (var cadastro = new CriarContaForm())
+        using (var limite = new Timer { Interval = 15000 })
+        {
+            Field<TextBox>(cadastro, "nome").Text = nome;
+            Field<TextBox>(cadastro, "email").Text = email;
+            Field<TextBox>(cadastro, "confirmarEmail").Text = email;
+            Field<TextBox>(cadastro, "senha").Text = Password;
+            Field<TextBox>(cadastro, "confirmarSenha").Text = Password;
+            cadastro.Shown += delegate { Field<Button>(cadastro, "criar").PerformClick(); };
+            limite.Tick += delegate { limite.Stop(); cadastro.Hide(); };
+            limite.Start();
+
+            Check(cadastro.ShowDialog() == DialogResult.OK && cadastro.EmailCriado == email && cadastro.PrimeiraConta == primeiraConta,
+                primeiraConta ? "Primeira conta criada pela tela e informada como ativa" : "Segunda conta criada pela tela e informada como pendente");
+        }
+    }
+
     private static T Field<T>(object obj, string name) { return (T)obj.GetType().GetField(name, BindingFlags.Instance | BindingFlags.NonPublic).GetValue(obj); }
     private static void Invoke(object obj, string name) { obj.GetType().GetMethod(name, BindingFlags.Instance | BindingFlags.NonPublic).Invoke(obj, new object[] { obj, EventArgs.Empty }); }
     private static void SalvarTecnico(int id, bool ativo)

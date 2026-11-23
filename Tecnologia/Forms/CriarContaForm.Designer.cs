@@ -6,7 +6,10 @@ namespace Tecnologia
 {
     partial class CriarContaForm
     {
+        private TableLayoutPanel janela;
+        private Panel areaCampos;
         private TableLayoutPanel layout;
+        private FlowLayoutPanel acoes;
         private PictureBox logo;
         private FlowLayoutPanel cartaoAcesso;
         private Label titulo;
@@ -39,7 +42,10 @@ namespace Tecnologia
         private void InitializeComponent()
         {
             ComponentResourceManager recursos = new ComponentResourceManager(typeof(CriarContaForm));
+            this.janela = new TableLayoutPanel();
+            this.areaCampos = new Panel();
             this.layout = new TableLayoutPanel();
+            this.acoes = new FlowLayoutPanel();
             this.logo = new PictureBox();
             this.cartaoAcesso = new FlowLayoutPanel();
             this.titulo = new Label();
@@ -59,8 +65,38 @@ namespace Tecnologia
             this.criar = new Button();
             this.voltar = new LinkLabel();
             this.SuspendLayout();
+            this.janela.SuspendLayout();
+            this.areaCampos.SuspendLayout();
             this.layout.SuspendLayout();
+            this.acoes.SuspendLayout();
             this.cartaoAcesso.SuspendLayout();
+
+            this.janela.BackColor = Color.Transparent;
+            this.janela.ColumnCount = 1;
+            this.janela.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+            this.janela.Dock = DockStyle.Fill;
+            this.janela.Name = "janela";
+            this.janela.RowCount = 2;
+            this.janela.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
+            this.janela.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+
+            this.areaCampos.AutoScroll = true;
+            this.areaCampos.BackColor = Color.Transparent;
+            this.areaCampos.Dock = DockStyle.Fill;
+            this.areaCampos.Margin = new Padding(0);
+            this.areaCampos.Name = "areaCampos";
+
+            this.acoes.Anchor = AnchorStyles.None;
+            this.acoes.AutoSize = true;
+            this.acoes.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.acoes.BackColor = Color.FromArgb(245, 248, 247);
+            this.acoes.BorderStyle = BorderStyle.FixedSingle;
+            this.acoes.FlowDirection = FlowDirection.TopDown;
+            this.acoes.Margin = new Padding(0, 0, 0, 12);
+            this.acoes.Name = "acoes";
+            this.acoes.Padding = new Padding(22, 10, 22, 12);
+            this.acoes.TabIndex = 1;
+            this.acoes.WrapContents = false;
 
             this.layout.AutoSize = true;
             this.layout.AutoSizeMode = AutoSizeMode.GrowAndShrink;
@@ -71,7 +107,7 @@ namespace Tecnologia
             this.layout.RowCount = 2;
             this.layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             this.layout.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            this.layout.Padding = new Padding(12, 14, 12, 20);
+            this.layout.Padding = new Padding(12, 14, 12, 10);
             this.layout.Name = "layout";
 
             this.logo.Anchor = AnchorStyles.None;
@@ -106,7 +142,7 @@ namespace Tecnologia
             this.instrucao.Margin = new Padding(0, 0, 0, 12);
             this.instrucao.MaximumSize = new Size(336, 0);
             this.instrucao.Name = "instrucao";
-            this.instrucao.Text = "Preencha os dados para solicitar acesso ao Tecnologia.";
+            this.instrucao.Text = "A senha deve ter de 8 a 128 caracteres.";
 
             this.lblNome.AutoSize = true;
             this.lblNome.Margin = new Padding(0, 0, 0, 3);
@@ -219,17 +255,19 @@ namespace Tecnologia
             this.cartaoAcesso.Controls.Add(this.lblConfirmarSenha);
             this.cartaoAcesso.Controls.Add(this.confirmarSenha);
             this.cartaoAcesso.Controls.Add(this.mostrarSenha);
-            this.cartaoAcesso.Controls.Add(this.lblErro);
-            this.cartaoAcesso.Controls.Add(this.criar);
-            this.cartaoAcesso.Controls.Add(this.voltar);
+            this.acoes.Controls.Add(this.lblErro);
+            this.acoes.Controls.Add(this.criar);
+            this.acoes.Controls.Add(this.voltar);
             this.layout.Controls.Add(this.logo, 0, 0);
             this.layout.Controls.Add(this.cartaoAcesso, 0, 1);
-            this.Controls.Add(this.layout);
+            this.areaCampos.Controls.Add(this.layout);
+            this.janela.Controls.Add(this.areaCampos, 0, 0);
+            this.janela.Controls.Add(this.acoes, 0, 1);
+            this.Controls.Add(this.janela);
 
             this.AcceptButton = this.criar;
             this.AutoScaleDimensions = new SizeF(96F, 96F);
             this.AutoScaleMode = AutoScaleMode.Dpi;
-            this.AutoScroll = true;
             this.BackColor = Color.FromArgb(245, 248, 247);
             this.BackgroundImage = (Image)recursos.GetObject("$this.BackgroundImage");
             this.BackgroundImageLayout = ImageLayout.Stretch;
@@ -244,6 +282,9 @@ namespace Tecnologia
             this.cartaoAcesso.PerformLayout();
             this.layout.ResumeLayout(false);
             this.layout.PerformLayout();
+            this.areaCampos.ResumeLayout(true);
+            this.acoes.ResumeLayout(true);
+            this.janela.ResumeLayout(true);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
