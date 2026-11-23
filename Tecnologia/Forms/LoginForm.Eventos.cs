@@ -28,7 +28,16 @@ namespace Tecnologia
         private void linklabel8_Click(object sender, EventArgs e)
         {
             using (CriarContaForm janela = new CriarContaForm())
-                if (janela.ShowDialog(this) == DialogResult.OK) { txtEmail.Text = janela.EmailCriado; txtSenha.Clear(); txtSenha.Focus(); }
+            {
+                if (janela.ShowDialog(this) != DialogResult.OK) return;
+                txtEmail.Text = janela.EmailCriado;
+                txtSenha.Clear();
+                string mensagem = janela.PrimeiraConta
+                    ? "Conta criada. Entre com a senha que você cadastrou."
+                    : "Conta criada e aguardando ativação. Um atendente pode liberar seu acesso em Cadastros > Equipe.";
+                MessageBox.Show(this, mensagem, "Tecnologia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtSenha.Focus();
+            }
         }
     }
 }
