@@ -37,6 +37,8 @@ Importe novamente **Banco/tecnologia.sql** para criar a nova tabela de recupera�
 | Minha conta | Nome, e-mail, telefone e senha | Nome, e-mail, telefone e senha |
 | Exportação | Listas acessíveis ao perfil | Listas acessíveis ao perfil |
 
+Em **Cadastros > Equipe**, selecione a conta e clique em **Trocar perfil** para alternar entre Atendente e Técnico. Se você trocar o perfil da sua própria conta, o sistema volta ao login. Para fazer isso, precisa haver outro atendente ativo com acesso à gestão da equipe.
+
 Os cadastros têm **Novo**, **Salvar**, **Editar**, **Excluir**, pesquisa por campo e **Exportar...**. Para alterar, selecione a linha, clique em **Editar**, mude os campos e salve. Na equipe, a senha vazia durante a edição mantém a senha existente.
 
 ## Fluxo de atendimento

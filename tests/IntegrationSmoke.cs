@@ -191,6 +191,15 @@ internal static class IntegrationSmoke
             string pdf = System.Text.Encoding.GetEncoding(1252).GetString(ExportacaoPdf.Gerar(dados, "Ordens de serviço"));
             Check(pdf.StartsWith("%PDF-1.4") && pdf.Contains("/Count 3") && pdf.Contains("Registro 54") && pdf.Contains("Ordens de serviço"), "PDF exporta acentos e todas as páginas");
         }
+        Login(admin);
+        Fails(() => Contas.TrocarPerfil(admin, "Atendente"), "Preserva o último atendente ativo", "outro atendente");
+        Contas.TrocarPerfil(tech, "Técnico");
+        Check(Contas.Autenticar("tech@example.com", Password)["perfil"].ToString() == "Atendente", "Técnico muda para atendente");
+        Fails(() => Contas.TrocarPerfil(tech, "Técnico"), "Protege contra perfil desatualizado", "perfil mudou");
+        Contas.TrocarPerfil(admin, "Atendente");
+        Check(Contas.Autenticar("admin@example.com", Password)["perfil"].ToString() == "Técnico", "Atendente muda o próprio perfil com outro atendente ativo");
+        Fails(() => Contas.TrocarPerfil(admin, "Técnico"), "Técnico não pode elevar seu perfil", "Atendente");
+
         Console.WriteLine("PASS INTEGRATION: " + checks + " verificações com MySQL isolado; nenhum e-mail externo enviado.");
         return 0;
     }

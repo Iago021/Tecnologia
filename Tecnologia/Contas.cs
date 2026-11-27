@@ -129,6 +129,31 @@ namespace Tecnologia
             }
         }
 
+        public static void TrocarPerfil(int id, string perfilEsperado)
+        {
+            using (MySqlConnection conexao = Banco.Abrir())
+            using (MySqlTransaction transacao = conexao.BeginTransaction())
+            {
+                Sessao.Exigir(conexao, transacao, "Atendente");
+                string atual = Banco.Valor(conexao, transacao,
+                    "SELECT perfil FROM usuarios WHERE id=@id FOR UPDATE", Banco.P("@id", id)) as string;
+                if (atual != perfilEsperado || (atual != "Atendente" && atual != "Técnico"))
+                    throw new InvalidOperationException("A conta ou o perfil mudou. Atualize a lista e tente novamente.");
+
+                if (id == Sessao.Id && Banco.Valor(conexao, transacao,
+                    "SELECT id FROM usuarios WHERE perfil='Atendente' AND ativo=1 AND id<>@id LIMIT 1 FOR UPDATE",
+                    Banco.P("@id", id)) == null)
+                    throw new InvalidOperationException("Cadastre ou ative outro atendente antes de mudar o perfil da sua conta.");
+
+                if (atual == "Técnico") ConferirOrdensDoTecnico(conexao, transacao, id);
+                string novoPerfil = atual == "Atendente" ? "Técnico" : "Atendente";
+                Banco.Executar(conexao, transacao, "UPDATE usuarios SET perfil=@perfil WHERE id=@id",
+                    Banco.P("@perfil", novoPerfil), Banco.P("@id", id));
+                RecuperacaoSenha.InvalidarCodigo(conexao, transacao, id);
+                transacao.Commit();
+            }
+        }
+
         public static void ExcluirUsuario(int id)
         {
             if (id == Sessao.Id)

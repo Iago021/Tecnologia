@@ -119,6 +119,39 @@ namespace Tecnologia
                 if (!IsDisposed) MessageBox.Show(this, "Cadastro salvo.");
             } catch (Exception erro) { Tela.Erro(erro); }
         }
+        private async void btnTrocarPerfil_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int selecionado = Tela.Selecionado(grade);
+                string perfil = Convert.ToString(grade.CurrentRow.Cells["perfil"].Value);
+                string nome = Convert.ToString(grade.CurrentRow.Cells["nome"].Value);
+                string novoPerfil = perfil == "Atendente" ? "Técnico" : "Atendente";
+                bool contaAtual = selecionado == Sessao.Id;
+                string confirmacao = "Alterar o perfil de " + nome + " para " + novoPerfil + "?";
+                if (contaAtual) confirmacao += Environment.NewLine + "Você voltará à tela de login.";
+                if (!AlteracoesFormulario.PodeDescartar(this) || !Tela.Confirmar(confirmacao)) return;
+
+                Contas.TrocarPerfil(selecionado, perfil);
+                Limpar();
+                if (contaAtual && TopLevelControl is PrincipalForm principal)
+                {
+                    Sessao.TrocarUsuario = true;
+                    principal.Close();
+                    return;
+                }
+
+                if (contaAtual)
+                {
+                    Close();
+                    return;
+                }
+
+                await CarregarAsync();
+            }
+            catch (Exception erro) { Tela.Erro(erro); }
+        }
+
         private async void btnExcluir_Click(object sender, EventArgs e)
         {
             try
