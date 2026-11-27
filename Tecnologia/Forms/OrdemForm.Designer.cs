@@ -29,6 +29,8 @@ namespace Tecnologia
             this.lblTecnico = new System.Windows.Forms.Label();
             this.cmbTecnico = new System.Windows.Forms.ComboBox();
             this.btnAtribuir = new System.Windows.Forms.Button();
+            this.btnEditarRecebimento = new System.Windows.Forms.Button();
+            this.btnCancelarOrdem = new System.Windows.Forms.Button();
             this.txtRecebimento = new System.Windows.Forms.TextBox();
             this.lblDica = new System.Windows.Forms.Label();
             this.tabpage7 = new System.Windows.Forms.TabPage();
@@ -334,7 +336,7 @@ namespace Tecnologia
             this.cmbTecnico.TabIndex = 0;
             this.btnAtribuir.Text = "Salvar responsável";
             this.btnAtribuir.Size = new System.Drawing.Size(154, 36);
-            this.btnAtribuir.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
+            this.btnAtribuir.Margin = new System.Windows.Forms.Padding(0, 0, 10, 3);
             this.btnAtribuir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAtribuir.FlatAppearance.BorderSize = 0;
             this.btnAtribuir.BackColor = System.Drawing.Color.FromArgb(226, 242, 236);
@@ -343,6 +345,30 @@ namespace Tecnologia
             this.btnAtribuir.TabIndex = 1;
             this.btnAtribuir.Name = "btnAtribuir";
             this.btnAtribuir.Click += new System.EventHandler(this.btnAtribuir_Click);
+            // btnEditarRecebimento
+            this.btnEditarRecebimento.Text = "Editar recebimento";
+            this.btnEditarRecebimento.Size = new System.Drawing.Size(154, 36);
+            this.btnEditarRecebimento.Margin = new System.Windows.Forms.Padding(0, 0, 10, 3);
+            this.btnEditarRecebimento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditarRecebimento.FlatAppearance.BorderSize = 0;
+            this.btnEditarRecebimento.BackColor = System.Drawing.Color.FromArgb(226, 242, 236);
+            this.btnEditarRecebimento.ForeColor = System.Drawing.Color.FromArgb(21, 59, 50);
+            this.btnEditarRecebimento.UseVisualStyleBackColor = false;
+            this.btnEditarRecebimento.TabIndex = 2;
+            this.btnEditarRecebimento.Name = "btnEditarRecebimento";
+            this.btnEditarRecebimento.Click += new System.EventHandler(this.btnEditarRecebimento_Click);
+            // btnCancelarOrdem
+            this.btnCancelarOrdem.Text = "Cancelar ordem";
+            this.btnCancelarOrdem.Size = new System.Drawing.Size(154, 36);
+            this.btnCancelarOrdem.Margin = new System.Windows.Forms.Padding(0, 0, 10, 3);
+            this.btnCancelarOrdem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelarOrdem.FlatAppearance.BorderSize = 0;
+            this.btnCancelarOrdem.BackColor = System.Drawing.Color.FromArgb(226, 242, 236);
+            this.btnCancelarOrdem.ForeColor = System.Drawing.Color.FromArgb(21, 59, 50);
+            this.btnCancelarOrdem.UseVisualStyleBackColor = false;
+            this.btnCancelarOrdem.TabIndex = 3;
+            this.btnCancelarOrdem.Name = "btnCancelarOrdem";
+            this.btnCancelarOrdem.Click += new System.EventHandler(this.btnCancelarOrdem_Click);
             // txtRecebimento
             this.txtRecebimento.Text = "";
             this.txtRecebimento.AccessibleName = null;
@@ -1560,6 +1586,8 @@ namespace Tecnologia
             this.painelTecnico.Controls.Add(this.lblTecnico);
             this.painelTecnico.Controls.Add(this.cmbTecnico);
             this.painelTecnico.Controls.Add(this.btnAtribuir);
+            this.painelTecnico.Controls.Add(this.btnEditarRecebimento);
+            this.painelTecnico.Controls.Add(this.btnCancelarOrdem);
             this.flowlayoutpanel6.Controls.Add(this.txtRecebimento);
             this.flowlayoutpanel6.Controls.Add(this.lblDica);
             this.tabcontrol3.Controls.Add(this.tabpage7);
@@ -1691,6 +1719,8 @@ namespace Tecnologia
         private System.Windows.Forms.Label lblTecnico;
         private System.Windows.Forms.ComboBox cmbTecnico;
         private System.Windows.Forms.Button btnAtribuir;
+        private System.Windows.Forms.Button btnCancelarOrdem;
+        private System.Windows.Forms.Button btnEditarRecebimento;
         private System.Windows.Forms.TextBox txtRecebimento;
         private System.Windows.Forms.Label lblDica;
         private System.Windows.Forms.TabPage tabpage7;

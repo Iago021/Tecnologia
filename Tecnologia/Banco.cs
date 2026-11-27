@@ -19,6 +19,13 @@ namespace Tecnologia
                 conexao.Open();
                 return conexao;
             }
+            catch (MySqlException erro) when (erro.Number == 0 || erro.Number == 1042)
+            {
+                conexao.Dispose();
+                var destino = new MySqlConnectionStringBuilder(configuracao.ConnectionString);
+                throw new InvalidOperationException("Não foi possível conectar ao MySQL em " + destino.Server + ":" + destino.Port +
+                    ". Inicie o MySQL no XAMPP e confira Server e Port no App.config.", erro);
+            }
             catch
             {
                 conexao.Dispose();

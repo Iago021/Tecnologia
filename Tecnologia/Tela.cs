@@ -2,12 +2,44 @@ using System;
 using System.Data;
 using System.Drawing;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySqlConnector;
 namespace Tecnologia
 {
     internal static class Tela
     {
+        public static async Task CarregarAsync<T>(Form janela, Control area, string perfil,
+            Func<DataRow, T> consultar, Action<T> exibir, bool fecharAoFalhar = false)
+        {
+            if (!area.Enabled) return;
+
+            int usuario = Sessao.Id;
+            area.Enabled = false;
+            area.UseWaitCursor = true;
+            try
+            {
+                T dados = await Task.Run(() => consultar(Sessao.ConsultarAtiva(usuario, perfil)));
+                if (!janela.IsDisposed && Sessao.Id == usuario) exibir(dados);
+            }
+            catch (Exception erro)
+            {
+                if (!janela.IsDisposed && area.Visible && Sessao.Id == usuario)
+                {
+                    MessageBox.Show(janela, Mensagem(erro), "Tecnologia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (fecharAoFalhar) janela.Close();
+                }
+            }
+            finally
+            {
+                if (!area.IsDisposed)
+                {
+                    area.UseWaitCursor = false;
+                    area.Enabled = true;
+                }
+            }
+        }
+
         public static void Erro(Exception erro)
         {
             MessageBox.Show(Mensagem(erro), "Tecnologia", MessageBoxButtons.OK, MessageBoxIcon.Warning);

@@ -1,21 +1,22 @@
 using System;
-using System.Data;
 using System.Windows.Forms;
-using MySqlConnector;
 namespace Tecnologia
 {
     public partial class PerfilForm : Form
     {
         public PerfilForm() { InitializeComponent(); PrepararTela(); AlteracoesFormulario.Observar(this); }
-        private void PerfilForm_Load(object sender, EventArgs e)
+        private async void PerfilForm_Load(object sender, EventArgs e)
         {
             if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime) return;
-            try
-            {
-                Sessao.Exigir();
-                DataRow dados = Banco.Consultar("SELECT nome,email,telefone FROM usuarios WHERE id=@id",Banco.P("@id",Sessao.Id)).Rows[0];
-                txtNome.Text=dados["nome"].ToString(); txtEmail.Text=dados["email"].ToString(); txtTelefone.Text=dados["telefone"].ToString();
-            } catch(Exception erro) { Tela.Erro(erro); Close(); }
+            await Tela.CarregarAsync(this, this, "", conta =>
+                Banco.Consultar("SELECT nome,email,telefone FROM usuarios WHERE id=@id", Banco.P("@id", conta["id"])).Rows[0],
+                dados =>
+                {
+                    txtNome.Text = dados["nome"].ToString();
+                    txtEmail.Text = dados["email"].ToString();
+                    txtTelefone.Text = dados["telefone"].ToString();
+                    AlteracoesFormulario.MarcarSalvo(this);
+                }, true);
         }
         private void btnSalvar_Click(object sender, EventArgs e)
         {

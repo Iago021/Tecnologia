@@ -1,55 +1,28 @@
-# Adaptação de ProjetoEscola.zip
+# O que foi adaptado de escola2.0.zip
 
-Todos os recursos do projeto de referência foram encaixados na assistência técnica. O ZIP continha duas cópias de parte do projeto; os recursos foram consolidados em uma solução.
+O arquivo contém um projeto de escola em C# Windows Forms. A tabela mostra como os recursos entraram no sistema de assistência técnica Tecnologia.
 
-| Base enviada | Aplicação no Tecnologia |
+| No projeto Escola | No Tecnologia |
 |---|---|
-| `Form1.cs` e menu de cadastros | `PrincipalForm`: menu, áreas do sistema, contadores e troca de usuário |
-| `Aluno_cadastrar.cs` | Inclusão de clientes em `ClientesForm` |
-| `Aluno_alterar.cs` / `alunoAlterar.cs` | Edição do cliente selecionado em `ClientesForm` |
-| `Aluno_visualizar.cs` | Listagem, pesquisa por campo e exportação dos clientes |
-| `Professor_cadastrar.cs` | Cadastro de usuário com perfil Técnico |
-| `profAlterar.cs` | Alteração do técnico selecionado em `UsuariosForm` |
-| `Professor_visualizar.cs` | Listagem, pesquisa e exportação da equipe; filtro por perfil Técnico |
-| `Funcionario_cadastrar.cs` | Cadastro de usuário com perfil Atendente |
-| `funcionarioAlterar.cs` | Alteração do atendente selecionado em `UsuariosForm` |
-| `Funcionario_visualizar.cs` | Listagem, pesquisa e exportação da equipe; filtro por perfil Atendente |
-| Exclusão pelo menu e código | Exclusão da linha selecionada, com confirmação e proteção de vínculos |
-| Nome, e-mail, telefone, RG, CPF, cidade e nascimento | Campos preservados nos cadastros correspondentes; documentos e nascimento opcionais |
-| RA escolar | Código interno do cliente, gerado automaticamente pelo banco |
-| `DateTimePicker` | Nascimento e previsão de entrega |
-| `DataGridView` | Listas de clientes, equipe, aparelhos, peças, ordens e históricos |
-| Pesquisa com `ComboBox` | Seleção de coluna permitida e pesquisa com parâmetros |
-| Microsoft Office Interop | `Exportar.cs`, exportando todas as linhas e cabeçalhos visíveis |
-| `MySqlConnection` e `MySqlCommand` | `Banco.cs`, eventos dos formulários e operações da ordem |
-| `App.config` | Conexão única configurável, sem repetir dados da conexão em cada tela |
-| `Program.cs` | Inicialização do aplicativo, login e saída da conta |
-| `.csproj`, `.Designer.cs`, `.resx` e recursos | Projeto .NET Framework e formulários editáveis no Designer |
-| `packages.config` e pacotes do ZIP | Referências e dependências necessárias, restauradas pelo NuGet; conector MySQL ajustado para o MariaDB |
-| `aluno.sql` | `Banco/tecnologia.sql`, com todas as nove tabelas da assistência técnica |
+| Menu principal (`Form1`) | Painel principal com navegação entre cadastros, manutenção e estoque |
+| Cadastro, alteração, pesquisa e exclusão de alunos | Cadastro de clientes, com edição pela linha selecionada e confirmação antes de excluir |
+| Cadastro, alteração, pesquisa e exclusão de professores e funcionários | Cadastro único de equipe, com perfis Técnico e Atendente |
+| Dados pessoais (nome, e-mail, telefone, RG, CPF, cidade e nascimento) | Campos equivalentes no cadastro de clientes e equipe, conforme o tipo de cadastro |
+| RA e demais códigos dos cadastros | Código interno gerado pelo banco, usado nas tabelas e nas pesquisas |
+| Cadastro, pesquisa e alteração de turmas | Abertura, pesquisa e edição do recebimento de ordens de serviço |
+| Designar ou trocar professor da turma | Designar, trocar ou retirar o técnico responsável por uma ordem aberta, com confirmação ao substituir ou retirar um técnico |
+| Associação dos alunos à turma | Uma ordem liga o aparelho ao cliente dono do equipamento. Cada ordem acompanha um aparelho |
+| Exclusão de uma turma | Cancelamento da ordem aberta com registro no histórico |
+| Exportação CSV e PDF das tabelas | Menu **Exportar...** nos cadastros, nas ordens e nos históricos |
+| Acesso ao MySQL e validações de cadastro | Conexão centralizada no `App.config`, consultas com parâmetros e validação nos formulários |
 
-Os diretórios `.vs`, `bin`, `obj`, os executáveis já compilados e os caches não são código-fonte necessário. O Visual Studio os recria. Os pacotes NuGet são restaurados pelas referências do projeto, sem duplicar bibliotecas no GitHub. Os arquivos vazios de configuração e recursos sem uso não viraram telas ou funções extras.
+## O que ficou de fora
 
-## Funções adaptadas de escola2.0.zip
+- As telas e tabelas escolares de alunos, professores, funcionários, turmas e matrículas. O banco usa a estrutura da assistência técnica.
+- O RA como documento escolar, o ano e o período da turma e a seleção de vários alunos em uma turma. A ordem usa o aparelho, o cliente, a previsão de entrega e o andamento do serviço.
+- Os dados de exemplo, as configurações do banco escolar, a solução `escolaa` e a aparência dos formulários do ZIP.
+- A exclusão definitiva de ordens. O cancelamento permite consultar o histórico e abrir outro atendimento para o aparelho.
 
-| Sistema escolar | Tecnologia |
-|---|---|
-| Exportação CSV e PDF | Menu **Exportar...** nas tabelas e nos históricos |
-| Vínculo de professor com turma | Técnico responsável pela ordem, selecionado na aba **Recebimento** |
-| Vínculo de alunos com turma | Relacionamento já existente entre cliente, aparelho e ordem |
+Login, recuperação de senha, aparelhos, diagnóstico, peças, estoque e entrega fazem parte do Tecnologia. A exportação para o Excel já existia no Tecnologia. O script para o banco é `Banco/tecnologia.sql`.
 
-## Ajustes no código de referência
-
-- A concatenação de texto digitado nos comandos SQL foi substituída por parâmetros.
-- Conexões, comandos e leitores são liberados com `using`.
-- A seleção de código é feita pela tabela, evitando conversões inválidas de campos de texto e exclusão usando o controle em vez de seu valor.
-- Os campos RG e RA que apareciam trocados na alteração da versão interna do ZIP foram ajustados para os dados correspondentes do cliente.
-- O Excel não é criado junto com o formulário. Ele abre ao exportar, e a última linha real também é incluída.
-- Atendentes e técnicos usam a mesma tabela com perfis diferentes, evitando dois cadastros de login para a mesma pessoa.
-- Cadastro e alteração compartilham o formulário para reduzir repetição; o método de uso continua sendo selecionar, editar e salvar.
-
-As telas de aparelhos, estoque, login, conta e ordens completam o escopo que já estava no README do Tecnologia. Não foram mantidas telas de escola dentro do sistema de assistência técnica.
-
-## Conector de banco
-
-O `MySql.Data 26.7.0` do ZIP apresentou erro ao ler as collations do MariaDB 10.11 durante a verificação. Foi substituído por **MySqlConnector 2.3.7**, mantendo `MySqlConnection`, `MySqlCommand`, parâmetros e consultas SQL. A diferença visível no código é `using MySqlConnector;`. O Excel Interop foi mantido. As bibliotecas usadas apenas pelo conector anterior foram removidas das referências.
+Para editar visualmente uma tela, abra `Tecnologia.sln` no Visual Studio, expanda `Tecnologia > Forms` e use **Exibir Designer** no arquivo do formulário (**Shift+F7**). Propriedades, botões, abas e os recursos de cada tela ficam no respectivo `.Designer.cs` e `.resx`. Os arquivos `.cs` e `.Eventos.cs` tratam a lógica e os ajustes de layout feitos durante a execução.

@@ -1,24 +1,22 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySqlConnector;
 namespace Tecnologia
 {
     public partial class PecasForm : Form
     {
         public PecasForm() { InitializeComponent(); PrepararTela(); AlteracoesFormulario.Observar(this); }
         private int codigo;
-        private void PecasForm_Load(object sender, EventArgs e)
+        private async void PecasForm_Load(object sender, EventArgs e)
         {
             if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime) return;
-            try
-            {
-                Sessao.Exigir("Técnico");
 
-                cmbCampo.SelectedIndex = 0;
-                Limpar(); Carregar();
-            } catch (Exception erro) { Tela.Erro(erro); Close(); }
+            cmbCampo.SelectedIndex = 0;
+            Limpar();
+            await CarregarAsync(true);
         }
+
         private void Limpar()
         {
             codigo = 0;
@@ -34,13 +32,20 @@ namespace Tecnologia
             lblEdicao.Text = "Novo cadastro";
             AlteracoesFormulario.MarcarSalvo(this);
         }
-        private void Carregar()
+        private Task CarregarAsync(bool inicial = false)
         {
-            Sessao.Exigir("Técnico");
             // Os nomes das colunas vêm desta lista fixa, nunca do texto digitado.
             string[] campos = { "nome", "codigo", "modelo_compativel", "marca", "tipo" };
             int indice = Math.Max(0,cmbCampo.SelectedIndex);
-            grade.DataSource = Banco.Consultar("SELECT id, codigo, nome, tipo, marca, modelo_compativel, estoque_minimo, valor_compra, valor_venda, ativo, quantidade FROM pecas WHERE " + campos[indice] + " LIKE @busca ORDER BY id DESC", Banco.P("@busca", "%" + txtBusca.Text.Trim() + "%"));
+            string busca = txtBusca.Text.Trim();
+            string campo = campos[indice];
+            return Tela.CarregarAsync(this, this, "Técnico", _ =>
+                Banco.Consultar("SELECT id, codigo, nome, tipo, marca, modelo_compativel, estoque_minimo, valor_compra, valor_venda, ativo, quantidade FROM pecas WHERE " + campo + " LIKE @busca ORDER BY id DESC", Banco.P("@busca", "%" + busca + "%")), ExibirLista, inicial);
+        }
+
+        private void ExibirLista(DataTable dados)
+        {
+            grade.DataSource = dados;
             grade.Columns["id"].HeaderText = "Código";
             grade.Columns["codigo"].HeaderText = "Código da peça";
             grade.Columns["nome"].HeaderText = "Nome da peça";
@@ -66,8 +71,10 @@ namespace Tecnologia
             Limpar();
             tabcontrol3.SelectedIndex = 0;
         }
-        private void btnPesquisar_Click(object sender, EventArgs e)
-        { try { Carregar(); } catch (Exception erro) { Tela.Erro(erro); } }
+        private async void btnPesquisar_Click(object sender, EventArgs e)
+        {
+            await CarregarAsync();
+        }
         private void btnExportar_Click(object sender, EventArgs e)
         { try { Sessao.Exigir("Técnico"); Exportar.Menu(btnExportar, grade, "Peças e estoque"); } catch (Exception erro) { Tela.Erro(erro); } }
         private void btnEditar_Click(object sender, EventArgs e)
@@ -95,7 +102,7 @@ namespace Tecnologia
                 tabcontrol3.SelectedIndex = 1;
             } catch (Exception erro) { Tela.Erro(erro); }
         }
-        private void btnSalvar_Click(object sender, EventArgs e)
+        private async void btnSalvar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -119,11 +126,11 @@ namespace Tecnologia
                     Banco.P("@id",codigo));
                 Limpar();
                 tabcontrol3.SelectedIndex = 0;
-                Carregar();
-                MessageBox.Show("Cadastro salvo.");
+                await CarregarAsync();
+                if (!IsDisposed) MessageBox.Show(this, "Cadastro salvo.");
             } catch (Exception erro) { Tela.Erro(erro); }
         }
-        private void btnExcluir_Click(object sender, EventArgs e)
+        private async void btnExcluir_Click(object sender, EventArgs e)
         {
             try
             {
@@ -132,16 +139,17 @@ namespace Tecnologia
                 if (!AlteracoesFormulario.PodeDescartar(this)) return;
                 if (!Tela.Confirmar("Excluir o cadastro " + selecionado + "?")) return;
                 Banco.Executar("DELETE FROM pecas WHERE id=@id",Banco.P("@id",selecionado));
-                Limpar(); Carregar();
+                Limpar();
+                await CarregarAsync();
             } catch (Exception erro) { Tela.Erro(erro); }
         }
-        private void btnMovimentar_Click(object sender, EventArgs e)
+        private async void btnMovimentar_Click(object sender, EventArgs e)
         {
             try
             {
                 Sessao.Exigir("Técnico");
                 using (MovimentoForm janela = new MovimentoForm(Tela.Selecionado(grade))) janela.ShowDialog(TopLevelControl);
-                Carregar();
+                await CarregarAsync();
             } catch (Exception erro) { Tela.Erro(erro); }
         }
         private void btnHistorico_Click(object sender, EventArgs e)

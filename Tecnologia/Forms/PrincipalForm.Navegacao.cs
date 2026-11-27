@@ -26,20 +26,20 @@ namespace Tecnologia
             ExibirDashboard();
         }
 
-        private void ExibirDashboard()
+        private async void ExibirDashboard()
         {
             conteudo.RowStyles[0].Height = 0;
             menuCadastros.Visible = false;
             dashboard.Visible = true;
             dashboard.BringToFront();
             MarcarNavegacao(btnAtualizar);
-            Atualizar();
+            await AtualizarAsync();
         }
 
         private void MostrarCadastros()
         {
             if (!Sessao.Atendente) return;
-            Abrir(new ClientesForm());
+            MostrarPagina(new ClientesForm());
         }
 
         private void MostrarPagina(Form janela)

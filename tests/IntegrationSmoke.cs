@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -27,8 +28,8 @@ internal static class IntegrationSmoke
             db.Open();
             using (var cmd = new MySqlCommand(schema, db)) cmd.ExecuteNonQuery();
         }
-        Check(Contas.Criar("Atendente", "admin@example.com", "admin@example.com", Password, Password), "Primeira conta ativa");
-        Check(!Contas.Criar("Técnico", "tech@example.com", "tech@example.com", Password, Password), "Segunda conta pendente");
+        CriarPelaTela("Atendente", "admin@example.com", true);
+        CriarPelaTela("Técnico", "tech@example.com", false);
         int admin = Id("admin@example.com"), tech = Id("tech@example.com");
         Check(!Convert.ToBoolean(Banco.Valor("SELECT ativo FROM usuarios WHERE id=@id", Banco.P("@id", tech))), "Sem ativação pública");
         Fails(() => Contas.Criar("Duplicado", "admin@example.com", "admin@example.com", Password, Password), "Cadastro duplicado", "Duplicate");
@@ -77,7 +78,32 @@ internal static class IntegrationSmoke
         int device = Convert.ToInt32(Banco.Valor("SELECT MAX(id) FROM aparelhos"));
         Banco.Executar("INSERT INTO pecas(codigo,nome,tipo,marca,modelo_compativel,valor_venda) VALUES('P1','Peça teste','Celular','*','*',50)");
         int part = Convert.ToInt32(Banco.Valor("SELECT MAX(id) FROM pecas"));
+        int cancelada = OperacoesOrdem.Abrir(device, "Abertura indevida", null, "");
+        OperacoesOrdem.AtribuirTecnico(cancelada, tech);
+        Login(tech);
+        Fails(() => OperacoesOrdem.Cancelar(cancelada), "Cancelamento exige atendente", "Atendente");
+        Login(admin);
+        OperacoesOrdem.Cancelar(cancelada);
+        Check(Convert.ToInt32(Banco.Valor(@"SELECT COUNT(*) FROM historico_status
+            WHERE ordem_id=@id AND usuario_id=@usuario AND status_anterior='Aberta' AND status_novo='Cancelada'",
+            Banco.P("@id", cancelada), Banco.P("@usuario", admin))) == 1, "Cancelamento preserva o histórico");
+        Fails(() => OperacoesOrdem.Cancelar(cancelada), "Cancelamento repetido bloqueado", "Apenas ordens abertas");
+        Login(tech);
+        Fails(() => OperacoesOrdem.Diagnosticar(cancelada, "D", "S", "Em manutenção", 100, 0),
+            "Diagnóstico após cancelamento bloqueado", "cancelada");
+        Login(admin);
         int order = OperacoesOrdem.Abrir(device, "Falha de teste", null, "");
+        DataRow recebimento = Banco.Consultar(@"SELECT problema_relatado, previsao_entrega, observacoes
+            FROM ordens_servico WHERE id=@id", Banco.P("@id", order)).Rows[0];
+        DateTime previsao = DateTime.Today.AddDays(2);
+        OperacoesOrdem.EditarRecebimento(order, "Problema corrigido", previsao, "Observação revisada", recebimento);
+        DataRow atualizado = Banco.Consultar(@"SELECT problema_relatado, previsao_entrega, observacoes, aparelho_id
+            FROM ordens_servico WHERE id=@id", Banco.P("@id", order)).Rows[0];
+        Check((string)atualizado["problema_relatado"] == "Problema corrigido" && (DateTime)atualizado["previsao_entrega"] == previsao
+            && (string)atualizado["observacoes"] == "Observação revisada" && (int)atualizado["aparelho_id"] == device,
+            "Recebimento é atualizado preservando o aparelho");
+        Fails(() => OperacoesOrdem.EditarRecebimento(order, "Alteração antiga", null, "", recebimento),
+            "Edição desatualizada não sobrescreve recebimento", "recebimento foi alterado");
         Fails(() => OperacoesOrdem.Abrir(device, "Duplicada", null, ""), "Ordem duplicada negada", "já possui");
         Fails(() => Aparelhos.Salvar(device, client, "Celular", "Alterada", "Modelo", "", "", "", "", ""),
             "Aparelho com ordem preservado", "fazem parte do histórico");
@@ -86,6 +112,8 @@ internal static class IntegrationSmoke
         OperacoesOrdem.AtribuirTecnico(order, tech);
         Check(Convert.ToInt32(Banco.Valor("SELECT tecnico_id FROM ordens_servico WHERE id=@id", Banco.P("@id", order))) == tech, "Atribuição mantém técnico na ordem");
         Fails(() => SalvarTecnico(tech, false), "Técnico de ordem aberta não pode ser desativado", "ordens em andamento");
+        Fails(() => OperacoesOrdem.AtribuirTecnico(order, 0, 0),
+            "Atribuição desatualizada não remove técnico", "responsável mudou");
         OperacoesOrdem.AtribuirTecnico(order, 0);
         Check(Banco.Valor("SELECT tecnico_id FROM ordens_servico WHERE id=@id", Banco.P("@id", order)) == DBNull.Value, "Ordem aberta pode ficar sem responsável");
         OperacoesOrdem.AtribuirTecnico(order, tech);
@@ -108,13 +136,21 @@ internal static class IntegrationSmoke
         Fails(() => OperacoesOrdem.UsarPeca(order, part, 1), "Ordem concluída bloqueada", "concluída");
         Login(admin);
         Fails(() => OperacoesOrdem.AtribuirTecnico(order, 0), "Ordem concluída bloqueia atribuição", "antes do diagnóstico");
+        Fails(() => OperacoesOrdem.EditarRecebimento(order, "Tardia", null, "", atualizado),
+            "Ordem concluída bloqueia edição de recebimento", "Apenas ordens abertas");
+        Fails(() => OperacoesOrdem.Cancelar(order), "Ordem concluída bloqueia cancelamento", "Apenas ordens abertas");
+        SalvarTecnico(tech, false);
+        Check(!Convert.ToBoolean(Banco.Valor("SELECT ativo FROM usuarios WHERE id=@id", Banco.P("@id", tech))),
+            "Ordem cancelada não impede desativar o técnico");
+        SalvarTecnico(tech, true);
         OperacoesOrdem.Entregar(order);
         Check(Convert.ToString(Banco.Valor("SELECT status FROM ordens_servico WHERE id=@id", Banco.P("@id", order))) == "Entregue", "Entrega concluída");
         Fails(() => OperacoesOrdem.Entregar(order), "Entrega repetida negada", "Apenas serviços concluídos");
 
+        VerificarCarregamento(admin, tech, client, order, part);
         using (var users = new UsuariosForm())
         {
-            users.Show(); Application.DoEvents();
+            MostrarCarregado(users);
             Field<TextBox>(users, "camposenha").Text = "NaoReaproveitar";
             AlteracoesFormulario.MarcarSalvo(users);
             Invoke(users, "btnEditar_Click");
@@ -130,21 +166,24 @@ internal static class IntegrationSmoke
         }
         using (var orders = new OrdensForm())
         {
-            orders.Show(); Application.DoEvents();
+            MostrarCarregado(orders);
             Field<ComboBox>(orders, "cmbStatus").SelectedIndex = 1;
             Check(!AlteracoesFormulario.TemAlteracoes(orders), "Filtro não é edição de ordem");
         }
         using (var cadastro = new CriarContaForm())
         {
+            cadastro.ClientSize = new Size(480, 340);
             cadastro.Show();
             Application.DoEvents();
             Field<CheckBox>(cadastro, "mostrarSenha").Checked = true;
             Check(!Field<TextBox>(cadastro, "senha").UseSystemPasswordChar &&
                 !Field<TextBox>(cadastro, "confirmarSenha").UseSystemPasswordChar, "Mostrar senhas controla os dois campos");
-            Invoke(cadastro, "Criar_Click");
-            DateTime limite = DateTime.UtcNow.AddSeconds(8);
             Label erro = Field<Label>(cadastro, "lblErro");
             Button criar = Field<Button>(cadastro, "criar");
+            Check(cadastro.RectangleToScreen(cadastro.ClientRectangle).Contains(criar.RectangleToScreen(criar.ClientRectangle)),
+                "Botão Criar conta acessível em janela compacta");
+            criar.PerformClick();
+            DateTime limite = DateTime.UtcNow.AddSeconds(8);
             while ((!erro.Visible || !criar.Enabled) && DateTime.UtcNow < limite)
             {
                 Application.DoEvents();
@@ -152,6 +191,8 @@ internal static class IntegrationSmoke
             }
             Check(erro.Visible && erro.Text.Contains("Nome"), "Cadastro incompleto mostra o erro na tela");
             Check(criar.Enabled, "Cadastro libera nova tentativa");
+            Check(cadastro.RectangleToScreen(cadastro.ClientRectangle).Contains(erro.RectangleToScreen(erro.ClientRectangle)),
+                "Erro fica acessível em janela compacta");
         }
         Banco.Executar(schema);
         Check(Id("admin@example.com") == admin &&
@@ -176,6 +217,115 @@ internal static class IntegrationSmoke
         Console.WriteLine("PASS INTEGRATION: " + checks + " verificações com MySQL isolado; nenhum e-mail externo enviado.");
         return 0;
     }
+    private static void VerificarCarregamento(int admin, int tech, int client, int order, int part)
+    {
+        Login(admin);
+        using (var principal = new PrincipalForm())
+        {
+            principal.Show();
+            var painel = Field<Control>(principal, "dashboard");
+            Aguardar(() => painel.Enabled);
+            Check(Field<Button>(principal, "btnConcluidas").Text == "Concluídas: 1", "Dashboard exibe os indicadores");
+        }
+
+        using (var clientes = new ClientesForm())
+        {
+            MostrarCarregado(clientes);
+            var grade = Field<DataGridView>(clientes, "grade");
+            Check(Convert.ToInt32(grade.Rows[0].Cells["id"].Value) == client, "Clientes carrega a tabela");
+            Field<TextBox>(clientes, "txtBusca").Text = "nenhum resultado";
+            Field<Button>(clientes, "btnPesquisar").PerformClick();
+            Aguardar(() => clientes.Enabled);
+            Check(grade.Rows.Count == 0, "Pesquisa substitui os resultados");
+        }
+        using (var aparelhos = new AparelhosForm())
+        {
+            MostrarCarregado(aparelhos);
+            Check(Field<DataGridView>(aparelhos, "grade").Rows.Count == 1, "Aparelhos carrega a tabela");
+        }
+        using (var recebimento = new AbrirOrdemForm())
+        {
+            MostrarCarregado(recebimento);
+            Check(Field<ComboBox>(recebimento, "cmbAparelho").Items.Count == 1, "Nova ordem carrega aparelhos do cliente");
+        }
+        using (var detalhe = new OrdemForm(order))
+        {
+            MostrarCarregado(detalhe);
+            Check(Field<Label>(detalhe, "lblTitulo").Text.Contains("Entregue"), "Detalhes exibem o status da ordem");
+        }
+        using (var historico = new HistoricoForm(order, true))
+        {
+            MostrarCarregado(historico);
+            Check(Field<DataGridView>(historico, "grade").Rows.Count > 0, "Histórico exibe mudanças da ordem");
+        }
+        using (var perfil = new PerfilForm())
+        {
+            MostrarCarregado(perfil);
+            Check(Field<TextBox>(perfil, "txtEmail").Text == "admin@example.com", "Perfil exibe a conta atual");
+        }
+
+        Login(tech);
+        using (var pecas = new PecasForm())
+        {
+            MostrarCarregado(pecas);
+            Check(Field<DataGridView>(pecas, "grade").Rows.Count == 1, "Estoque exibe as peças");
+        }
+        using (var movimento = new MovimentoForm(part))
+        {
+            MostrarCarregado(movimento);
+            Check(Field<Label>(movimento, "lblPeca").Text.Contains("Peça teste"), "Movimentação exibe a peça e o estoque atual");
+        }
+
+        Login(admin);
+        using (var janela = new Form())
+        {
+            janela.Show();
+            bool interfaceRespondeu = false;
+            bool terminou = false;
+            var tarefa = Tela.CarregarAsync(janela, janela, "Atendente", _ => Banco.Valor("SELECT SLEEP(1)"),
+                resultado => terminou = Convert.ToInt32(resultado) == 0);
+            janela.BeginInvoke(new Action(() => interfaceRespondeu = !tarefa.IsCompleted));
+            Aguardar(() => tarefa.IsCompleted);
+            Check(interfaceRespondeu && terminou && janela.Enabled, "Interface responde enquanto o MySQL executa uma consulta lenta");
+        }
+    }
+
+    private static void MostrarCarregado(Form janela)
+    {
+        janela.Show();
+        Aguardar(() => janela.Enabled && janela.Visible);
+    }
+
+    private static void Aguardar(Func<bool> pronto)
+    {
+        DateTime limite = DateTime.UtcNow.AddSeconds(15);
+        while (!pronto() && DateTime.UtcNow < limite)
+        {
+            Application.DoEvents();
+            System.Threading.Thread.Sleep(10);
+        }
+        if (!pronto()) throw new Exception("FAIL: tempo limite de carregamento da tela.");
+    }
+
+    private static void CriarPelaTela(string nome, string email, bool primeiraConta)
+    {
+        using (var cadastro = new CriarContaForm())
+        using (var limite = new Timer { Interval = 15000 })
+        {
+            Field<TextBox>(cadastro, "nome").Text = nome;
+            Field<TextBox>(cadastro, "email").Text = email;
+            Field<TextBox>(cadastro, "confirmarEmail").Text = email;
+            Field<TextBox>(cadastro, "senha").Text = Password;
+            Field<TextBox>(cadastro, "confirmarSenha").Text = Password;
+            cadastro.Shown += delegate { Field<Button>(cadastro, "criar").PerformClick(); };
+            limite.Tick += delegate { limite.Stop(); cadastro.Hide(); };
+            limite.Start();
+
+            Check(cadastro.ShowDialog() == DialogResult.OK && cadastro.EmailCriado == email && cadastro.PrimeiraConta == primeiraConta,
+                primeiraConta ? "Primeira conta criada pela tela e informada como ativa" : "Segunda conta criada pela tela e informada como pendente");
+        }
+    }
+
     private static T Field<T>(object obj, string name) { return (T)obj.GetType().GetField(name, BindingFlags.Instance | BindingFlags.NonPublic).GetValue(obj); }
     private static void Invoke(object obj, string name) { obj.GetType().GetMethod(name, BindingFlags.Instance | BindingFlags.NonPublic).Invoke(obj, new object[] { obj, EventArgs.Empty }); }
     private static void SalvarTecnico(int id, bool ativo)
