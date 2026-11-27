@@ -170,30 +170,7 @@ internal static class IntegrationSmoke
             Field<ComboBox>(orders, "cmbStatus").SelectedIndex = 1;
             Check(!AlteracoesFormulario.TemAlteracoes(orders), "Filtro não é edição de ordem");
         }
-        using (var cadastro = new CriarContaForm())
-        {
-            cadastro.ClientSize = new Size(480, 340);
-            cadastro.Show();
-            Application.DoEvents();
-            Field<CheckBox>(cadastro, "mostrarSenha").Checked = true;
-            Check(!Field<TextBox>(cadastro, "senha").UseSystemPasswordChar &&
-                !Field<TextBox>(cadastro, "confirmarSenha").UseSystemPasswordChar, "Mostrar senhas controla os dois campos");
-            Label erro = Field<Label>(cadastro, "lblErro");
-            Button criar = Field<Button>(cadastro, "criar");
-            Check(cadastro.RectangleToScreen(cadastro.ClientRectangle).Contains(criar.RectangleToScreen(criar.ClientRectangle)),
-                "Botão Criar conta acessível em janela compacta");
-            criar.PerformClick();
-            DateTime limite = DateTime.UtcNow.AddSeconds(8);
-            while ((!erro.Visible || !criar.Enabled) && DateTime.UtcNow < limite)
-            {
-                Application.DoEvents();
-                System.Threading.Thread.Sleep(10);
-            }
-            Check(erro.Visible && erro.Text.Contains("Nome"), "Cadastro incompleto mostra o erro na tela");
-            Check(criar.Enabled, "Cadastro libera nova tentativa");
-            Check(cadastro.RectangleToScreen(cadastro.ClientRectangle).Contains(erro.RectangleToScreen(erro.ClientRectangle)),
-                "Erro fica acessível em janela compacta");
-        }
+        VerificarCadastroIncompleto();
         Banco.Executar(schema);
         Check(Id("admin@example.com") == admin &&
             Convert.ToString(Banco.Valor("SELECT status FROM ordens_servico WHERE id=@id", Banco.P("@id", order))) == "Entregue",
@@ -305,6 +282,45 @@ internal static class IntegrationSmoke
             System.Threading.Thread.Sleep(10);
         }
         if (!pronto()) throw new Exception("FAIL: tempo limite de carregamento da tela.");
+    }
+
+    private static void VerificarCadastroIncompleto()
+    {
+        using (var cadastro = new CriarContaForm())
+        using (var verificar = new Timer { Interval = 25 })
+        {
+            cadastro.ClientSize = new Size(480, 340);
+            Label erro = Field<Label>(cadastro, "lblErro");
+            Button criar = Field<Button>(cadastro, "criar");
+            bool senhasVisiveis = false;
+            bool botaoVisivel = false;
+            bool erroVisivel = false;
+            bool erroDentroDaJanela = false;
+            DateTime limite = DateTime.UtcNow.AddSeconds(10);
+            cadastro.Shown += delegate
+            {
+                Field<CheckBox>(cadastro, "mostrarSenha").Checked = true;
+                senhasVisiveis = !Field<TextBox>(cadastro, "senha").UseSystemPasswordChar &&
+                    !Field<TextBox>(cadastro, "confirmarSenha").UseSystemPasswordChar;
+                botaoVisivel = cadastro.RectangleToScreen(cadastro.ClientRectangle).Contains(criar.RectangleToScreen(criar.ClientRectangle));
+                criar.PerformClick();
+                verificar.Start();
+            };
+            verificar.Tick += delegate
+            {
+                if ((!erro.Visible || !criar.Enabled) && DateTime.UtcNow < limite) return;
+                verificar.Stop();
+                erroVisivel = erro.Visible && erro.Text.Contains("Nome");
+                erroDentroDaJanela = cadastro.RectangleToScreen(cadastro.ClientRectangle).Contains(erro.RectangleToScreen(erro.ClientRectangle));
+                cadastro.DialogResult = DialogResult.Cancel;
+            };
+            cadastro.ShowDialog();
+            Check(senhasVisiveis, "Mostrar senhas controla os dois campos");
+            Check(botaoVisivel, "Botão Criar conta acessível em janela compacta");
+            Check(erroVisivel, "Cadastro incompleto mostra o erro na tela");
+            Check(criar.Enabled, "Cadastro libera nova tentativa");
+            Check(erroDentroDaJanela, "Erro fica acessível em janela compacta");
+        }
     }
 
     private static void CriarPelaTela(string nome, string email, bool primeiraConta)

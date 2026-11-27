@@ -19,6 +19,8 @@ namespace Tecnologia
             area.UseWaitCursor = true;
             try
             {
+                // Load também pode ocorrer durante a criação dos controles da janela.
+                await Task.Yield();
                 T dados = await Task.Run(() => consultar(Sessao.ConsultarAtiva(usuario, perfil)));
                 if (!janela.IsDisposed && Sessao.Id == usuario) exibir(dados);
             }
