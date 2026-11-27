@@ -37,6 +37,8 @@ Importe novamente **Banco/tecnologia.sql** para criar a nova tabela de recupera�
 | Minha conta | Nome, e-mail, telefone e senha | Nome, e-mail, telefone e senha |
 | Exportação | Listas acessíveis ao perfil | Listas acessíveis ao perfil |
 
+Em **Cadastros > Equipe**, selecione a conta e clique em **Trocar perfil** para alternar entre Atendente e Técnico. Se você trocar o perfil da sua própria conta, o sistema volta ao login. Para fazer isso, precisa haver outro atendente ativo com acesso à gestão da equipe.
+
 Os cadastros têm **Novo**, **Salvar**, **Editar**, **Excluir**, pesquisa por campo e **Exportar...**. Para alterar, selecione a linha, clique em **Editar**, mude os campos e salve. Na equipe, a senha vazia durante a edição mantém a senha existente.
 
 ## Fluxo de atendimento
@@ -56,6 +58,10 @@ Os cadastros têm **Novo**, **Salvar**, **Editar**, **Excluir**, pesquisa por ca
 | Aguardando peça | Serviço aguardando componente |
 | Concluída | Conserto finalizado e equipamento pronto para entrega |
 | Entregue | Equipamento devolvido ao cliente |
+
+Na aba **Recebimento**, o atendente pode corrigir o problema relatado, as observações e a previsão de entrega de uma ordem aberta. A troca ou remoção do técnico responsável pede confirmação. **Cancelar ordem** encerra uma ordem aberta, registra o cancelamento no histórico e libera o aparelho para um novo atendimento. Use o filtro **Cancelada** em **Manutenção** para consultar esses registros.
+
+Se o banco já existe, reimporte `Banco/tecnologia.sql` antes de executar esta versão para disponibilizar o status **Cancelada** e preservar os dados cadastrados.
 
 O painel possui atalhos para ordens abertas, serviços em andamento, concluídos e aguardando entrega. **Concluídas** inclui as ordens já entregues; **Em manutenção** inclui as que aguardam peças. O histórico registra cada mudança de status com usuário e data.
 

@@ -30,27 +30,36 @@ namespace Tecnologia
 
         public static void Exigir(string perfil = "")
         {
+            DataRow conta = ConsultarAtiva(Id, perfil);
+            Nome = conta["nome"].ToString();
+            Perfil = conta["perfil"].ToString();
+        }
+
+        public static DataRow ConsultarAtiva(int id, string perfil)
+        {
             DataTable dados = Banco.Consultar(
-                "SELECT nome,perfil FROM usuarios WHERE id=@id AND ativo=1", Banco.P("@id", Id));
-            Conferir(dados, perfil);
+                "SELECT id,nome,perfil FROM usuarios WHERE id=@id AND ativo=1", Banco.P("@id", id));
+            return Conferir(dados, perfil);
         }
 
         public static void Exigir(MySqlConnection conexao, MySqlTransaction transacao, string perfil)
         {
             DataTable dados = Banco.Consultar(conexao, transacao,
                 "SELECT nome,perfil FROM usuarios WHERE id=@id AND ativo=1 FOR UPDATE", Banco.P("@id", Id));
-            Conferir(dados, perfil);
+            DataRow conta = Conferir(dados, perfil);
+            Nome = conta["nome"].ToString();
+            Perfil = conta["perfil"].ToString();
         }
 
-        private static void Conferir(DataTable dados, string perfil)
+        private static DataRow Conferir(DataTable dados, string perfil)
         {
             if (dados.Rows.Count == 0)
                 throw new InvalidOperationException("Sua conta está inativa. Entre novamente.");
 
-            Nome = dados.Rows[0]["nome"].ToString();
-            Perfil = dados.Rows[0]["perfil"].ToString();
-            if (perfil != "" && Perfil != perfil)
+            DataRow conta = dados.Rows[0];
+            if (perfil != "" && conta["perfil"].ToString() != perfil)
                 throw new InvalidOperationException("Esta função é permitida apenas ao perfil " + perfil + ".");
+            return conta;
         }
     }
 }

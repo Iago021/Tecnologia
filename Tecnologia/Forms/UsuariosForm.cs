@@ -1,24 +1,22 @@
 using System;
 using System.Data;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySqlConnector;
 namespace Tecnologia
 {
     public partial class UsuariosForm : Form
     {
         public UsuariosForm() { InitializeComponent(); PrepararTela(); AlteracoesFormulario.Observar(this); }
         private int codigo;
-        private void UsuariosForm_Load(object sender, EventArgs e)
+        private async void UsuariosForm_Load(object sender, EventArgs e)
         {
             if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime) return;
-            try
-            {
-                Sessao.Exigir("Atendente");
 
-                cmbCampo.SelectedIndex = 0;
-                Limpar(); Carregar();
-            } catch (Exception erro) { Tela.Erro(erro); Close(); }
+            cmbCampo.SelectedIndex = 0;
+            Limpar();
+            await CarregarAsync(true);
         }
+
         private void Limpar()
         {
             codigo = 0;
@@ -35,16 +33,21 @@ namespace Tecnologia
             lblEdicao.Text = "Novo cadastro";
             AlteracoesFormulario.MarcarSalvo(this);
         }
-        private void Carregar()
+        private Task CarregarAsync(bool inicial = false)
         {
-            Sessao.Exigir("Atendente");
             // Os nomes das colunas vêm desta lista fixa, nunca do texto digitado.
             string[] campos = { "nome", "id", "email", "perfil", "cpf", "rg", "telefone", "cidade", "data_nascimento" };
             int indice = Math.Max(0,cmbCampo.SelectedIndex);
             string campo = campos[indice];
             if (campo == "data_nascimento") campo = "DATE_FORMAT(data_nascimento, '%d/%m/%Y')";
             string busca = txtBusca.Text.Trim();
-            grade.DataSource = Banco.Consultar("SELECT id, nome, email, telefone, cpf, rg, cidade, data_nascimento, perfil, ativo, data_cadastro FROM usuarios WHERE (@vazia OR " + campo + " LIKE @busca) ORDER BY id DESC", Banco.P("@vazia", busca == ""), Banco.P("@busca", "%" + busca + "%"));
+            return Tela.CarregarAsync(this, this, "Atendente", _ =>
+                Banco.Consultar("SELECT id, nome, email, telefone, cpf, rg, cidade, data_nascimento, perfil, ativo, data_cadastro FROM usuarios WHERE (@vazia OR " + campo + " LIKE @busca) ORDER BY id DESC", Banco.P("@vazia", busca == ""), Banco.P("@busca", "%" + busca + "%")), ExibirLista, inicial);
+        }
+
+        private void ExibirLista(DataTable dados)
+        {
+            grade.DataSource = dados;
             grade.Columns["id"].HeaderText = "Código";
             grade.Columns["nome"].HeaderText = "Nome";
             grade.Columns["email"].HeaderText = "E-mail de acesso";
@@ -70,8 +73,10 @@ namespace Tecnologia
             Limpar();
             tabcontrol3.SelectedIndex = 0;
         }
-        private void btnPesquisar_Click(object sender, EventArgs e)
-        { try { Carregar(); } catch (Exception erro) { Tela.Erro(erro); } }
+        private async void btnPesquisar_Click(object sender, EventArgs e)
+        {
+            await CarregarAsync();
+        }
         private void btnExportar_Click(object sender, EventArgs e)
         { try { Sessao.Exigir("Atendente"); Exportar.Menu(btnExportar, grade, "Equipe"); } catch (Exception erro) { Tela.Erro(erro); } }
         private void btnEditar_Click(object sender, EventArgs e)
@@ -101,7 +106,7 @@ namespace Tecnologia
                 tabcontrol3.SelectedIndex = 1;
             } catch (Exception erro) { Tela.Erro(erro); }
         }
-        private void btnSalvar_Click(object sender, EventArgs e)
+        private async void btnSalvar_Click(object sender, EventArgs e)
         {
             try
             {
@@ -110,11 +115,44 @@ namespace Tecnologia
                     campoperfil.Text, campoativo.Checked, camposenha.Text);
                 Limpar();
                 tabcontrol3.SelectedIndex = 0;
-                Carregar();
-                MessageBox.Show("Cadastro salvo.");
+                await CarregarAsync();
+                if (!IsDisposed) MessageBox.Show(this, "Cadastro salvo.");
             } catch (Exception erro) { Tela.Erro(erro); }
         }
-        private void btnExcluir_Click(object sender, EventArgs e)
+        private async void btnTrocarPerfil_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int selecionado = Tela.Selecionado(grade);
+                string perfil = Convert.ToString(grade.CurrentRow.Cells["perfil"].Value);
+                string nome = Convert.ToString(grade.CurrentRow.Cells["nome"].Value);
+                string novoPerfil = perfil == "Atendente" ? "Técnico" : "Atendente";
+                bool contaAtual = selecionado == Sessao.Id;
+                string confirmacao = "Alterar o perfil de " + nome + " para " + novoPerfil + "?";
+                if (contaAtual) confirmacao += Environment.NewLine + "Você voltará à tela de login.";
+                if (!AlteracoesFormulario.PodeDescartar(this) || !Tela.Confirmar(confirmacao)) return;
+
+                Contas.TrocarPerfil(selecionado, perfil);
+                Limpar();
+                if (contaAtual && TopLevelControl is PrincipalForm principal)
+                {
+                    Sessao.TrocarUsuario = true;
+                    principal.Close();
+                    return;
+                }
+
+                if (contaAtual)
+                {
+                    Close();
+                    return;
+                }
+
+                await CarregarAsync();
+            }
+            catch (Exception erro) { Tela.Erro(erro); }
+        }
+
+        private async void btnExcluir_Click(object sender, EventArgs e)
         {
             try
             {
@@ -124,7 +162,8 @@ namespace Tecnologia
                 if (!AlteracoesFormulario.PodeDescartar(this)) return;
                 if (!Tela.Confirmar("Excluir o cadastro " + selecionado + "?")) return;
                 Contas.ExcluirUsuario(selecionado);
-                Limpar(); Carregar();
+                Limpar();
+                await CarregarAsync();
             } catch (Exception erro) { Tela.Erro(erro); }
         }
     }

@@ -1,7 +1,5 @@
 using System;
-using System.Data;
 using System.Windows.Forms;
-using MySqlConnector;
 namespace Tecnologia
 {
     public partial class MovimentoForm : Form
@@ -9,14 +7,16 @@ namespace Tecnologia
         public MovimentoForm() { InitializeComponent(); PrepararTela(); AlteracoesFormulario.Observar(this); }
         private int peca;
         public MovimentoForm(int codigo) : this() { peca=codigo; }
-        private void MovimentoForm_Load(object sender, EventArgs e)
+        private async void MovimentoForm_Load(object sender, EventArgs e)
         {
             if (DesignMode || System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime) return;
-            try
+            cmbTipo.SelectedIndex = 0;
+            await Tela.CarregarAsync(this, this, "Técnico", _ =>
             {
-                Sessao.Exigir("Técnico"); cmbTipo.SelectedIndex=0;
-                lblPeca.Text=Convert.ToString(Banco.Valor("SELECT CONCAT(codigo,' - ',nome,' | Estoque: ',quantidade) FROM pecas WHERE id=@id",Banco.P("@id",peca)));
-            } catch(Exception erro) { Tela.Erro(erro); Close(); }
+                object descricao = Banco.Valor("SELECT CONCAT(codigo,' - ',nome,' | Estoque: ',quantidade) FROM pecas WHERE id=@id", Banco.P("@id", peca));
+                if (descricao == null) throw new InvalidOperationException("Peça não encontrada.");
+                return descricao.ToString();
+            }, descricao => lblPeca.Text = descricao, true);
         }
         private void btnSalvar_Click(object sender, EventArgs e)
         {

@@ -129,6 +129,31 @@ namespace Tecnologia
             }
         }
 
+        public static void TrocarPerfil(int id, string perfilEsperado)
+        {
+            using (MySqlConnection conexao = Banco.Abrir())
+            using (MySqlTransaction transacao = conexao.BeginTransaction())
+            {
+                Sessao.Exigir(conexao, transacao, "Atendente");
+                string atual = Banco.Valor(conexao, transacao,
+                    "SELECT perfil FROM usuarios WHERE id=@id FOR UPDATE", Banco.P("@id", id)) as string;
+                if (atual != perfilEsperado || (atual != "Atendente" && atual != "Técnico"))
+                    throw new InvalidOperationException("A conta ou o perfil mudou. Atualize a lista e tente novamente.");
+
+                if (id == Sessao.Id && Banco.Valor(conexao, transacao,
+                    "SELECT id FROM usuarios WHERE perfil='Atendente' AND ativo=1 AND id<>@id LIMIT 1 FOR UPDATE",
+                    Banco.P("@id", id)) == null)
+                    throw new InvalidOperationException("Cadastre ou ative outro atendente antes de mudar o perfil da sua conta.");
+
+                if (atual == "Técnico") ConferirOrdensDoTecnico(conexao, transacao, id);
+                string novoPerfil = atual == "Atendente" ? "Técnico" : "Atendente";
+                Banco.Executar(conexao, transacao, "UPDATE usuarios SET perfil=@perfil WHERE id=@id",
+                    Banco.P("@perfil", novoPerfil), Banco.P("@id", id));
+                RecuperacaoSenha.InvalidarCodigo(conexao, transacao, id);
+                transacao.Commit();
+            }
+        }
+
         public static void ExcluirUsuario(int id)
         {
             if (id == Sessao.Id)
@@ -149,7 +174,7 @@ namespace Tecnologia
         {
             Banco.Valor(conexao, transacao, "SELECT id FROM usuarios WHERE id=@id FOR UPDATE", Banco.P("@id", id));
             object ordem = Banco.Valor(conexao, transacao,
-                "SELECT id FROM ordens_servico WHERE tecnico_id=@id AND status NOT IN ('Concluída','Entregue') LIMIT 1",
+                "SELECT id FROM ordens_servico WHERE tecnico_id=@id AND status NOT IN ('Concluída','Entregue','Cancelada') LIMIT 1",
                 Banco.P("@id", id));
             if (ordem != null)
                 throw new InvalidOperationException("Este técnico possui ordens em andamento. Conclua os serviços ou remova a atribuição das ordens abertas.");

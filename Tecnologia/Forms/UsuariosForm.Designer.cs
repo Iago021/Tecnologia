@@ -33,6 +33,7 @@ namespace Tecnologia
             this.flowlayoutpanel7 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
+            this.btnTrocarPerfil = new System.Windows.Forms.Button();
             this.btnExportar = new System.Windows.Forms.Button();
             this.tabpage8 = new System.Windows.Forms.TabPage();
             this.panel9 = new System.Windows.Forms.Panel();
@@ -562,6 +563,19 @@ namespace Tecnologia
             this.btnEditar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(255, 187, 221, 208);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Cursor = System.Windows.Forms.Cursors.Hand;
+            // btnTrocarPerfil
+            this.btnTrocarPerfil.BackColor = System.Drawing.Color.FromArgb(226, 242, 236);
+            this.btnTrocarPerfil.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTrocarPerfil.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTrocarPerfil.FlatAppearance.BorderSize = 0;
+            this.btnTrocarPerfil.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.btnTrocarPerfil.ForeColor = System.Drawing.Color.FromArgb(21, 59, 50);
+            this.btnTrocarPerfil.Margin = new System.Windows.Forms.Padding(0, 3, 10, 5);
+            this.btnTrocarPerfil.Name = "btnTrocarPerfil";
+            this.btnTrocarPerfil.Size = new System.Drawing.Size(144, 38);
+            this.btnTrocarPerfil.TabIndex = 3;
+            this.btnTrocarPerfil.Text = "Trocar perfil";
+            this.btnTrocarPerfil.UseVisualStyleBackColor = false;
             // btnExcluir
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.AccessibleName = null;
@@ -1861,6 +1875,7 @@ namespace Tecnologia
             this.flowlayoutpanel7.Controls.Add(this.btnEditar);
             this.flowlayoutpanel7.Controls.Add(this.btnExcluir);
             this.flowlayoutpanel7.Controls.Add(this.btnExportar);
+            this.flowlayoutpanel7.Controls.Add(this.btnTrocarPerfil);
             this.tabcontrol3.Controls.Add(this.tabpage8);
             this.tabpage8.Controls.Add(this.panel9);
             this.panel9.Controls.Add(this.flowlayoutpanel10);
@@ -1920,6 +1935,7 @@ namespace Tecnologia
             this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
+            this.btnTrocarPerfil.Click += new System.EventHandler(this.btnTrocarPerfil_Click);
             this.Load += new System.EventHandler(this.UsuariosForm_Load);
             this.panel9.SizeChanged += new System.EventHandler(this.flowlayoutpanel10_Redimensionar);
             this.button28.Click += new System.EventHandler(this.VoltarConsulta_Click);
@@ -2007,6 +2023,7 @@ namespace Tecnologia
         private System.Windows.Forms.FlowLayoutPanel flowlayoutpanel7;
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnExcluir;
+        private System.Windows.Forms.Button btnTrocarPerfil;
         private System.Windows.Forms.Button btnExportar;
         private System.Windows.Forms.TabPage tabpage8;
         private System.Windows.Forms.Panel panel9;
